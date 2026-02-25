@@ -1,0 +1,30 @@
+<section class="our-customers">
+    <div class="customers-wrapper">
+        <div class="customers-header fade-in">
+            <h2 class="customers-title">{{ section.title }}</h2>
+            <p class="customers-subtitle">{{ section.subtitle }}</p>
+        </div>
+        <div class="achievements-container">
+            <div class="achievement-item fade-in-up" *ngFor="let achievement of achievements; let i = index" 
+                 [style.animation-delay.ms]="i * 100">
+                <h5 class="achievement-title">{{ achievement.title }}</h5>
+                <hr class="achievement-line" />
+                <p class="achievement-count">{{ achievement.count }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="partners-carousel-section">
+    <div class="partners-carousel-wrapper">
+        <div class="partners-carousel">
+            <div class="partner-logos">
+                <img *ngFor="let partner of partners" [src]="partner.logoUrl" [alt]="partner.name" />
+            </div>
+            <div class="partner-logos">
+                <img *ngFor="let partner of partners" [src]="partner.logoUrl" [alt]="partner.name" />
+            </div>
+        </div>
+    </div>
+</section>

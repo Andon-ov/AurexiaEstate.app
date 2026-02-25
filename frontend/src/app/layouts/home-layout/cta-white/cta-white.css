@@ -1,0 +1,178 @@
+.contactUs-white-section {
+  background-color: var(--color-white);
+  padding: 80px 20px;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contactUs-white-content {
+  max-width: 800px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.contactUs-white-content .main-button {
+  position: relative;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+.contactUs-white-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  line-height: 1.2;
+  margin-bottom: 40px;
+  font-family: var(--font-heading);
+}
+
+/* Използваме глобалния стил за бутоните от style.css */
+
+/* Large Desktop (1440px - 1920px) */
+@media screen and (max-width: 1920px) {
+  .contactUs-white-section {
+    padding: 0 20px 100px;
+  }
+  
+  .contactUs-white-content {
+    max-width: 800px;
+  }
+  
+  .contactUs-white-title {
+    font-size: 36px;
+    margin-bottom: 30px;
+  }
+  
+  .main-button {
+    padding: 15px 40px;
+    font-size: 16px;
+  }
+}
+
+/* Desktop (1024px - 1439px) */
+@media screen and (max-width: 1440px) {
+  .contactUs-white-section {
+    padding: 0 20px 80px;
+  }
+  
+  .contactUs-white-content {
+    max-width: 750px;
+  }
+  
+  .contactUs-white-title {
+    font-size: 34px;
+    margin-bottom: 28px;
+  }
+  
+  .main-button {
+    padding: 14px 38px;
+    font-size: 15px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media screen and (max-width: 1024px) {
+  .contactUs-white-section {
+    padding: 0 20px 70px;
+  }
+  
+  .contactUs-white-content {
+    max-width: 680px;
+  }
+  
+  .contactUs-white-title {
+    font-size: 32px;
+    margin-bottom: 26px;
+    line-height: 1.3;
+  }
+  
+  .main-button {
+    padding: 13px 35px;
+    font-size: 15px;
+  }
+}
+
+/* Small Tablet (426px - 767px) */
+@media screen and (max-width: 768px) {
+  .contactUs-white-section {
+    padding: 0 15px 60px;
+  }
+  
+  .contactUs-white-content {
+    max-width: 90%;
+  }
+  
+  .contactUs-white-title {
+    font-size: 28px;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+  
+  .main-button {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile Landscape (375px - 425px) */
+@media screen and (max-width: 425px) {
+  .contactUs-white-section {
+    padding: 0 15px 50px;
+  }
+  
+  .contactUs-white-content {
+    max-width: 95%;
+  }
+  
+  .contactUs-white-title {
+    font-size: 26px;
+    margin-bottom: 22px;
+    line-height: 1.3;
+  }
+  
+  .main-button {
+    padding: 11px 28px;
+    font-size: 14px;
+    display: block;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+}
+
+/* Mobile Portrait (320px - 374px) */
+@media screen and (max-width: 375px) {
+  .contactUs-white-section {
+    padding: 0 10px 40px;
+  }
+  
+  .contactUs-white-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .main-button {
+    padding: 10px 26px;
+    font-size: 13px;
+    max-width: 200px;
+  }
+}
+
+/* Extra Small Mobile (0px - 319px) */
+@media screen and (max-width: 320px) {
+  .contactUs-white-section {
+    padding: 0 10px 30px;
+  }
+  
+  .contactUs-white-title {
+    font-size: 22px;
+    margin-bottom: 18px;
+    line-height: 1.2;
+  }
+  
+  .main-button {
+    padding: 10px 24px;
+    font-size: 13px;
+    max-width: 180px;
+  }
+}

@@ -1,0 +1,88 @@
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="form" [class.fade-in-up]="isLoaded">
+  <div class="name-fields">
+    <div class="form-field">
+      <input 
+        class="firstName required-field fade-in-left" 
+        [class.delay-200]="isLoaded" 
+        type="text" 
+        formControlName="firstName"
+        [placeholder]="translation.t('contactForm.firstName')"
+      />
+      <div *ngIf="contactForm.get('firstName')?.invalid && (contactForm.get('firstName')?.dirty || contactForm.get('firstName')?.touched)" class="error-message">
+        {{ translation.t('contactForm.firstNameRequired') }}
+      </div>
+    </div>
+    
+    <div class="form-field">
+      <input 
+        class="lastName required-field fade-in-right" 
+        [class.delay-200]="isLoaded" 
+        type="text" 
+        formControlName="lastName"
+        [placeholder]="translation.t('contactForm.lastName')" 
+      />
+      <div *ngIf="contactForm.get('lastName')?.invalid && (contactForm.get('lastName')?.dirty || contactForm.get('lastName')?.touched)" class="error-message">
+        {{ translation.t('contactForm.lastNameRequired') }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-field">
+    <input 
+      type="tel" 
+      class="required-field fade-in-left" 
+      [class.delay-300]="isLoaded" 
+      formControlName="phone"
+      [placeholder]="translation.t('contactForm.phone')" 
+    />
+    <div *ngIf="contactForm.get('phone')?.invalid && (contactForm.get('phone')?.dirty || contactForm.get('phone')?.touched)" class="error-message">
+      {{ translation.t('contactForm.phoneRequired') }}
+    </div>
+  </div>
+  
+  <div class="form-field">
+    <input 
+      type="email" 
+      class="required-field fade-in-right" 
+      [class.delay-300]="isLoaded" 
+      formControlName="email"
+      [placeholder]="translation.t('contactForm.email')" 
+    />
+    <div *ngIf="contactForm.get('email')?.invalid && (contactForm.get('email')?.dirty || contactForm.get('email')?.touched)" class="error-message">
+      {{ translation.t('contactForm.emailRequired') }}
+    </div>
+  </div>
+
+  <div class="form-field">
+    <textarea 
+      formControlName="message"
+      [placeholder]="translation.t('contactForm.message')" 
+      class="fade-in" 
+      [class.delay-400]="isLoaded" 
+      rows="6"
+    ></textarea>
+    <div *ngIf="contactForm.get('message')?.invalid && (contactForm.get('message')?.dirty || contactForm.get('message')?.touched)" class="error-message">
+      {{ translation.t('contactForm.messageRequired') }}
+    </div>
+  </div>
+
+  <div *ngIf="submitSuccess" class="success-message fade-in">
+    {{ translation.t('contactForm.successMessage') }}
+  </div>
+  
+  <div *ngIf="submitError" class="error-message fade-in">
+    {{ translation.t('contactForm.errorMessage') }}
+  </div>
+
+  <button 
+    class="main-button scale-in" 
+    [class.delay-500]="isLoaded" 
+    type="submit" 
+    [disabled]="isSubmitting || contactForm.invalid"
+  >
+    <span *ngIf="!isSubmitting">{{ translation.t('contactForm.submit') }}</span>
+    <span *ngIf="isSubmitting">{{ translation.t('contactForm.submitting') }}</span>
+  </button>
+
+  <div class="required-fields-note fade-in" [class.delay-500]="isLoaded">{{ translation.t('contactForm.requiredNote') }}</div>
+</form>

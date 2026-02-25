@@ -1,0 +1,29 @@
+<div class="cta-wrapper">
+    <!-- Loading Skeleton -->
+    <section *ngIf="isLoading" class="cta-card">
+        <div class="cta-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-description"></div>
+            <div class="cta-button-container">
+                <div class="skeleton-button"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actual Content -->
+    <section *ngIf="!isLoading && cta" class="cta-card">
+        <div class="cta-content fade-in-up">
+            <h3 class="cta-title">
+                {{ cta.title }}
+            </h3>
+            <p class="cta-description">
+                {{ cta.description }}
+            </p>
+            <div class="cta-button-container">
+                <a class="main-button" [routerLink]="cta.buttonLink" (click)="navigateToContact()">
+                    {{ cta.buttonText }}
+                </a>
+            </div>
+        </div>
+    </section>
+</div>

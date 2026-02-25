@@ -1,0 +1,30 @@
+<div class="case-study-carousel">
+  <!-- Loading Skeleton -->
+  <div *ngIf="isLoading" class="case-study-skeleton">
+    <div class="skeleton-content">
+      <div class="skeleton-category"></div>
+      <div class="skeleton-title"></div>
+      <div class="skeleton-button"></div>
+    </div>
+    <div class="skeleton-image"></div>
+  </div>
+
+  <!-- Actual Swiper -->
+  <div *ngIf="!isLoading" class="swiper case-studies-swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let slide of slides">
+        <div class="case-study-slide">
+          <div class="case-study-background" [style.backgroundImage]="'url(' + slide.backgroundImage + ')'"></div>
+          <div class="case-study-overlay"></div>
+          <div class="case-study-content">
+            <div class="case-study-category">{{ slide.category }}</div>
+            <h3 class="case-study-title">{{ slide.title }}</h3>
+            <a [href]="slide.buttonLink" class="main-button">{{ slide.buttonText }}</a>
+          </div>
+          <div class="case-study-image" [style.backgroundImage]="'url(' + slide.overlayImage + ')'">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

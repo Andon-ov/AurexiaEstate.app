@@ -1,0 +1,42 @@
+<footer class="footer_area">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-col footer-logo-col">
+        <a routerLink="/home">
+          <img src="assets/images/dido-logo.png" alt="Generix Logo" class="footer-logo" />
+        </a>
+        <p class="copyright">{{ translation.t('footer.copyright') }}</p>
+      </div>
+
+      <div class="footer-col">
+        <ul class="footer-links">
+          <li><a [routerLink]="['/platforms', 'self-service']">{{ translation.t('footer.menu.selfService') }}</a></li>
+          <li><a [routerLink]="['/platforms', 'corporate-business']">{{ translation.t('footer.menu.corporateBusiness') }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul class="footer-links">
+          <li><a [routerLink]="['/']">{{ translation.t('footer.menu.home') }}</a></li>
+          <li><a [routerLink]="['/about']">{{ translation.t('footer.menu.about') }}</a></li>
+          <li><a [routerLink]="['/contact']">{{ translation.t('footer.menu.contacts') }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <ul class="footer-links">
+          <li><a [routerLink]="['/privacy-policy']">{{ translation.t('footer.menu.privacy') }}</a></li>
+          <li><a [routerLink]="['/cookie-policy']">{{ translation.t('footer.menu.cookies') }}</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-social-col">
+        <div class="footer-social-icons">
+          <a href="https://facebook.com" aria-label="Facebook"><i class="f_Icon fa-brands fa-facebook-f"></i></a>
+          <a href="https://instagram.com" aria-label="Instagram"><i class="f_Icon fa-brands fa-instagram"></i></a>
+          <a href="https://linkedin.com" aria-label="LinkedIn"><i class="f_Icon fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

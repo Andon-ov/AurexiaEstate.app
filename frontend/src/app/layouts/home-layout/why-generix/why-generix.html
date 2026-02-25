@@ -1,0 +1,44 @@
+<section class="clientsAboutUs">
+    <div class="container">
+        <!-- Loading Skeleton -->
+        <div *ngIf="isLoading" class="clientsAboutUsContain">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-paragraph"></div>
+            <div class="skeleton-slider"></div>
+            <div class="skeleton-paragraph"></div>
+            <div class="skeleton-slider"></div>
+            <div class="awards-section">
+                <div class="skeleton-paragraph"></div>
+                <div class="skeleton-button"></div>
+            </div>
+        </div>
+
+        <!-- Actual Content -->
+        <div *ngIf="!isLoading" class="clientsAboutUsContain">
+            <h2 class="clientsAboutUs-title text_34 fade-in">
+                {{ section?.title }}
+            </h2>
+
+            <p class="clientsAboutUs-subtitle fade-in">
+                {{ section?.paragraph1 }}
+            </p>
+
+            <app-testimonials-slider class="fade-in-up"></app-testimonials-slider>
+
+            <p class="clientsAboutUs-subtitle fade-in">
+                {{ section?.paragraph2 }}
+            </p>
+
+            <app-case-studies-slider class="fade-in-up"></app-case-studies-slider>
+
+            <div class="awards-section fade-in">
+                <p class="clientsAboutUs-subtitle">
+                    {{ section?.paragraph3 }}
+                </p>
+                <a [routerLink]="section?.buttonLink || '/about'" class="main-button">
+                    {{ section?.buttonText }}
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

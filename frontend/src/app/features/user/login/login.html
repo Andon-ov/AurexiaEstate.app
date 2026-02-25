@@ -1,0 +1,74 @@
+<section class="login-page fade-in">
+    <div class="loginWrapper">
+        <!-- <div class="image-section">
+            <img src="./assets/images/frequently-searched-location/1.png" alt="Building Image" />
+        </div> -->
+        <div class="login-section">
+            <a class="goBack fade-in-up" routerLink="/">
+                <i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;&nbsp;{{ translation.t('auth.login.back') }}</a>
+
+            <div class="login-box">
+                <h2 class="title fade-in-up">{{ translation.t('auth.login.title') }}</h2>
+                <p class="subtitle fade-in-up delay-100">
+                    {{ translation.t('auth.login.subtitle') }}
+                </p>
+                <div class="loginDivider"></div>
+                
+                <div *ngIf="errorMessage" class="error-message fade-in-up">
+                    {{ errorMessage }}
+                </div>
+                
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="fade-in-up delay-100">
+                    <label for="username">{{ translation.t('auth.login.emailLabel') }}</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        formControlName="username" 
+                        placeholder="{{ translation.t('auth.login.emailPlaceholder') }}" 
+                        class="fade-in-up delay-200"
+                        [ngClass]="{'invalid-input': loginForm.get('username')?.invalid && loginForm.get('username')?.touched}" 
+                    />
+                    <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="error-text">
+                        {{ translation.t('auth.login.usernameRequired') }}
+                    </div>
+
+                    <label for="password">{{ translation.t('auth.login.passwordLabel') }}</label>
+                    <div class="password-wrapper fade-in-up delay-300">
+                        <input 
+                            [type]="showPassword ? 'text' : 'password'" 
+                            id="password" 
+                            formControlName="password" 
+                            placeholder="{{ translation.t('auth.login.passwordPlaceholder') }}"
+                            [ngClass]="{'invalid-input': loginForm.get('password')?.invalid && loginForm.get('password')?.touched}"
+                        />
+                        <!-- Simplified eye icon without conditional rendering -->
+                        <button 
+                           type="button"
+                           class="toggle-password-btn"
+                           (click)="togglePassword()"
+                           *ngIf="loginForm.get('password')?.value"
+                        >
+                           <span class="btn-text">{{ showPassword ? translation.t('auth.passwordVisibility.hide') : translation.t('auth.passwordVisibility.show') }}</span>
+                        </button>
+                    </div>
+                    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-text">
+                        {{ translation.t('auth.login.passwordRequired') }}
+                    </div>
+
+                    <button 
+                        class="main-button fade-in-up delay-400" 
+                        type="submit"
+                        [disabled]="loginForm.invalid || isSubmitting"
+                    >
+                        <span *ngIf="isSubmitting">{{ translation.t('auth.login.loggingIn') }}</span>
+                        <span *ngIf="!isSubmitting">{{ translation.t('auth.login.loginButton') }}</span>
+                    </button>
+                    
+                    <p class="newSignUp fade-in-up delay-700">
+                        {{ translation.t('auth.login.noAccount') }} <a routerLink="/register">{{ translation.t('auth.login.signUp') }}</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

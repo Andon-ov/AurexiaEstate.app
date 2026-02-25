@@ -1,0 +1,371 @@
+/* --- Индивидуална карта --- */
+.our-platforms-card {
+  background: var(--color-gradient-card);
+  color: var(--color-text-dark);
+  border-radius: 24px;
+  width: 100%;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Prevents content overflow */
+  opacity: 0;
+  animation: scaleIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.our-platforms-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.our-platforms-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.our-platforms-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.our-platforms-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.our-platforms-card {
+  --hover-color: var(--color-primary-dark);
+}
+
+.our-platforms-card:hover {
+  box-shadow: var(--shadow-platform-card);
+  transform: translateY(-12px) scale(1.02);
+}
+
+.our-platforms-card:hover .card-top {
+  background: linear-gradient(135deg, var(--hover-color) 0%, var(--hover-color) 100%);
+}
+
+.our-platforms-card:hover .card-title {
+  color: var(--hover-color);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+}
+
+.card-top {
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 48px 20px; /* Increased padding by 8px */
+  overflow: hidden;
+  background-color: var(--color-primary-dark);
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-image-container {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  transform-origin: center;
+  /* Positions the icon relative to card-top */
+}
+
+.our-platforms-card:hover .card-image-container {
+  opacity: 0;
+  transform: translateY(-20px);
+  /* Makes the icon invisible and moves it up on hover */
+}
+
+.card-image {
+  width: 80px;
+  height: 80px;
+  /* filter: brightness(0) invert(1); */
+}
+
+/* --- Контейнер за текста (скрит по подразбиране) --- */
+.card-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box; /* Добавено за правилно изчисляване на размерите */
+  transform: translate(-50%, 10px);
+}
+
+.our-platforms-card:hover .card-text {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  /* Прави текста видим при hover и го движи плавно нагоре */
+}
+
+.card-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.card-list li {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* --- Долна част на картата (бяла) --- */
+.card-bottom {
+  background-color: var(--color-white);
+  padding: 30px;
+  border-radius: 0 0 24px 24px;
+}
+
+.card-title-wrapper {
+  text-align: center;
+}
+
+.card-title {
+  margin: 0;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 22px;
+  font-family: var(--font-heading);
+  transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Responsive Design --- */
+
+/* Large Desktop (1440px - 1920px) */
+@media screen and (max-width: 1920px) {
+  .our-platforms-card {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .card-content {
+    height: 400px;
+  }
+
+  .card-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .card-top {
+    padding: 40px 20px;
+  }
+
+  .card-bottom {
+    padding: 30px;
+  }
+
+  .card-title {
+    font-size: 22px;
+  }
+
+  .card-list li {
+    font-size: 18px;
+  }
+}
+
+/* Desktop (1024px - 1439px) */
+@media screen and (max-width: 1440px) {
+  .card-content {
+    height: 380px;
+  }
+
+  .card-image {
+    width: 170px;
+    height: 170px;
+  }
+
+  .card-top {
+    padding: 35px 20px;
+  }
+
+  .card-bottom {
+    padding: 25px;
+  }
+
+  .card-title {
+    font-size: 20px;
+  }
+
+  .card-list li {
+    font-size: 17px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media screen and (max-width: 1024px) {
+  .card-content {
+    height: 350px;
+  }
+
+  .card-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  .card-top {
+    padding: 30px 15px;
+  }
+
+  .card-bottom {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 18px;
+  }
+
+  .card-list li {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+}
+
+/* Small Tablet (426px - 767px) */
+@media screen and (max-width: 768px) {
+  .our-platforms-card {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .card-content {
+    height: 330px;
+  }
+
+  .card-image {
+    width: 140px;
+    height: 140px;
+  }
+
+  .card-top {
+    padding: 25px 15px;
+  }
+
+  .card-bottom {
+    padding: 18px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
+
+  .card-list li {
+    font-size: 15px;
+    line-height: 1.35;
+    margin-bottom: 4px;
+  }
+}
+
+/* Mobile Landscape (375px - 425px) */
+@media screen and (max-width: 425px) {
+  .our-platforms-card {
+    max-width: 100%;
+  }
+
+  .card-content {
+    height: 300px;
+  }
+
+  .card-image {
+    width: 130px;
+    height: 130px;
+  }
+
+  .card-top {
+    padding: 20px 15px;
+  }
+
+  .card-bottom {
+    padding: 15px;
+  }
+
+  .card-title {
+    font-size: 16px;
+  }
+
+  .card-list li {
+    font-size: 14px;
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+}
+
+/* Mobile Portrait (320px - 374px) */
+@media screen and (max-width: 375px) {
+  .card-content {
+    height: 280px;
+  }
+
+  .card-image {
+    width: 120px;
+    height: 120px;
+  }
+
+  .card-top {
+    padding: 18px 12px;
+  }
+
+  .card-bottom {
+    padding: 13px;
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+
+  .card-list li {
+    font-size: 13px;
+    line-height: 1.25;
+    margin-bottom: 2px;
+  }
+}
+
+/* Extra Small Mobile (0px - 319px) */
+@media screen and (max-width: 320px) {
+  .card-content {
+    height: 260px;
+  }
+
+  .card-image {
+    width: 110px;
+    height: 110px;
+  }
+
+  .card-top {
+    padding: 15px 10px;
+  }
+
+  .card-bottom {
+    padding: 12px;
+  }
+
+  .card-title {
+    font-size: 14px;
+  }
+
+  .card-list li {
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+}
+

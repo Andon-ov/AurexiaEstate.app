@@ -1,0 +1,386 @@
+.our-customers {
+  background-color: var(--color-neutral);
+  padding: 80px 0;
+  color: var(--color-text-dark);
+}
+
+.customers-wrapper {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.customers-header {
+  text-align: left;
+  margin-bottom: 50px;
+}
+
+.customers-title {
+  font-size: 48px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  font-family: var(--font-heading);
+}
+
+.customers-subtitle {
+  font-size: 18px;
+  color: var(--color-text-dark);
+  max-width: 800px;
+  line-height: 1.5;
+}
+
+.achievements-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.achievement-item {
+  width: 100%;
+  text-align: left;
+}
+
+.achievement-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.achievement-line {
+  border: none;
+  height: 2px;
+  background-color: var(--color-hover-indigo);
+  width: 50px;
+  margin-bottom: 20px;
+}
+
+.achievement-count {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-hover-indigo);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.achievement-item:nth-child(1) .achievement-count {
+  animation-delay: 0.1s;
+}
+
+.achievement-item:nth-child(2) .achievement-count {
+  animation-delay: 0.2s;
+}
+
+.achievement-item:nth-child(3) .achievement-count {
+  animation-delay: 0.3s;
+}
+
+.achievement-item:nth-child(4) .achievement-count {
+  animation-delay: 0.4s;
+}
+
+.partners-carousel-section {
+  background-color: var(--color-background-alt);
+  padding: 20px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.partners-carousel-wrapper {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.partners-carousel {
+  display: flex;
+  width: 200%;
+  animation: slide 30s linear infinite;
+}
+
+.partners-carousel:hover {
+  animation-play-state: paused;
+  cursor: pointer;
+}
+
+.partner-logos {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.partner-logos img {
+  max-height: 45px;
+  width: auto;
+  object-fit: contain;
+  padding: 0 15px;
+  filter: grayscale(100%);
+  opacity: 0.6;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.partner-logos img:hover {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+    /* Премества карусела с половината му ширина */
+  }
+}
+
+/* ===============================
+       Responsive breakpoints
+       =============================== */
+
+/* Min-width (mobile-first): base styles are for mobile, add complexity upwards */
+
+/* 768px+ - Tablet and up: 2 columns */
+@media (min-width: 768px) {
+  .achievements-container {
+    justify-content: space-between;
+  }
+
+  .achievement-item {
+    width: 45%;
+    margin-bottom: 30px;
+  }
+}
+
+/* 992px+ - Desktop: 4 columns horizontal */
+@media (min-width: 992px) {
+  .achievements-container {
+    justify-content: flex-start;
+    gap: 0;
+  }
+
+  .achievement-item {
+    width: 25%;
+    margin-bottom: 0;
+    padding-right: 20px;
+  }
+}
+
+/* Max-width (refinements going down): adjustments for smaller screens */
+
+/* 1024px - Medium desktop / Large tablet */
+@media (max-width: 1024px) {
+  .our-customers {
+    padding: 70px 0; /* Fix weird 60px left padding */
+  }
+
+  .customers-wrapper {
+    padding: 0 20px;
+  }
+
+  .customers-title {
+    font-size: 40px;
+  }
+
+  .customers-subtitle {
+    font-size: 17px;
+  }
+
+  .achievements-container {
+    gap: 24px;
+  }
+
+  .achievement-count {
+    font-size: 48px;
+  }
+
+  /* Carousel adjustments for tablet */
+  .partners-carousel-section {
+    padding: 22px 0;
+  }
+
+  .partner-logos img {
+    max-height: 42px;
+    padding: 0 13px;
+  }
+}
+
+/* 768px - Tablet */
+@media (max-width: 768px) {
+  .our-customers {
+    padding: 60px 0;
+  }
+
+  .customers-wrapper {
+    padding: 0 18px;
+  }
+
+  .customers-header {
+    margin-bottom: 35px;
+    text-align: center;
+  }
+
+  .customers-title {
+    font-size: 34px;
+    margin-bottom: 15px;
+  }
+
+  .customers-subtitle {
+    font-size: 16px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .achievements-container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .achievement-item {
+    width: 100%;
+    text-align: center;
+  }
+
+  .achievement-line {
+    width: 40px;
+    margin: 0 auto 15px;
+  }
+
+  .achievement-count {
+    font-size: 44px;
+  }
+
+  /* Partner carousel - keep animation running */
+  .partners-carousel-section {
+    padding: 20px 0;
+  }
+
+  .partner-logos img {
+    max-height: 38px;
+    padding: 0 12px;
+  }
+}
+
+/* 425px - Large mobile */
+@media (max-width: 425px) {
+  .our-customers {
+    padding: 50px 0;
+  }
+
+  .customers-wrapper {
+    padding: 0 16px;
+  }
+
+  .customers-title {
+    font-size: 28px;
+    margin-bottom: 12px;
+  }
+
+  .customers-subtitle {
+    font-size: 15px;
+  }
+
+  .achievement-count {
+    font-size: 38px;
+  }
+
+  .achievement-line {
+    width: 35px;
+  }
+
+  /* Carousel continues to animate */
+  .partners-carousel-section {
+    padding: 18px 0;
+  }
+
+  .partner-logos img {
+    max-height: 34px;
+    padding: 0 10px;
+  }
+}
+
+/* 375px - Medium mobile (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .our-customers {
+    padding: 40px 0;
+  }
+
+  .customers-wrapper {
+    padding: 0 14px;
+  }
+
+  .customers-title {
+    font-size: 26px;
+    line-height: 1.15;
+  }
+
+  .customers-subtitle {
+    font-size: 14px;
+  }
+
+  .achievement-count {
+    font-size: 34px;
+  }
+
+  .achievement-line {
+    width: 32px;
+  }
+
+  /* Carousel continues */
+  .partners-carousel-section {
+    padding: 16px 0;
+  }
+
+  .partner-logos img {
+    max-height: 30px;
+    padding: 0 8px;
+  }
+}
+
+/* 320px - Smallest mobile */
+@media (max-width: 320px) {
+  .our-customers {
+    padding: 35px 0;
+  }
+
+  .customers-wrapper {
+    padding: 0 12px;
+  }
+
+  .customers-title {
+    font-size: 22px;
+  }
+
+  .customers-subtitle {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .achievement-count {
+    font-size: 30px;
+  }
+
+  .achievement-title {
+    font-size: 13px;
+  }
+
+  .achievement-line {
+    width: 28px;
+  }
+
+  /* Carousel continues even on smallest screens */
+  .partners-carousel-section {
+    padding: 14px 0;
+  }
+
+  .partner-logos img {
+    max-height: 26px;
+    padding: 0 7px;
+  }
+}

@@ -1,0 +1,445 @@
+.our-platforms {
+  background-color: var(--color-neutral);
+  padding: 80px 0 0;
+}
+
+.our-platforms-wrapper {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.our-platforms-header {
+  margin-bottom: 40px;
+}
+
+.our-platforms-title {
+  font-size: 48px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: 30px;
+  text-align: left;
+  line-height: 1.2;
+  font-family: var(--font-heading);
+}
+
+.our-platforms-subtitle p {
+  font-size: 18px;
+  max-width: 1300px;
+  text-align: left;
+  line-height: 1.5;
+  color: var(--color-text);
+  font-weight: 400;
+}
+
+.our-platforms-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 32px;
+  width: 100%;
+}
+
+.our-platforms-blue-bar {
+  background-color: var(--color-background-dark);
+  width: 100%;
+  height: 20%;
+  padding: 70px 0;
+  margin-top: -84px;
+}
+
+/* Large Desktop (1440px - 1920px) */
+@media screen and (max-width: 1920px) {
+  .our-platforms-wrapper {
+    max-width: 1300px;
+  }
+
+  .our-platforms-title {
+    font-size: 36px;
+    line-height: 42px;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 18px;
+    line-height: 25px;
+  }
+
+  .our-platforms-cards {
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Уеднаквяване размера на картите */
+  ::ng-deep .our-platforms-card {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+/* Desktop (1024px - 1439px) */
+@media screen and (max-width: 1440px) {
+  .our-platforms-wrapper {
+    max-width: 1140px;
+  }
+
+  .our-platforms-title {
+    font-size: 34px;
+    line-height: 40px;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .our-platforms {
+    padding: 50px 0 0 0;
+  }
+
+  .our-platforms-cards {
+    gap: 25px;
+  }
+
+  .our-platforms-blue-bar {
+    padding: 60px 0;
+  }
+}
+
+/* Small Desktop / Large Tablet (768px - 1023px) */
+@media screen and (max-width: 1024px) {
+  .our-platforms-wrapper {
+    max-width: 900px;
+  }
+
+  .our-platforms-title {
+    font-size: 32px;
+    line-height: 38px;
+    margin-bottom: 25px;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 16px;
+    line-height: 22px;
+  }
+
+  .our-platforms-header {
+    margin-bottom: 30px;
+  }
+
+  .our-platforms {
+    padding: 45px 0 0 0;
+  }
+
+  .our-platforms-cards {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 20px;
+  }
+
+  /* Стилове за картите при 1024px */
+  ::ng-deep .our-platforms-card {
+    width: 100%;
+  }
+
+  ::ng-deep .our-platforms-card .card-top {
+    padding: 30px 15px; /* По-малък padding */
+  }
+
+  ::ng-deep .our-platforms-card .card-image {
+    width: 150px;
+    height: 150px;
+  }
+
+  ::ng-deep .our-platforms-card .card-bottom {
+    padding: 20px;
+  }
+
+  .our-platforms-blue-bar {
+    padding: 50px 0;
+    margin-top: -74px;
+  }
+}
+
+/* Tablet (425px - 767px) */
+@media screen and (max-width: 768px) {
+  .our-platforms-wrapper {
+    padding: 0 40px;
+  }
+
+  .our-platforms-title {
+    font-size: 28px;
+    line-height: 34px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .our-platforms-subtitle {
+    text-align: center;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 15px;
+    line-height: 21px;
+    margin: 30px 15px;
+    text-align: center;
+  }
+
+  .our-platforms {
+    padding: 40px 0 0 0;
+  }
+
+  .our-platforms-header {
+    margin-bottom: 25px;
+  }
+
+  /* Продължаваме с grid за tablets, но само 2 колони */
+  .our-platforms-cards {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+    justify-items: stretch;
+    margin-bottom: 30px;
+  }
+
+  /* Стилове за картите при 768px */
+  ::ng-deep .our-platforms-card {
+    width: 100%;
+    max-width: 330px;
+    margin-bottom: 0;
+  }
+
+  ::ng-deep .our-platforms-card .card-content {
+    height: 350px; /* По-малка височина */
+  }
+
+  .our-platforms-blue-bar {
+    padding: 40px 0;
+    margin-top: 0;
+  }
+}
+
+/* Mobile Landscape (375px - 424px) */
+@media screen and (max-width: 425px) {
+  .our-platforms-wrapper {
+    padding: 0 40px;
+  }
+
+  .our-platforms-title {
+    font-size: 26px;
+    line-height: 32px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .our-platforms-subtitle {
+    text-align: center;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 30px 15px;
+  }
+
+  .our-platforms {
+    padding: 30px 0 0 0;
+  }
+
+  .our-platforms-header {
+    margin-bottom: 20px;
+  }
+
+  /* За мобилни устройства - една колона с grid */
+  .our-platforms-cards {
+    grid-template-columns: 1fr;
+    /* justify-items: stretch; */
+    gap: 40px;
+    margin-bottom: 30px;
+  }
+
+  /* Стилове за картите при 425px */
+  ::ng-deep .our-platforms-card {
+    width: 100%;
+    min-width: unset;
+    max-width: 350px;
+  }
+
+  ::ng-deep .our-platforms-card .card-content {
+    height: 320px;
+  }
+
+  ::ng-deep .our-platforms-card .card-list li {
+    font-size: 16px;
+  }
+
+  .our-platforms-blue-bar {
+    padding: 30px 0;
+  }
+}
+
+/* Mobile Portrait (320px - 374px) */
+@media screen and (max-width: 375px) {
+  .our-platforms-wrapper {
+    padding: 0 10px;
+  }
+
+  .our-platforms-title {
+    font-size: 24px;
+    line-height: 30px;
+    margin-bottom: 15px;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 30px 15px;
+  }
+
+  .our-platforms {
+    padding: 25px 0 0 0;
+  }
+
+  .our-platforms-cards {
+    gap: 30px;
+    max-width: 80%;
+    margin: 0 auto 30px;
+  }
+}
+
+/* Extra Small Mobile (0px - 319px) */
+@media screen and (max-width: 320px) {
+  .our-platforms-title {
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  .our-platforms-subtitle p {
+    font-size: 13px;
+    line-height: 19px;
+    margin: 30px 15px;
+  }
+
+  .our-platforms {
+    padding: 20px 0 0 0;
+  }
+
+  .our-platforms-cards {
+    gap: 30px;
+    margin-bottom: 30px;
+  }
+
+  .our-platforms-blue-bar {
+    padding: 25px 0;
+  }
+}
+
+/* Loading Skeleton Styles */
+.skeleton-title {
+  height: 48px;
+  width: 40%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 30px;
+}
+
+.skeleton-subtitle {
+  height: 54px;
+  width: 80%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  animation-delay: 0.1s;
+}
+
+.skeleton-card {
+  background: var(--color-white);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-card-image {
+  width: 180px;
+  height: 180px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+}
+
+.skeleton-card-title {
+  height: 28px;
+  width: 70%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin: 0 auto 20px;
+  animation-delay: 0.2s;
+}
+
+.skeleton-card-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-item {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-item:nth-child(1) {
+  animation-delay: 0.3s;
+}
+.skeleton-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.skeleton-item:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeleton-title {
+    width: 60%;
+    height: 34px;
+    margin: 0 auto 20px;
+  }
+
+  .skeleton-subtitle {
+    width: 90%;
+    height: 42px;
+    margin: 0 auto;
+  }
+
+  .skeleton-card-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .skeleton-title {
+    width: 80%;
+    height: 32px;
+  }
+
+  .skeleton-subtitle {
+    width: 95%;
+    height: 40px;
+  }
+}

@@ -1,0 +1,481 @@
+{
+  "header": {
+    "home": "Home",
+    "platforms": "Platforms",
+    "selfService": "Self\u00A0service",
+    "corBusiness": "Corporate\u00A0business",
+    "about": "About",
+    "contacts": "Contacts",
+    "signIn": "Sign\u00A0in",
+    "signUp": "Sign\u00A0up",
+    "search": "Search",
+    "profile": "Profile",
+    "signOut": "Sign out"
+  },
+  "search": {
+    "title": "Search",
+    "placeholder": "Search for information, services, and more...",
+    "resultsFor": "Results for",
+    "resultsCount": "results found",
+    "loading": "Searching...",
+    "noResults": "No results found",
+    "tryAgain": "Please try different keywords",
+    "viewDetails": "View Details",
+    "categories": {
+      "services": "Service",
+      "company": "Company",
+      "solutions": "Solution"
+    }
+  },
+  "auth": {
+    "verification": {
+      "success": "Email verification successful! Your email has been verified.",
+      "error": "Email verification failed. The verification link may be invalid or expired.",
+      "alreadyVerified": "Your email is already verified."
+    },
+    "passwordVisibility": {
+      "show": "Show",
+      "hide": "Hide"
+    },
+    "verifyEmail": {
+      "title": "Email Verification",
+      "success": "Your email has been successfully verified!",
+      "goToHome": "Go to Home"
+    },
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Log in to your account",
+      "emailLabel": "Username",
+      "emailPlaceholder": "Enter your username",
+      "usernameRequired": "Username is required",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "passwordRequired": "Password is required",
+      "loginButton": "Sign in",
+      "loggingIn": "Signing in...",
+      "back": "Back",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "invalidCredentials": "Login failed. Please check your credentials.",
+      "loginError": "Login failed. Please try again later."
+    },
+    "register": {
+      "title": "Register",
+      "subtitle": "Create a new account",
+      "usernameLabel": "Username",
+      "usernamePlaceholder": "Choose a username",
+      "usernameRequired": "Username is required",
+      "firstNameLabel": "First name",
+      "firstNamePlaceholder": "Enter your first name",
+      "lastNameLabel": "Last name",
+      "lastNamePlaceholder": "Enter your last name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "example@example.com",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter password (minimum 8 characters)",
+      "passwordRequired": "Password is required",
+      "passwordMinLength": "Password must be at least 8 characters long",
+      "termsCheckbox": "I agree to the terms and conditions",
+      "termsRequired": "You must agree to the terms",
+      "registerButton": "Register",
+      "registering": "Registering...",
+      "alreadyHaveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "back": "Back",
+      "registrationError": "Registration failed. Please check your information.",
+      "serverError": "Registration failed. Please try again later.",
+      "emailExists": "A user with this email already exists. Please use a different email address."
+    },
+    "profile": {
+      "title": "Profile",
+      "updateSuccess": "Profile updated successfully",
+      "updateError": "Error updating profile",
+      "saveButton": "Save changes",
+      "saving": "Saving...",
+      "changeImage": "Change photo",
+      "emailVerified": "Email verified",
+      "emailNotVerified": "Email not verified",
+      "resendVerification": "Resend verification email",
+      "formLabels": {
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phoneNumber": "Phone number",
+        "company": "Company",
+        "position": "Position"
+      },
+      "validationErrors": {
+        "firstNameRequired": "First name is required",
+        "firstNameMinLength": "First name must contain at least 2 characters",
+        "firstNameMaxLength": "First name must contain maximum 30 characters",
+        "lastNameRequired": "Last name is required",
+        "lastNameMinLength": "Last name must contain at least 2 characters",
+        "lastNameMaxLength": "Last name must contain maximum 30 characters",
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "phoneInvalid": "Please enter a valid phone number",
+        "companyMaxLength": "Company name must contain maximum 100 characters",
+        "positionMaxLength": "Position must contain maximum 100 characters"
+      }
+    }
+  },
+  "hero": {
+    "slide1": {
+      "title": "Connect with us today",
+      "description": "Discover how Generix can transform your insurance operations",
+      "button": "Learn more"
+    },
+    "slide2": {
+      "title": "Manage your business with confidence",
+      "description": "Our platform automates workflows and boosts efficiency",
+      "button": "Learn more"
+    },
+    "slide3": {
+      "title": "Empower your customers",
+      "description": "Deliver a seamless digital experience with our Self-Service platform",
+      "button": "Learn more"
+    },
+    "slide4": {
+      "title": "Trusted in over 30 countries",
+      "description": "Generix is the choice of leading insurers worldwide",
+      "button": "Learn more"
+    }
+  },
+  "platforms": {
+    "sectionTitle": "Our platforms",
+    "sectionSubtitle": "We provide intelligently designed solutions and platforms spanning the entire software engineering lifecycle.",
+    "core": {
+      "title": "Corporate Business",
+      "item1": "Policy and product management",
+      "item2": "Process and document automation",
+      "item3": "Integration with external systems",
+      "item4": "Analytics and reporting"
+    },
+    "self": {
+      "title": "Self-Service",
+      "item1": "Online requests and inquiries",
+      "item2": "Customer digital portal",
+      "item3": "Status tracking",
+      "item4": "Interactive communication"
+    },
+    "cta": {
+      "title": "Contact us",
+      "item1": "Contact our team",
+      "item2": "Get a personalized consultation"
+    },
+    "meta": {
+      "selfServiceTitle": "Self-Service Platform | Generix",
+      "selfServiceDescription": "Manage your insurance easily with our intuitive self-service tools. Access policies, submit claims, and more through our digital platform.",
+      "corporateBusinessTitle": "Corporate Business Platform | Generix",
+      "corporateBusinessDescription": "Streamline your corporate insurance operations with our business platform. Advanced analytics, integrations, bulk operations, and more."
+    }
+  },
+  "features": {
+    "readMore": "Learn More",
+    "selfService": {
+      "title": "Self-Service Platform",
+      "subtitle": "Manage your insurance easily with our intuitive self-service tools",
+      "feature1": {
+        "title": "Online Applications",
+        "description": "Submit and track insurance applications online, 24/7, with instant confirmation and status updates."
+      },
+      "feature2": {
+        "title": "Digital Documents",
+        "description": "View, download, and manage all your insurance documents in one secure digital repository."
+      },
+      "feature3": {
+        "title": "Quick Claims",
+        "description": "Submit claims easily with our step-by-step process and track their status in real-time."
+      },
+      "feature4": {
+        "title": "Payment Management",
+        "description": "Manage your insurance payments, view history, and set up automatic payment options."
+      },
+      "feature5": {
+        "title": "Policy Management",
+        "description": "Review and manage your policies, coverage details, and renewal information."
+      },
+      "feature6": {
+        "title": "Chat Support",
+        "description": "Get immediate support through our intelligent chatbot or connect with a live agent."
+      }
+    },
+    "corporate": {
+      "title": "Corporate Platform",
+      "subtitle": "Streamline your corporate insurance operations with our business platform",
+      "feature1": {
+        "title": "Corporate Integration",
+        "description": "Seamlessly integrate our insurance solutions with your existing corporate systems."
+      },
+      "feature2": {
+        "title": "Advanced Analytics",
+        "description": "Access detailed analytics and insights to optimize your insurance portfolio."
+      },
+      "feature3": {
+        "title": "Bulk Operations",
+        "description": "Manage multiple policies, claims, and documents with efficient bulk operations."
+      },
+      "feature4": {
+        "title": "User Management",
+        "description": "Create and manage user accounts with customized access levels for your organization."
+      },
+      "feature5": {
+        "title": "Compliance Tools",
+        "description": "Stay compliant with automated regulatory checks and reporting features."
+      },
+      "feature6": {
+        "title": "Premium Support",
+        "description": "Get priority access to our corporate support team and account managers."
+      }
+    }
+  },
+  "customers": {
+    "sectionTitle": "Our Customers",
+    "sectionSubtitle": "Combining technical expertise with industry know-how, we help businesses navigate the technology maze in High Tech, Financial Services, Insurance, Energy & Utilities, Healthcare, iGaming, Aviation, Logistics, and others.",
+    "achievements": {
+      "completedProjects": "Active clients",
+      "clientsWorldwide": "Trusted partners",
+      "awards": "Processed transactions",
+      "nps": "Customer Net Promoter Score"
+    }
+  },
+  "aboutSection": {
+    "heroTitle": "About Us",
+    "content": {
+      "paragraph1": "At Generix, we craft intelligent insurance software solutions that help organizations evolve, adapt, and thrive in a fast-changing world. With a strong presence across Europe and deep experience in insurance technologies, we specialize in driving innovation and delivering impactful results for insurance companies.",
+      "paragraph2": "Our team combines top-tier engineering talent with insurance industry expertise to guide companies through complex digital transformations. Whether you're a small insurer looking to modernize or a large carrier seeking comprehensive solutions, we bring clarity and momentum to every challenge. We embrace an AI-first mindset in software development, while our platforms empower businesses to integrate artificial intelligence strategically—unlocking tangible value and accelerating performance.",
+      "paragraph3": "With a proven track record of successful implementations across multiple countries, we've helped insurers of all sizes—from global carriers to regional providers—achieve meaningful growth and long-term success in the digital insurance landscape."
+    },
+    "animation": {
+      "title": "Our Impact",
+      "subtitle": "The numbers speak for themselves"
+    },
+    "purpose": {
+      "title": "Our Purpose",
+      "description": "Drive people's success through technology and innovation",
+      "text": "We empower our colleagues and clients with innovative technology solutions and services that positively impact society, fostering growth and success for all."
+    }
+  },
+  "clientsAboutUs": {
+    "sectionTitle": "Why generix",
+    "paragraph1": "We are committed to delivering long-lasting success to our partners and provide superior customer experience in every engagement.",
+    "paragraph2": "We help disruptive companies change the world and partner with industry leaders in their digital transformation.",
+    "paragraph3": "We ensure full engagement transparency through established processes in a mature organization.",
+    "viewAll": "View All"
+  },
+  "testimonials": {
+    "card1": {
+      "name": "John Doe",
+      "description": "Generix helped us streamline operations and improve customer satisfaction."
+    },
+    "card2": {
+      "name": "Jane Smith",
+      "description": "Their team is professional, responsive, and truly understands our business."
+    },
+    "card3": {
+      "name": "Alice Johnson",
+      "description": "We saw measurable results within weeks of implementation."
+    },
+    "card4": {
+      "name": "Bob Lee",
+      "description": "Generix is a reliable partner in our digital journey."
+    },
+    "card5": {
+      "name": "Maria Ivanova",
+      "description": "Their platform is intuitive and easy to integrate."
+    },
+    "card6": {
+      "name": "Georgi Petrov",
+      "description": "We value their transparency and commitment to excellence."
+    },
+    "card7": {
+      "name": "Elena Dimitrova",
+      "description": "Generix transformed the way we serve our clients."
+    },
+    "card8": {
+      "name": "Ivan Kolev",
+      "description": "Their support team is outstanding."
+    },
+    "card9": {
+      "name": "Tanya Georgieva",
+      "description": "We trust Generix with our most critical systems."
+    },
+    "card10": {
+      "name": "Nikolay Stoyanov",
+      "description": "A true partner in innovation and growth."
+    }
+  },
+  "caseStudies": {
+    "slide1": {
+      "title": "Dramatically Reducing Customer Support Load with an In-App Conversational AI Solution",
+      "category": "Case Studies",
+      "buttonText": "Read story"
+    },
+    "slide2": {
+      "title": "AI-Powered Analytics Platform for Enterprise Decision Making",
+      "category": "Case Studies",
+      "buttonText": "Read story"
+    },
+    "slide3": {
+      "title": "Optimizing Logistics with Predictive AI Models",
+      "category": "Case Studies",
+      "buttonText": "Read story"
+    },
+    "slide4": {
+      "title": "Scaling E-Commerce with Cloud-Native Architecture",
+      "category": "Case Studies",
+      "buttonText": "Read story"
+    }
+  },
+  "testimonialSection": {
+    "quote": "Empowering insurers through innovation, precision, and trust.",
+    "author": {
+      "name": "Gospodin Gochev",
+      "title": "CEO, Generix",
+      "quote": "At Generix, we specialize exclusively in the insurance sector. Our mission is to simplify complexity and accelerate digital transformation for insurers. We offer two powerful platforms — one tailored for corporate clients, and another designed for seamless self-service experiences. With deep industry knowledge and a commitment to excellence, we help our partners thrive in a fast-changing world."
+    }
+  },
+  "contactUsWhiteSection": {
+    "title": "Ready to scale and meet the technology challenges of tomorrow?",
+    "button": "Request Demo",
+    "description": "We help business grow by bringing together a world-class engineering team, industry expertise and technology excellence."
+  },
+  "footer": {
+    "menu": {
+      "home": "Home",
+      "selfService": "Self Service",
+      "corporateBusiness": "Corporate Business",
+      "about": "About",
+      "contacts": "Contact",
+      "privacy": "Privacy Policy",
+      "cookies": "Cookie Policy"
+    },
+    "copyright": "© 2025 Generix. All rights reserved."
+  },
+  "contactSection": {
+    "heroTitle": "Contact Us",
+    "title": "Contact Us",
+    "subtitle": "Sofia, BG",
+    "addressLine1": "Druzhba 2 | Tsarigradski Complex",
+    "addressLine2": "1582, Sofia, Bulgaria",
+    "email": "office@generix.org"
+  },
+  "contactForm": {
+    "firstName": "First name*",
+    "lastName": "Last name*",
+    "phone": "Phone*",
+    "email": "Email*",
+    "message": "Type message",
+    "submit": "Send Message",
+    "submitting": "Sending...",
+    "successMessage": "Your message has been sent successfully!",
+    "errorMessage": "Error sending message. Please try again.",
+    "firstNameRequired": "First name is required",
+    "lastNameRequired": "Last name is required",
+    "phoneRequired": "Phone number is required",
+    "emailRequired": "Email is required",
+    "messageRequired": "Message is required",
+    "requiredNote": "*Indicates required fields"
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "introduction": {
+      "title": "Introduction",
+      "text": "Welcome to Generix. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you about how we look after your personal data when you visit our website and tell you about your privacy rights and how the law protects you."
+    },
+    "dataCollection": {
+      "title": "Information We Collect",
+      "text": "We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:",
+      "personalInfo": {
+        "title": "Personal Information",
+        "text": "This includes data that can be used to identify you such as your name, email address, phone number, and contact details that you provide when you register with us or submit inquiries through our contact forms."
+      },
+      "nonPersonalInfo": {
+        "title": "Non-Personal Information",
+        "text": "This includes information about how you use our website, including cookies, browser information, and usage patterns. This information helps us improve our website and services."
+      }
+    },
+    "dataUsage": {
+      "title": "How We Use Your Information",
+      "text": "We use the collected data for various purposes, including:",
+      "item1": "To provide and maintain our service",
+      "item2": "To notify you about changes to our service",
+      "item3": "To provide customer support and respond to inquiries",
+      "item4": "To improve our website and services"
+    },
+    "dataProtection": {
+      "title": "How We Protect Your Data",
+      "text": "The security of your data is important to us. We have implemented measures to ensure that your information is not lost, misused, accessed, disclosed, altered, or destroyed. However, no method of transmission over the Internet or method of electronic storage is 100% secure."
+    },
+    "dataSharing": {
+      "title": "Information Sharing",
+      "text": "We do not sell, trade, or rent your personal data to third parties. We may share your information with trusted service providers who assist us in operating our website and conducting our business, as long as they agree to keep this information confidential."
+    },
+    "userRights": {
+      "title": "Your Rights",
+      "text": "Under data protection laws, you have rights regarding your personal data, including:",
+      "item1": "The right to access your personal data",
+      "item2": "The right to request correction of inaccurate data",
+      "item3": "The right to request deletion of your data",
+      "item4": "The right to object to processing of your data",
+      "item5": "The right to data portability"
+    },
+    "cookies": {
+      "title": "Cookies",
+      "text": "Our website uses cookies to enhance your browsing experience. For more information about how we use cookies, please see our",
+      "linkText": "Cookie Policy"
+    },
+    "changes": {
+      "title": "Changes to This Privacy Policy",
+      "text": "We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the \"last updated\" date."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "text": "If you have any questions about this Privacy Policy, please contact us at:"
+    },
+    "lastUpdated": "Last Updated"
+  },
+  "cookiePolicy": {
+    "title": "Cookie Policy of Generix Ltd.",
+    "lastUpdated": "Last Updated",
+    "introduction": {
+      "text": "This document describes what cookies are used by the \\\"Generix Ltd.\\\" website, for what purpose they are collected, how they can be managed, and what external services are used."
+    },
+    "cookieTypes": {
+      "title": "What types of cookies do we use?",
+      "byDuration": {
+        "session": "Session Cookies: Stored temporarily on your device while you browse the site. They are automatically deleted when you close your browser.",
+        "persistent": "Persistent Cookies: Stored for a specific period of time or until you manually delete them. They help us analyze site traffic and improve our services."
+      },
+      "byOrigin": {
+        "title": "By origin:",
+        "firstParty": "First-party cookies – set by our website.",
+        "thirdParty": "Third-party cookies – set by external partners (e.g., analytics and marketing services)."
+      },
+      "byPurpose": {
+        "title": "By purpose:",
+        "essential": "Essential cookies – necessary for proper functioning of the site.",
+        "security": "Security cookies – protect user information and the site from abuse.",
+        "analytics": "Analytics and marketing cookies – support site analysis and development, as well as personalized advertising."
+      }
+    },
+    "externalServices": {
+      "title": "What external services does Generix Ltd. use?",
+      "googleAnalytics": "Google Analytics – for web analysis and statistics (data is stored on Google servers; Google's privacy policy is available online).",
+      "googleAds": "Google Ads/Adwords – for implementing advertising and remarketing campaigns, performance analysis.",
+      "facebookPixel": "Facebook Pixel – for analyzing the effectiveness of Facebook ads and creating specialized target audiences.",
+      "note": "Note: We do not collect personal data through these services, and information is anonymized according to the respective platform's policies."
+    },
+    "managingCookies": {
+      "title": "How can you manage cookies?",
+      "text": "Cookies can be controlled through browser settings or the appropriate button/form on our website. Limiting certain cookies may affect the site's functionality.",
+      "browserInfo": "Instructions for managing cookies in major browsers are available on their official websites (Microsoft Edge, Mozilla Firefox, Google Chrome, Safari, etc.)."
+    },
+    "externalLinks": {
+      "title": "External links and cookies from other sites",
+      "text": "The site may contain links to external pages (YouTube, Facebook, LinkedIn, etc.). \\\"Generix Ltd.\\\" has no access to the cookies of these sites."
+    }
+  }
+}

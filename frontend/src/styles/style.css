@@ -1,0 +1,388 @@
+/*!* Google Fonts *!*/
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Sora:wght@100..800&display=swap");
+
+body {
+  font-family: "Inter", "Poppins", sans-serif;
+  background-color: var(--color-white) !important;
+  scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Utility animation classes */
+.fade-in {
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.8s ease-out forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.8s ease-out forwards;
+}
+
+.scale-in {
+  animation: scaleIn 0.8s ease-out forwards;
+}
+
+/* Animation delay utility classes */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Animation for fade in on scroll */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+ :root {
+        /* === MAIN BRAND COLORS === */
+        --color-primary-dark: #0A1F44;         /* Тъмносиньо – фон, заглавия */
+        --color-primary-light: #00B2FF;        /* Синьо-зелено – акценти, бутони */
+        --color-background: #F5F7FA;           /* Светлосиво – фон на секции */
+        --color-text: #3C3C3C;                 /* Тъмно сиво – основен текст */
+        --color-white: #FFFFFF;                /* Бяло – фон, контраст */
+        
+        /* === ADDITIONAL COLORS === */
+        /* Accent colors */
+        --color-accent: #00B2FF;               /* Accent color (same as primary-light) */
+        --color-accent-hover: #0095D9;         /* Darker shade for hover */
+        
+        /* Platform card hover colors */
+        --color-hover-indigo: #4F46E5;         /* Indigo for first card */
+        --color-hover-pink: #EC4899;           /* Pink for second card */
+        --color-hover-cyan: #06B6D4;           /* Cyan for third card */
+        
+        /* Semantic colors */
+        --color-success: #10b981;
+        --color-warning: #f59e0b;
+        --color-error: #ef4444;
+        --color-info: #3b82f6;
+        
+        /* Text variations */
+        --color-text-light: #FFFFFF;           /* White text */
+        --color-text-muted: rgba(60, 60, 60, 0.6);  /* Muted text */
+        --color-text-secondary: #6B7280;       /* Secondary text */
+        --color-text-dark: #333333;            /* Dark text for headings */
+        
+        /* Neutral colors */
+        --color-neutral: #F5F7FA;              /* Neutral background (same as background) */
+        --color-gray-light: #666666;           /* Light gray text */
+        --color-gray-medium: #999999;          /* Medium gray */
+        --color-gray-dark: #555555;            /* Dark gray */
+        
+        /* Background variations */
+        --color-background-dark: #0A1F44;      /* Dark background (same as primary-dark) */
+        --color-background-alt: #E5E7EB;       /* Alternative light background */
+        
+        /* Border colors */
+        --color-border: #E5E7EB;               /* Default border */
+        --color-border-light: #F3F4F6;         /* Light border */
+        --color-border-gray: #e0e0e0;          /* Gray border */
+        
+        /* Additional UI colors */
+        --mainColor: var(--color-primary-light);      /* Alias for mobile menu */
+        --backgroundColor: #f5f2f2;                   /* Alternative background */
+        --mainBlackColor: #000000;                    /* Black color */
+        
+        /* === GRADIENTS (dynamically generated by ThemeService) === */
+        /* These will be set at runtime based on Django theme settings */
+        --gradient-primary: linear-gradient(135deg, #0A1F44 0%, #00B2FF 100%);
+        --gradient-button: linear-gradient(90deg, #00B2FF 0%, #0095D9 100%);
+        --gradient-header: linear-gradient(135deg, #0A1F44 0%, #003D66 50%, #00B2FF 100%);
+        --gradient-overlay: linear-gradient(135deg, rgba(10, 31, 68, 0.9), rgba(0, 178, 255, 0.8));
+        --color-gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%);
+        
+        /* === SHADOWS (static shadows, dynamic ones set by ThemeService) === */
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+        --shadow-button: 0 4px 14px rgba(0, 178, 255, 0.3);
+        --shadow-button-hover: 0 6px 20px rgba(0, 178, 255, 0.4);
+        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
+        --shadow-card-hover: 0 20px 40px rgba(0, 178, 255, 0.15);
+        --shadow-platform-card: 0 20px 60px rgba(0, 0, 0, 0.15);
+        
+        /* === TEXT SHADOWS === */
+        --text-shadow-sm: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        --text-shadow-md: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        
+        /* === TYPOGRAPHY === */
+        --font-heading: "Inter", "Poppins", sans-serif;
+        --font-body: "Inter", sans-serif;
+
+        /* === SPACING === */
+        --container-width: 1300px;
+        --section-padding: 80px 0;
+        --spacing-xs: 8px;
+        --spacing-sm: 16px;
+        --spacing-md: 24px;
+        --spacing-lg: 32px;
+        --spacing-xl: 48px;
+        
+        /* === TRANSITIONS === */
+        --transition-fast: all 0.2s ease;
+        --transition-base: all 0.3s ease;
+        --transition-slow: all 0.5s ease;
+        --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+
+
+    /* Common styles for headings */
+    .section-title,
+    .section-subtitle,
+    .our-services-title,
+    .our-customers-title,
+    .contactUs-title {
+        text-align: left;
+    }
+
+    /* Common style for button */
+    .main-button {
+        background: var(--gradient-button);
+        border-radius: 8px;
+        color: var(--color-white);
+        font-size: 18px;
+        font-weight: 600;
+        box-shadow: var(--shadow-button);
+        line-height: 1.5;
+        padding: 15px 40px;
+        display: inline-block;
+        text-decoration: none;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: var(--transition-smooth);
+        cursor: pointer;
+    }
+    
+    .main-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-accent-hover);
+        z-index: -1;
+        transform: translateX(-100%);
+        transition: var(--transition-slow);
+    }
+
+    .main-button:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-button-hover);
+    }
+    
+    .main-button:hover::before {
+        transform: translateX(0);
+    }
+    
+    .main-button.white {
+        background-color: var(--color-white);
+        color: var(--color-primary-dark);
+    }
+    
+    .main-button.white:hover {
+        background-color: var(--color-primary-light);
+        color: var(--color-white);
+    }
+
+/* ==========================================
+   Mobile Browser Fixes & Unification
+   ========================================== */
+
+/* Prevent iOS Safari zoom on input focus */
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    font-size: 16px !important; /* iOS won't zoom if font-size >= 16px */
+  }
+}
+
+/* Fix iOS Safari 100vh issue (includes address bar) */
+@supports (-webkit-touch-callout: none) {
+  body {
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Remove iOS tap highlight */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Smooth scrolling for all browsers */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* iOS momentum scrolling */
+}
+
+/* Fix Android Chrome input zoom */
+input,
+textarea,
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Prevent text size adjustment on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Fix sticky hover states on mobile */
+@media (hover: none) {
+  button:hover,
+  a:hover,
+  .hover-effect:hover {
+    background-color: initial;
+  }
+}
+
+/* Safe area insets for notched devices (iPhone X+) */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+}
+
+/* Disable pull-to-refresh in Chrome Android */
+body {
+  overscroll-behavior-y: contain;
+}
+
+/* Fix Firefox mobile button rendering */
+button {
+  background-image: none;
+}
+
+/* Improve touch targets (minimum 44x44px for accessibility) */
+@media (max-width: 768px) {
+  button,
+  a,
+  input[type="submit"],
+  input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Fix viewport units on mobile browsers */
+:root {
+  --vh: 1vh;
+}
+
+/* Prevent layout shift from scrollbar */
+html {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
+}

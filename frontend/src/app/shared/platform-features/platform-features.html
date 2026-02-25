@@ -1,0 +1,24 @@
+<!-- Start : platform features area -->
+<section class="platform-features">
+  <div class="container">
+    <!-- <h2 class="title">{{ title }}</h2> -->
+    <p class="subtitle fade-in">
+      {{ subtitle }}
+    </p>
+    <div class="dots-top"></div>
+
+    <div class="features-grid">
+      <div class="feature-card fade-in-up" *ngFor="let feature of features; let i = index" 
+           [style.animation-delay.ms]="i * 100">
+        <img [src]="feature.iconUrl" [alt]="feature.title" />
+        <h3>{{ feature.title }}</h3>
+        <p>
+          {{ feature.description }}
+        </p>
+        <a [href]="feature.link" *ngIf="feature.link">{{ translation.t(readMoreText) }}</a>
+      </div>
+    </div>
+    <div class="dots-bottom"></div>
+  </div>
+</section>
+<!-- End : platform features area -->

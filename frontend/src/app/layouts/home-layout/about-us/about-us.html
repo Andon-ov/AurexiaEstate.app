@@ -1,0 +1,56 @@
+<section class="testimonial-section">
+  <div class="testimonial-container-background">
+    <div class="testimonial-background-left"></div>
+    <div class="testimonial-background-right"></div>
+  </div>
+
+  <!-- Loading Skeleton -->
+  <div *ngIf="isLoading" class="testimonial-container-content">
+    <div class="testimonial-quote-block">
+      <div class="skeleton-quote-line"></div>
+      <div class="skeleton-quote-line"></div>
+      <div class="skeleton-quote-line short"></div>
+    </div>
+
+    <div class="testimonial-author-block">
+      <div class="author-info">
+        <div class="skeleton-author-image"></div>
+        <div class="author-details">
+          <div class="skeleton-author-name"></div>
+          <div class="skeleton-author-title"></div>
+        </div>
+      </div>
+      <div class="skeleton-author-quote"></div>
+    </div>
+  </div>
+
+  <!-- Actual Content -->
+  <div *ngIf="!isLoading" class="testimonial-container-content">
+    <div class="testimonial-quote-block fade-in-left">
+      <p class="testimonial-quote-text">
+        {{ testimonial?.quote }}
+      </p>
+    </div>
+
+    <div class="testimonial-author-block fade-in-right">
+      <div class="author-info">
+        <img 
+          [src]="testimonial?.authorImage || 'https://res.cloudinary.com/dsla98vyk/image/upload/v1760643033/profile_images/xj9yikmxwspkonywkmzm.png'" 
+          [alt]="testimonial?.authorName" 
+          loading="lazy" 
+          class="author-image">
+        <div class="author-details">
+          <p class="author-name">
+            {{ testimonial?.authorName }}
+          </p>
+          <p class="author-title">
+            {{ testimonial?.authorTitle }}
+          </p>
+        </div>
+      </div>
+      <p class="author-quote">
+        "{{ testimonial?.authorQuote }}"
+      </p>
+    </div>
+  </div>
+</section>

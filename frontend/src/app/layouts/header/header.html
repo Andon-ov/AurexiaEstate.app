@@ -1,0 +1,274 @@
+<!-- header.component.html -->
+<header class="header-wrapper">
+  <nav class="navbar navbar-expand-lg w-100">
+    <div class="container-fluid" [class.sticky]="isSticky">
+      <div class="container-fluid-wrapper">
+        <!-- Logo -->
+        <div class="navbar-brand">
+          <a (click)="navigateTo('/home')" style="cursor: pointer;">
+            <img class="logo-img default-logo" src="assets/images/dido-logo.png" alt="logo" />
+            <img class="logo-img sticky-logo" src="assets/images/dido-logo–sticky.png" alt="logo" />
+          </a>
+        </div>
+
+        <!-- Mobile hamburger button -->
+        <button class="navbar-toggler" [class.collapsed]="!isMobileMenuOpen" type="button" (click)="toggleMobileMenu()"
+          aria-label="Toggle navigation">
+          <i class="fa-solid fa-bars" #burgerIcon [class.active]="isMobileMenuOpen" id="burgerIcon">
+          </i>
+        </button>
+
+        <!-- Navigation content -->
+        <div class="navbar-collapse" [class.show]="isMobileMenuOpen" [class.collapse]="!isMobileMenuOpen" #navbarNav
+          id="navbarNav">
+
+          <!-- Mobile overlay -->
+          <div class="mobile-overlay" *ngIf="isMobileMenuOpen" (click)="onOverlayClick()">
+          </div>
+
+          <!-- Mobile menu container -->
+          <div class="mobile-menu-container">
+            <!-- Mobile menu header -->
+            <div class="mobile-menu-header">
+              <img class="mobile-logo" src="assets/images/dido-logo–sticky.png" alt="logo" />
+              <button class="mobile-close-btn" (click)="closeMobileMenu()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <!-- Mobile menu content -->
+            <div class="mobile-menu-content">
+              <ul class="mobile-nav-list">
+                <!-- Home -->
+                <li class="mobile-nav-item">
+                  <a class="mobile-nav-link" (click)="navigateTo('/home')">
+                    <i class="fas fa-home"></i>
+                    <span>{{ translation.t('header.home') }}</span>
+                  </a>
+                </li>
+
+                <!-- Platforms dropdown -->
+                <li class="mobile-nav-item has-dropdown" [class.active]="mobileDropdowns['platforms']">
+                  <a class="mobile-nav-link dropdown-toggle" (click)="toggleMobileDropdown('platforms')">
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ translation.t('header.platforms') }}</span>
+                    <!-- <i class="fas fa-chevron-down dropdown-arrow"></i> -->
+                  </a>
+                  <ul class="mobile-dropdown-menu">
+                    <li>
+                      <a (click)="navigateTo('/platforms/self-service')" class="mobile-dropdown-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span>{{ translation.t('header.selfService') }}</span>
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="navigateTo('/platforms/corporate-business')" class="mobile-dropdown-link">
+                        <i class="fas fa-building"></i>
+                        <span>{{ translation.t('header.corBusiness') }}</span>
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- About -->
+                <li class="mobile-nav-item">
+                  <a class="mobile-nav-link" (click)="navigateTo('/about')">
+                    <i class="fas fa-info-circle"></i>
+                    <span>{{ translation.t('header.about') }}</span>
+                  </a>
+                </li>
+
+                <!-- Contact -->
+                <li class="mobile-nav-item">
+                  <a class="mobile-nav-link" (click)="navigateTo('/contact')">
+                    <i class="fas fa-envelope"></i>
+                    <span>{{ translation.t('header.contacts') }}</span>
+                  </a>
+                </li>
+
+                <!-- Search -->
+                <li class="mobile-nav-item">
+                  <a class="mobile-nav-link" (click)="navigateTo('/search')">
+                    <i class="fas fa-search"></i>
+                    <span>{{ translation.t('header.search') }}</span>
+                  </a>
+                </li>
+
+              </ul>
+
+              <!-- Mobile user actions -->
+              <div class="mobile-user-actions">
+
+                 <!-- Search -->
+                <!-- <div class="mobile-search">
+                  <button class="mobile-search-btn" (click)="navigateTo('/search')">
+                    <i class="fas fa-search"></i>
+                    <span>{{ translation.t('header.search') || 'Търсене' }}</span>
+                  </button>
+                </div> -->
+
+                <!-- Auth buttons for mobile -->
+                <div class="mobile-auth">
+                  <ng-container *ngIf="!isLoggedIn; else mobileLoggedInTemplate">
+                    <a class="mobile-login-btn" (click)="navigateTo('/login')">
+                      <i class="fas fa-sign-in-alt"></i>
+                      <span>{{ translation.t('header.signIn') }}</span>
+                    </a>
+                  </ng-container>
+
+                  <ng-template #mobileLoggedInTemplate>
+                    <a class="mobile-profile-btn" (click)="navigateTo('/profile')">
+                      <i class="fas fa-user-circle"></i>
+                      <span>{{ currentUser?.first_name || currentUser?.username }}</span>
+                    </a>
+                    <a class="mobile-logout-btn" (click)="logout()">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <span>{{ translation.t('header.signOut') || 'Sign Out' }}</span>
+                    </a>
+                  </ng-template>
+                </div>
+
+                <!-- Language switcher -->
+                <div class="mobile-language" [class.active]="mobileLangDropdownOpen">
+                  <div class="mobile-language-switcher" (click)="toggleMobileLangDropdown()">
+                    <span class="mobile-lang-flag">{{ getCurrentLangFlag() }}</span>
+                    <span class="mobile-lang-text">{{ getCurrentLangText() }}</span>
+                    <!-- <i class="fas fa-chevron-down"></i> -->
+                  </div>
+                  <ul class="mobile-lang-options">
+                    <li (click)="changeLanguage('bg')" *ngIf="currentLang !== 'bg'">
+                      <span class="mobile-lang-flag">🇧🇬</span>
+                      <span>Български</span>
+                    </li>
+                    <li (click)="changeLanguage('en')" *ngIf="currentLang !== 'en'">
+                      <span class="mobile-lang-flag">🇬🇧</span>
+                      <span>English</span>
+                    </li>
+                  </ul>
+                </div>
+
+
+
+                
+              </div>
+            </div>
+          </div>
+
+          <!-- Desktop menu (remains visible on desktop) -->
+          <ul class="navbar-nav w-100 gap-lg-3 p-2 d-flex justify-content-center desktop-menu">
+            <li class="nav-item dropdown">
+              <a class="nav-link" (click)="navigateTo('/home')" style="cursor: pointer;" title="Home">
+                {{ translation.t('header.home') }}
+                <span class="hover-border-1"></span>
+                <span class="hover-border-2"></span>
+                <span class="hover-border-3"></span>
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false"
+                title="Platforms">
+                {{ translation.t('header.platforms') }}
+                <span class="hover-border-1"></span>
+                <span class="hover-border-2"></span>
+                <span class="hover-border-3"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdown_2">
+                <li class="nav-item dropdown">
+                  <a (click)="navigateTo('/platforms/self-service')" class="dropdown-item nav-link"
+                    style="cursor: pointer;" title="Self service">
+                    {{ translation.t('header.selfService') }}
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a (click)="navigateTo('/platforms/corporate-business')" class="dropdown-item nav-link"
+                    title="Corporate Business">
+                    {{ translation.t('header.corBusiness') }}
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a (click)="navigateTo('/about')" class="nav-link" style="cursor: pointer;" title="About">
+                {{ translation.t('header.about') }}
+                <span class="hover-border-1"></span>
+                <span class="hover-border-2"></span>
+                <span class="hover-border-3"></span>
+              </a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a (click)="navigateTo('/contact')" class="nav-link" style="cursor: pointer;" title="Contact">
+                {{ translation.t('header.contacts') }}
+                <span class="hover-border-1"></span>
+                <span class="hover-border-2"></span>
+                <span class="hover-border-3"></span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Desktop user navigation -->
+          <div class="userNavAndLang desktop-user-nav">
+            <ul class="userNav">
+              <li class="search-button">
+                <button class="search-icon-btn" aria-label="Search" (click)="navigateTo('/search')">
+                  <i class="fas fa-search"></i>
+                </button>
+              </li>
+
+              <!-- Auth buttons -->
+              <ng-container *ngIf="!isLoggedIn; else loggedInTemplate">
+                <li class="nav-item signIn">
+                  <a class="nav-link" (click)="navigateTo('/login')" style="cursor: pointer;">
+                    {{ translation.t('header.signIn') }}
+                  </a>
+                </li>
+              </ng-container>
+
+              <ng-template #loggedInTemplate>
+                <li class="nav-item dropdown" style="margin-right: 30px;">
+                  <a class="dropdown-toggle nav-link" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img *ngIf="currentUser?.profile?.profile_image_url" [src]="currentUser?.profile?.profile_image_url"
+                      alt="Profile" class="profile-avatar"
+                      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
+                    <!-- <i class="fas fa-user-circle" *ngIf="!currentUser?.profile?.profile_image_url"></i> -->
+                    <span>{{ currentUser?.first_name || currentUser?.username }}</span>
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                    <li>
+                      <a (click)="navigateTo('/profile')" class="dropdown-item nav-link" style="cursor: pointer;">
+                        <!-- <i class="fas fa-id-card"></i>  -->
+                        {{ translation.t('header.profile') || 'Profile' }}
+                      </a>
+                    </li>
+                    <li>
+                      <a (click)="logout()" class="dropdown-item nav-link" style="cursor: pointer;">
+                        <!-- <i class="fas fa-sign-out-alt"></i>  -->
+                        {{ translation.t('header.signOut') || 'Sign Out' }}
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ng-template>
+
+
+              <li>
+                <div class="language-switcher" (click)="toggleDropdown()">
+                  <div class="selected-lang">
+                    <span>{{ getCurrentLangFlag() }}</span>
+                  </div>
+
+                  <ul class="lang-options" [class.show]="dropdownOpen">
+                    <li *ngIf="currentLang !== 'bg'" (click)="changeLanguage('bg')">🇧🇬</li>
+                    <li *ngIf="currentLang !== 'en'" (click)="changeLanguage('en')">🇬🇧</li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>

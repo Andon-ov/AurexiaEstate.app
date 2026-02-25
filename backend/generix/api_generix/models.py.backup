@@ -1,0 +1,1526 @@
+from django.db import models
+from django.core.cache import cache
+
+
+class CacheSettings(models.Model):
+    """
+    Global cache settings (singleton model)
+    Controls API response caching for all content endpoints
+    """
+    cache_enabled = models.BooleanField(
+        default=True,
+        verbose_name="Enable Cache",
+        help_text="Enable/disable API response caching globally"
+    )
+    cache_timeout = models.IntegerField(
+        default=1800,
+        verbose_name="Cache Timeout (seconds)",
+        help_text="Cache duration in seconds (default: 1800 = 30 minutes)"
+    )
+    
+    # Timestamps
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Cache Settings"
+        verbose_name_plural = "Cache Settings"
+    
+    def __str__(self):
+        status = "Enabled" if self.cache_enabled else "Disabled"
+        return f"Cache Settings ({status}, {self.cache_timeout}s)"
+    
+    def save(self, *args, **kwargs):
+        # Ensure only one instance exists (singleton pattern)
+        self.pk = 1
+        super().save(*args, **kwargs)
+        
+        # Clear all cache when settings change
+        cache.clear()
+    
+    def delete(self, *args, **kwargs):
+        # Prevent deletion
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class HeroSlide(models.Model):
+    """
+    Hero slider slides за home page
+    Максимум 5 слайда с EN/BG преводи
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Slide title in English"
+    )
+    description_en = models.TextField(
+        verbose_name="Description (English)",
+        help_text="Slide description in English"
+    )
+    button_text_en = models.CharField(
+        max_length=100,
+        verbose_name="Button Text (English)",
+        help_text="Call-to-action button text in English"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на слайда на български"
+    )
+    description_bg = models.TextField(
+        verbose_name="Описание (Български)",
+        help_text="Описание на слайда на български"
+    )
+    button_text_bg = models.CharField(
+        max_length=100,
+        verbose_name="Текст на бутон (Български)",
+        help_text="Текст на бутона на български"
+    )
+    
+    # Общи полета
+    button_link = models.CharField(
+        max_length=200,
+        verbose_name="Button Link",
+        help_text="URL or Angular route (e.g., /contact or https://example.com)"
+    )
+    background_image = models.URLField(
+        verbose_name="Background Image URL",
+        help_text="Cloudinary or external image URL for slide background"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this slide in the hero slider"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Hero Slide"
+        verbose_name_plural = "Hero Slides"
+    
+    def __str__(self):
+        return f"{self.title_en} (Order: {self.order})"
+
+
+class CustomersSection(models.Model):
+    """
+    Customers section header (singleton)
+    Само един запис за заглавие и подзаглавие на секцията
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Section Title (English)",
+        help_text="Main section title in English",
+        default="Our Customers"
+    )
+    subtitle_en = models.TextField(
+        verbose_name="Section Subtitle (English)",
+        help_text="Section subtitle/description in English"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие на секция (Български)",
+        help_text="Главно заглавие на секцията на български",
+        default="Нашите клиенти"
+    )
+    subtitle_bg = models.TextField(
+        verbose_name="Подзаглавие на секция (Български)",
+        help_text="Подзаглавие/описание на секцията на български"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Customers Section - Header"
+        verbose_name_plural = "Customers Section - Header"
+    
+    def __str__(self):
+        return "Customers Section Header"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class Achievement(models.Model):
+    """
+    Achievements/Statistics за customers секция
+    3-4 статистики: проекти, клиенти, награди и т.н.
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Achievement title in English (e.g., 'Completed Projects')"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на постижението на български"
+    )
+    
+    # Общи полета
+    count = models.CharField(
+        max_length=50,
+        verbose_name="Count/Value",
+        help_text="Display value (e.g., '10 000+', '200+', '70M+')"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this achievement on the website"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Customers Section - Achievement"
+        verbose_name_plural = "Customers Section - Achievements"
+    
+    def __str__(self):
+        return f"{self.title_en}: {self.count}"
+
+
+class Partner(models.Model):
+    """
+    Partner logos за customers carousel
+    Логота на партньори/клиенти
+    """
+    name = models.CharField(
+        max_length=200,
+        verbose_name="Partner Name",
+        help_text="Name of the partner/client company"
+    )
+    logo_url = models.URLField(
+        verbose_name="Logo URL",
+        help_text="URL to partner logo (Cloudinary or external)"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order in carousel"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this partner logo in the carousel"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Customers Section - Partner Logo"
+        verbose_name_plural = "Customers Section - Partner Logos"
+    
+    def __str__(self):
+        return self.name
+
+
+class WhyGenerixSection(models.Model):
+    """
+    Why Generix section content (singleton)
+    Само един запис за заглавие и параграфи на секцията
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Section Title (English)",
+        help_text="Main section title in English",
+        default="What clients say about us"
+    )
+    paragraph1_en = models.TextField(
+        verbose_name="Paragraph 1 (English)",
+        help_text="First paragraph in English"
+    )
+    paragraph2_en = models.TextField(
+        verbose_name="Paragraph 2 (English)",
+        help_text="Second paragraph in English"
+    )
+    paragraph3_en = models.TextField(
+        verbose_name="Paragraph 3 (English)",
+        help_text="Third paragraph (before View All button) in English"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие на секция (Български)",
+        help_text="Главно заглавие на секцията на български",
+        default="Какво казват клиентите за нас"
+    )
+    paragraph1_bg = models.TextField(
+        verbose_name="Параграф 1 (Български)",
+        help_text="Първи параграф на български"
+    )
+    paragraph2_bg = models.TextField(
+        verbose_name="Параграф 2 (Български)",
+        help_text="Втори параграф на български"
+    )
+    paragraph3_bg = models.TextField(
+        verbose_name="Параграф 3 (Български)",
+        help_text="Трети параграф (преди бутона View All) на български"
+    )
+    
+    # Button fields
+    button_text_en = models.CharField(
+        max_length=100,
+        verbose_name="Button Text (English)",
+        help_text="View All button text in English",
+        default="View All"
+    )
+    button_text_bg = models.CharField(
+        max_length=100,
+        verbose_name="Текст на бутон (Български)",
+        help_text="Текст на бутона View All на български",
+        default="Виж всички"
+    )
+    button_link = models.CharField(
+        max_length=200,
+        verbose_name="Button Link",
+        help_text="URL or Angular route (e.g., /about)",
+        default="/about"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Why Generix Section - Content"
+        verbose_name_plural = "Why Generix Section - Content"
+    
+    def __str__(self):
+        return "Why Generix Section Content"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class CaseStudySlide(models.Model):
+    """
+    Case Study slides за Why Generix секция
+    4-5 слайда с case studies
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Case study title in English"
+    )
+    category_en = models.CharField(
+        max_length=100,
+        verbose_name="Category (English)",
+        help_text="Category/industry in English (e.g., 'Case Study', 'Success Story')"
+    )
+    button_text_en = models.CharField(
+        max_length=100,
+        verbose_name="Button Text (English)",
+        help_text="Call-to-action button text in English",
+        default="Read More"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на case study на български"
+    )
+    category_bg = models.CharField(
+        max_length=100,
+        verbose_name="Категория (Български)",
+        help_text="Категория/индустрия на български (напр. 'Казус', 'История на успеха')"
+    )
+    button_text_bg = models.CharField(
+        max_length=100,
+        verbose_name="Текст на бутон (Български)",
+        help_text="Текст на бутона на български",
+        default="Прочети повече"
+    )
+    
+    # Общи полета
+    button_link = models.CharField(
+        max_length=200,
+        verbose_name="Button Link",
+        help_text="URL or Angular route (e.g., /case-studies/project-name)"
+    )
+    background_image = models.URLField(
+        verbose_name="Background Image URL",
+        help_text="Cloudinary or external image URL for slide background"
+    )
+    overlay_image = models.URLField(
+        verbose_name="Overlay Image URL",
+        help_text="Cloudinary or external image URL for overlay/foreground"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this case study in the slider"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Why Generix Section - Case Study"
+        verbose_name_plural = "Why Generix Section - Case Studies"
+    
+    def __str__(self):
+        return f"{self.title_en} (Order: {self.order})"
+
+
+class AboutUsTestimonial(models.Model):
+    """
+    About Us testimonial секция за home страница
+    Singleton - само един testimonial може да съществува
+    """
+    # Главна цитата
+    quote_en = models.TextField(
+        verbose_name="Quote (English)",
+        help_text="Main testimonial quote in English"
+    )
+    quote_bg = models.TextField(
+        verbose_name="Цитат (Български)",
+        help_text="Главен цитат на български"
+    )
+    
+    # Информация за автора
+    author_name_en = models.CharField(
+        max_length=200,
+        verbose_name="Author Name (English)",
+        help_text="Author's full name in English"
+    )
+    author_name_bg = models.CharField(
+        max_length=200,
+        verbose_name="Име на автор (Български)",
+        help_text="Пълно име на автора на български"
+    )
+    
+    author_title_en = models.CharField(
+        max_length=200,
+        verbose_name="Author Title (English)",
+        help_text="Author's position/title in English (e.g., 'CEO & Founder')"
+    )
+    author_title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Позиция (Български)",
+        help_text="Позиция/титла на автора на български"
+    )
+    
+    author_quote_en = models.TextField(
+        verbose_name="Author Quote (English)",
+        help_text="Short quote from author in English"
+    )
+    author_quote_bg = models.TextField(
+        verbose_name="Цитат на автор (Български)",
+        help_text="Кратък цитат от автора на български"
+    )
+    
+    # Снимка на автора
+    author_image = models.URLField(
+        verbose_name="Author Image URL",
+        help_text="URL to author's profile image"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "About Us Section - Testimonial"
+        verbose_name_plural = "About Us Section - Testimonial"
+    
+    def __str__(self):
+        return f"About Us Testimonial - {self.author_name_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class PlatformsSectionHeader(models.Model):
+    """
+    Platforms Section Header за home page
+    Singleton - заглавие и подзаглавие за секцията с платформите
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Platforms section title in English",
+        default="Our Platforms"
+    )
+    subtitle_en = models.TextField(
+        verbose_name="Subtitle (English)",
+        help_text="Platforms section subtitle in English"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на секцията с платформи на български",
+        default="Нашите платформи"
+    )
+    subtitle_bg = models.TextField(
+        verbose_name="Подзаглавие (Български)",
+        help_text="Подзаглавие на секцията с платформи на български"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Platforms Section - Header"
+        verbose_name_plural = "Platforms Section - Header"
+    
+    def __str__(self):
+        return f"Platforms Header - {self.title_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class AboutPageHero(models.Model):
+    """
+    About Page Hero секция с заглавие и съдържание
+    Singleton - само един hero за about страница
+    """
+    # Hero заглавие
+    hero_title_en = models.CharField(
+        max_length=200,
+        verbose_name="Hero Title (English)",
+        help_text="Main hero title for About page in English"
+    )
+    hero_title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Hero заглавие (Български)",
+        help_text="Главно hero заглавие за About страница на български"
+    )
+    
+    # Съдържание (3 параграфа)
+    paragraph1_en = models.TextField(
+        verbose_name="Paragraph 1 (English)",
+        help_text="First paragraph of content in English"
+    )
+    paragraph1_bg = models.TextField(
+        verbose_name="Параграф 1 (Български)",
+        help_text="Първи параграф на съдържанието на български"
+    )
+    
+    paragraph2_en = models.TextField(
+        verbose_name="Paragraph 2 (English)",
+        help_text="Second paragraph of content in English"
+    )
+    paragraph2_bg = models.TextField(
+        verbose_name="Параграф 2 (Български)",
+        help_text="Втори параграф на съдържанието на български"
+    )
+    
+    paragraph3_en = models.TextField(
+        verbose_name="Paragraph 3 (English)",
+        help_text="Third paragraph of content in English"
+    )
+    paragraph3_bg = models.TextField(
+        verbose_name="Параграф 3 (Български)",
+        help_text="Трети параграф на съдържанието на български"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "About Page - Hero & Content"
+        verbose_name_plural = "About Page - Hero & Content"
+    
+    def __str__(self):
+        return f"About Page Hero - {self.hero_title_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class HomePageCTA(models.Model):
+    """
+    Home Page CTA (Call-to-Action) секция - бяла версия
+    Singleton - само един CTA за home page
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="CTA title in English"
+    )
+    button_text_en = models.CharField(
+        max_length=100,
+        verbose_name="Button Text (English)",
+        help_text="Button text in English",
+        default="Contact Us"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на CTA на български"
+    )
+    button_text_bg = models.CharField(
+        max_length=100,
+        verbose_name="Текст на бутон (Български)",
+        help_text="Текст на бутона на български",
+        default="Свържете се с нас"
+    )
+    
+    # Общи полета
+    button_link = models.CharField(
+        max_length=200,
+        verbose_name="Button Link",
+        help_text="URL or Angular route (e.g., /contact)",
+        default="/contact"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Home Page - CTA White"
+        verbose_name_plural = "Home Page - CTA White"
+    
+    def __str__(self):
+        return f"Home Page CTA - {self.title_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class CallToAction(models.Model):
+    """
+    Reusable Call-to-Action секции - gradient версия
+    Може да има няколко различни CTA секции за различни страници
+    """
+    # Име за идентификация в админ панела
+    name = models.CharField(
+        max_length=100,
+        verbose_name="CTA Name",
+        help_text="Internal name for identification (e.g., 'About Page CTA', 'Services CTA')"
+    )
+    
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="CTA title in English"
+    )
+    description_en = models.TextField(
+        verbose_name="Description (English)",
+        help_text="CTA description in English"
+    )
+    button_text_en = models.CharField(
+        max_length=100,
+        verbose_name="Button Text (English)",
+        help_text="Button text in English",
+        default="Contact Us"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на CTA на български"
+    )
+    description_bg = models.TextField(
+        verbose_name="Описание (Български)",
+        help_text="Описание на CTA на български"
+    )
+    button_text_bg = models.CharField(
+        max_length=100,
+        verbose_name="Текст на бутон (Български)",
+        help_text="Текст на бутона на български",
+        default="Свържете се с нас"
+    )
+    
+    # Общи полета
+    button_link = models.CharField(
+        max_length=200,
+        verbose_name="Button Link",
+        help_text="URL or Angular route (e.g., /contact)",
+        default="/contact"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this CTA on the website"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Call-to-Action (Gradient)"
+        verbose_name_plural = "Call-to-Actions (Gradient)"
+    
+    def __str__(self):
+        return f"{self.name} - {self.title_en}"
+
+
+class PlatformCard(models.Model):
+    """
+    Карти на платформи за home страница
+    3 карти: Corporate Business, Self-Service, Contact CTA
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Card title in English"
+    )
+    item1_en = models.CharField(
+        max_length=200,
+        verbose_name="Item 1 (English)",
+        help_text="First item text on hover"
+    )
+    item2_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Item 2 (English)",
+        help_text="Second item text on hover (optional)"
+    )
+    item3_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Item 3 (English)",
+        help_text="Third item text on hover (optional)"
+    )
+    item4_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Item 4 (English)",
+        help_text="Fourth item text on hover (optional)"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на картата на български"
+    )
+    item1_bg = models.CharField(
+        max_length=200,
+        verbose_name="Елемент 1 (Български)",
+        help_text="Първи елемент при hover"
+    )
+    item2_bg = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Елемент 2 (Български)",
+        help_text="Втори елемент при hover (опционален)"
+    )
+    item3_bg = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Елемент 3 (Български)",
+        help_text="Трети елемент при hover (опционален)"
+    )
+    item4_bg = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Елемент 4 (Български)",
+        help_text="Четвърти елемент при hover (опционален)"
+    )
+    
+    # Общи полета
+    image_url = models.URLField(
+        verbose_name="Image URL",
+        help_text="Cloudinary or external image URL"
+    )
+    route = models.CharField(
+        max_length=100,
+        verbose_name="Route",
+        help_text="Angular route (e.g., /platforms/corporate-business)"
+    )
+    hover_color = models.CharField(
+        max_length=7,
+        default='#4F46E5',
+        verbose_name="Hover Color",
+        help_text="Hex color for hover effect (e.g., #4F46E5)"
+    )
+    is_platform = models.BooleanField(
+        default=True,
+        verbose_name="Is Platform",
+        help_text="True = Platform with features page, False = Simple card (e.g., CTA)"
+    )
+    
+    # Platform Page Content (only for is_platform=True)
+    # Hero заглавие
+    hero_title_en = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Hero Title (English)",
+        help_text="Platform page hero title (only for platforms)"
+    )
+    hero_title_bg = models.CharField(
+        max_length=200,
+        blank=True,
+        verbose_name="Hero заглавие (Български)",
+        help_text="Заглавие в hero секцията на страницата (само за платформи)"
+    )
+    
+    # Subtitle в следващата секция
+    subtitle_en = models.TextField(
+        blank=True,
+        verbose_name="Subtitle (English)",
+        help_text="Platform page subtitle/description (only for platforms)"
+    )
+    subtitle_bg = models.TextField(
+        blank=True,
+        verbose_name="Подзаглавие (Български)",
+        help_text="Подзаглавие/описание на страницата (само за платформи)"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this card on the website"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['order', 'id']
+        verbose_name = "Platform Card"
+        verbose_name_plural = "Platform Cards"
+    
+    def __str__(self):
+        return f"{self.title_en} (Order: {self.order})"
+    
+    def get_items_en(self):
+        """Return list of non-empty English items"""
+        items = [self.item1_en, self.item2_en, self.item3_en, self.item4_en]
+        return [item for item in items if item]
+    
+    def get_items_bg(self):
+        """Return list of non-empty Bulgarian items"""
+        items = [self.item1_bg, self.item2_bg, self.item3_bg, self.item4_bg]
+        return [item for item in items if item]
+
+
+class PlatformFeature(models.Model):
+    """
+    Features/карти за конкретна платформа
+    Максимум 6 карти на платформа
+    """
+    platform = models.ForeignKey(
+        PlatformCard,
+        on_delete=models.CASCADE,
+        limit_choices_to={'is_platform': True},
+        related_name='features',
+        verbose_name="Platform",
+        help_text="Select platform (only cards marked as 'Platform')"
+    )
+    
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Feature title in English"
+    )
+    description_en = models.TextField(
+        verbose_name="Description (English)",
+        help_text="Feature description in English"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на функционалността на български"
+    )
+    description_bg = models.TextField(
+        verbose_name="Описание (Български)",
+        help_text="Описание на функционалността на български"
+    )
+    
+    # Общи полета
+    icon_url = models.URLField(
+        verbose_name="Icon URL",
+        help_text="URL to icon (Cloudinary SVG or image URL)"
+    )
+    
+    # Metadata
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this feature on the website"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['platform', 'order', 'id']
+        verbose_name = "Platform Feature"
+        verbose_name_plural = "Platform Features"
+        unique_together = [['platform', 'order']]
+    
+    def __str__(self):
+        return f"{self.platform.title_en} - {self.title_en}"
+    
+    def save(self, *args, **kwargs):
+        """
+        Validate that platform has maximum 6 active features
+        """
+        # If platform is not set yet, defer validation to normal save
+        platform_id = getattr(self, 'platform_id', None)
+        if platform_id is None:
+            return super().save(*args, **kwargs)
+
+        # Only validate when this feature will be active
+        if self.is_active:
+            # Count active features for this platform excluding this instance (use platform_id to avoid object equality issues)
+            active_qs = PlatformFeature.objects.filter(
+                platform_id=platform_id,
+                is_active=True
+            )
+            if self.pk:
+                active_qs = active_qs.exclude(pk=self.pk)
+
+            active_count = active_qs.count()
+            if active_count >= 6:
+                from django.core.exceptions import ValidationError
+                # Try to get platform title safely
+                platform_title = getattr(self.platform, 'title_en', str(platform_id))
+                raise ValidationError(
+                    f'Maximum 6 active features allowed per platform. '
+                    f'"{platform_title}" already has {active_count} active features. '
+                    f'Please deactivate an existing feature before adding a new one.'
+                )
+        
+        super().save(*args, **kwargs)
+
+
+class ThemeSettings(models.Model):
+    """
+    Theme Settings за сайта - цветова палитра и стилове
+    Singleton - само един theme конфигурация
+    """
+    # Main Brand Colors
+    color_primary_dark = models.CharField(
+        max_length=7,
+        default='#0A1F44',
+        verbose_name="Primary Dark Color",
+        help_text="Hex color (e.g., #0A1F44) - Тъмносиньо за фон и заглавия"
+    )
+    color_primary_light = models.CharField(
+        max_length=7,
+        default='#00B2FF',
+        verbose_name="Primary Light Color",
+        help_text="Hex color (e.g., #00B2FF) - Синьо-зелено за акценти и бутони"
+    )
+    color_background = models.CharField(
+        max_length=7,
+        default='#F5F7FA',
+        verbose_name="Background Color",
+        help_text="Hex color (e.g., #F5F7FA) - Светлосиво за фон на секции"
+    )
+    color_text = models.CharField(
+        max_length=7,
+        default='#3C3C3C',
+        verbose_name="Text Color",
+        help_text="Hex color (e.g., #3C3C3C) - Тъмно сиво за основен текст"
+    )
+    color_white = models.CharField(
+        max_length=7,
+        default='#FFFFFF',
+        verbose_name="White Color",
+        help_text="Hex color (e.g., #FFFFFF) - Бяло за фон и контраст"
+    )
+    
+    # Additional Colors
+    color_accent = models.CharField(
+        max_length=7,
+        default='#00B2FF',
+        verbose_name="Accent Color",
+        help_text="Hex color (e.g., #00B2FF) - Accent color"
+    )
+    color_accent_hover = models.CharField(
+        max_length=7,
+        default='#0095D9',
+        verbose_name="Accent Hover Color",
+        help_text="Hex color (e.g., #0095D9) - Darker shade for hover"
+    )
+    
+    # Platform Card Hover Colors
+    color_hover_indigo = models.CharField(
+        max_length=7,
+        default='#4F46E5',
+        verbose_name="Hover Indigo",
+        help_text="Hex color (e.g., #4F46E5) - Indigo for first platform card"
+    )
+    color_hover_pink = models.CharField(
+        max_length=7,
+        default='#EC4899',
+        verbose_name="Hover Pink",
+        help_text="Hex color (e.g., #EC4899) - Pink for second platform card"
+    )
+    color_hover_cyan = models.CharField(
+        max_length=7,
+        default='#06B6D4',
+        verbose_name="Hover Cyan",
+        help_text="Hex color (e.g., #06B6D4) - Cyan for third platform card"
+    )
+    
+    # Semantic Colors
+    color_success = models.CharField(
+        max_length=7,
+        default='#10b981',
+        verbose_name="Success Color",
+        help_text="Hex color (e.g., #10b981) - Green for success messages"
+    )
+    color_warning = models.CharField(
+        max_length=7,
+        default='#f59e0b',
+        verbose_name="Warning Color",
+        help_text="Hex color (e.g., #f59e0b) - Orange for warnings"
+    )
+    color_error = models.CharField(
+        max_length=7,
+        default='#ef4444',
+        verbose_name="Error Color",
+        help_text="Hex color (e.g., #ef4444) - Red for errors"
+    )
+    color_info = models.CharField(
+        max_length=7,
+        default='#3b82f6',
+        verbose_name="Info Color",
+        help_text="Hex color (e.g., #3b82f6) - Blue for info messages"
+    )
+    
+    # Text Variations
+    color_text_dark = models.CharField(
+        max_length=7,
+        default='#333333',
+        verbose_name="Dark Text Color",
+        help_text="Hex color (e.g., #333333) - Dark text for headings"
+    )
+    color_text_secondary = models.CharField(
+        max_length=7,
+        default='#6B7280',
+        verbose_name="Secondary Text Color",
+        help_text="Hex color (e.g., #6B7280) - Secondary text color"
+    )
+    
+    # Neutral & Gray Colors
+    color_neutral = models.CharField(
+        max_length=7,
+        default='#F5F7FA',
+        verbose_name="Neutral Color",
+        help_text="Hex color (e.g., #F5F7FA) - Neutral background"
+    )
+    color_gray_light = models.CharField(
+        max_length=7,
+        default='#666666',
+        verbose_name="Light Gray",
+        help_text="Hex color (e.g., #666666) - Light gray text"
+    )
+    color_gray_medium = models.CharField(
+        max_length=7,
+        default='#999999',
+        verbose_name="Medium Gray",
+        help_text="Hex color (e.g., #999999) - Medium gray"
+    )
+    color_gray_dark = models.CharField(
+        max_length=7,
+        default='#555555',
+        verbose_name="Dark Gray",
+        help_text="Hex color (e.g., #555555) - Dark gray"
+    )
+    
+    # Border Colors
+    color_border_gray = models.CharField(
+        max_length=7,
+        default='#e0e0e0',
+        verbose_name="Gray Border",
+        help_text="Hex color (e.g., #e0e0e0) - Gray border color"
+    )
+    
+    # Additional UI Colors
+    color_black = models.CharField(
+        max_length=7,
+        default='#000000',
+        verbose_name="Black Color",
+        help_text="Hex color (e.g., #000000) - Pure black for text and elements"
+    )
+    color_background_secondary = models.CharField(
+        max_length=7,
+        default='#f5f2f2',
+        verbose_name="Secondary Background",
+        help_text="Hex color (e.g., #f5f2f2) - Alternative light background"
+    )
+    color_background_alt = models.CharField(
+        max_length=7,
+        default='#E5E7EB',
+        verbose_name="Alternative Background",
+        help_text="Hex color (e.g., #E5E7EB) - Alternative light gray background"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Theme Settings"
+        verbose_name_plural = "Theme Settings"
+    
+    def __str__(self):
+        return f"Theme Settings (Updated: {self.updated_at.strftime('%Y-%m-%d %H:%M')})"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class TestimonialCard(models.Model):
+    """
+    Testimonial Card за testimonials slider
+    Отзиви от клиенти/партньори
+    """
+    # Logo Image
+    logo_url = models.URLField(
+        verbose_name="Logo URL",
+        help_text="URL to company/partner logo image"
+    )
+    
+    # English Content
+    name_en = models.CharField(
+        max_length=200,
+        verbose_name="Name (English)",
+        help_text="Person or company name in English"
+    )
+    description_en = models.TextField(
+        verbose_name="Description (English)",
+        help_text="Testimonial text in English"
+    )
+    
+    # Bulgarian Content
+    name_bg = models.CharField(
+        max_length=200,
+        verbose_name="Име (Български)",
+        help_text="Име на лице или компания на български"
+    )
+    description_bg = models.TextField(
+        verbose_name="Описание (Български)",
+        help_text="Текст на отзива на български"
+    )
+    
+    # Settings
+    order = models.IntegerField(
+        default=0,
+        verbose_name="Order",
+        help_text="Display order (lower numbers appear first)"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        verbose_name="Active",
+        help_text="Show this testimonial in slider"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Testimonial Card"
+        verbose_name_plural = "Testimonial Cards"
+        ordering = ['order', 'id']
+    
+    def __str__(self):
+        return f"Testimonial - {self.name_en}"
+
+
+class AboutUsImageContent(models.Model):
+    """
+    About Us Image section content - "Our Purpose" секция
+    Singleton - само един запис може да съществува
+    """
+    # Background Image
+    image_url = models.URLField(
+        max_length=500,
+        verbose_name="Background Image URL",
+        help_text="URL to the background image for the purpose section",
+        blank=True,
+        null=True
+    )
+    
+    # Английски език
+    purpose_title_en = models.CharField(
+        max_length=200,
+        verbose_name="Purpose Title (English)",
+        help_text="Main purpose section title in English",
+        default="Our Purpose"
+    )
+    purpose_description_en = models.TextField(
+        verbose_name="Purpose Description (English)",
+        help_text="Purpose description/subtitle in English",
+        default="Empowering businesses with innovative solutions"
+    )
+    purpose_text_en = models.TextField(
+        verbose_name="Purpose Text (English)",
+        help_text="Main purpose text/content in English"
+    )
+    
+    # Български език
+    purpose_title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Главно заглавие на секцията на български",
+        default="Нашата цел"
+    )
+    purpose_description_bg = models.TextField(
+        verbose_name="Описание (Български)",
+        help_text="Описание/подзаглавие на целта на български",
+        default="Даваме възможност на бизнеса с иновативни решения"
+    )
+    purpose_text_bg = models.TextField(
+        verbose_name="Текст (Български)",
+        help_text="Основен текст за целта на български"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "About Us Image - Purpose Content"
+        verbose_name_plural = "About Us Image - Purpose Content"
+    
+    def __str__(self):
+        return f"About Us Purpose - {self.purpose_title_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class AboutPageAchievements(models.Model):
+    """
+    About Page Achievements section header
+    Singleton - заглавие и подзаглавие за achievements секцията
+    """
+    # Английски език
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Title (English)",
+        help_text="Achievements section title in English",
+        default="Our Impact"
+    )
+    subtitle_en = models.CharField(
+        max_length=200,
+        verbose_name="Subtitle (English)",
+        help_text="Achievements section subtitle in English",
+        default="The numbers speak for themselves"
+    )
+    
+    # Български език
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие (Български)",
+        help_text="Заглавие на achievements секцията на български",
+        default="Нашето въздействие"
+    )
+    subtitle_bg = models.CharField(
+        max_length=200,
+        verbose_name="Подзаглавие (Български)",
+        help_text="Подзаглавие на achievements секцията на български",
+        default="Числата говорят сами за себе си"
+    )
+    
+    # Timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "About Page - Achievements Header"
+        verbose_name_plural = "About Page - Achievements Header"
+    
+    def __str__(self):
+        return f"Achievements Header - {self.title_en}"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj
+
+
+class ContactPageContent(models.Model):
+    """
+    Contact page content singleton - съдържание за контакт страницата
+    Singleton - само един запис може да съществува
+    """
+    # Английски език
+    hero_title_en = models.CharField(
+        max_length=200,
+        verbose_name="Hero Title (English)",
+        help_text="Main hero section title in English",
+        default="Get in Touch"
+    )
+    title_en = models.CharField(
+        max_length=200,
+        verbose_name="Section Title (English)",
+        help_text="Contact section title in English",
+        default="Contact Information"
+    )
+    subtitle_en = models.TextField(
+        verbose_name="Subtitle (English)",
+        help_text="Contact section subtitle in English",
+        default="We'd love to hear from you. Send us a message and we'll respond as soon as possible."
+    )
+    address_line1_en = models.CharField(
+        max_length=200,
+        verbose_name="Address Line 1 (English)",
+        help_text="First line of address in English",
+        default="Tsarigradski Complex"
+    )
+    address_line2_en = models.CharField(
+        max_length=200,
+        verbose_name="Address Line 2 (English)",
+        help_text="Second line of address in English",
+        default="Druzhba 2, Sofia, Bulgaria"
+    )
+    email = models.EmailField(
+        verbose_name="Email Address",
+        help_text="Contact email address",
+        default="contact@generix.bg"
+    )
+    
+    # Български език
+    hero_title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Hero заглавие (Български)",
+        help_text="Главно hero заглавие на български",
+        default="Свържете се с нас"
+    )
+    title_bg = models.CharField(
+        max_length=200,
+        verbose_name="Заглавие на секция (Български)",
+        help_text="Заглавие на контакт секцията на български",
+        default="Информация за контакт"
+    )
+    subtitle_bg = models.TextField(
+        verbose_name="Подзаглавие (Български)",
+        help_text="Подзаглавие на контакт секцията на български",
+        default="Ще се радваме да чуем от вас. Изпратете ни съобщение и ще отговорим възможно най-скоро."
+    )
+    address_line1_bg = models.CharField(
+        max_length=200,
+        verbose_name="Адрес ред 1 (Български)",
+        help_text="Първи ред на адреса на български",
+        default="Комплекс Цариградски"
+    )
+    address_line2_bg = models.CharField(
+        max_length=200,
+        verbose_name="Адрес ред 2 (Български)",
+        help_text="Втори ред на адреса на български",
+        default="Дружба 2, София, България"
+    )
+    
+    # Metadata
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        verbose_name = "Contact Page Content"
+        verbose_name_plural = "Contact Page Content"
+    
+    def __str__(self):
+        return "Contact Page Content"
+    
+    def save(self, *args, **kwargs):
+        """Ensure only one instance exists (singleton pattern)"""
+        self.pk = 1
+        super().save(*args, **kwargs)
+    
+    def delete(self, *args, **kwargs):
+        """Prevent deletion of the singleton instance"""
+        pass
+    
+    @classmethod
+    def load(cls):
+        """Get or create the singleton instance"""
+        obj, created = cls.objects.get_or_create(pk=1)
+        return obj

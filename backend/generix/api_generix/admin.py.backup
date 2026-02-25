@@ -1,0 +1,1057 @@
+from django.contrib import admin
+from django import forms
+from .models import (
+    CacheSettings,
+    HeroSlide, 
+    CustomersSection, 
+    Achievement, 
+    Partner, 
+    WhyGenerixSection,
+    CaseStudySlide,
+    PlatformsSectionHeader,
+    AboutUsTestimonial,
+    AboutPageHero,
+    HomePageCTA,
+    CallToAction,
+    PlatformCard,
+    PlatformFeature,
+    ThemeSettings,
+    TestimonialCard,
+    AboutUsImageContent,
+    AboutPageAchievements,
+    ContactPageContent
+)
+
+
+@admin.register(CacheSettings)
+class CacheSettingsAdmin(admin.ModelAdmin):
+    """Admin interface for Cache Settings (Singleton)"""
+    
+    list_display = ['cache_enabled', 'cache_timeout', 'updated_at']
+    
+    fieldsets = (
+        ('Cache Configuration', {
+            'fields': ('cache_enabled', 'cache_timeout'),
+            'description': 'Control API response caching for all content endpoints. Changes will clear all cached data.'
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        # Allow only if no instance exists
+        return not CacheSettings.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        # Prevent deletion
+        return False
+    
+    def get_actions(self, request):
+        # Remove bulk delete action
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+
+@admin.register(HeroSlide)
+class HeroSlideAdmin(admin.ModelAdmin):
+    """Admin interface for Hero Slides"""
+    
+    list_display = ['title_en', 'title_bg', 'button_link', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['title_en', 'title_bg', 'description_en', 'description_bg']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'description_en',
+                'button_text_en'
+            ),
+            'description': 'English translations for hero slide'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'description_bg',
+                'button_text_bg'
+            ),
+            'description': 'Български преводи за hero слайда'
+        }),
+        ('Media & Link', {
+            'fields': ('background_image', 'button_link')
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    # Default values for new slides
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True
+        }
+
+
+@admin.register(CustomersSection)
+class CustomersSectionAdmin(admin.ModelAdmin):
+    """Admin interface for Customers Section Header (Singleton)"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not CustomersSection.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'subtitle_en'
+            ),
+            'description': 'English translations for customers section header'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'subtitle_bg'
+            ),
+            'description': 'Български преводи за заглавието на секция "Клиенти"'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+
+
+@admin.register(Achievement)
+class AchievementAdmin(admin.ModelAdmin):
+    """Admin interface for Achievements"""
+    
+    list_display = ['title_en', 'title_bg', 'count', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['title_en', 'title_bg']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': ('title_en',),
+            'description': 'English translation for achievement title'
+        }),
+        ('Bulgarian Content', {
+            'fields': ('title_bg',),
+            'description': 'Български превод за заглавието'
+        }),
+        ('Value', {
+            'fields': ('count',),
+            'description': 'Display value (e.g., "10 000+", "200+")'
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True
+        }
+
+
+@admin.register(Partner)
+class PartnerAdmin(admin.ModelAdmin):
+    """Admin interface for Partners"""
+    
+    list_display = ['name', 'logo_url', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['name']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('Partner Info', {
+            'fields': ('name', 'logo_url')
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True
+        }
+
+
+@admin.register(WhyGenerixSection)
+class WhyGenerixSectionAdmin(admin.ModelAdmin):
+    """Admin interface for Why Generix Section Content (Singleton)"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not WhyGenerixSection.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'paragraph1_en',
+                'paragraph2_en',
+                'paragraph3_en',
+                'button_text_en'
+            ),
+            'description': 'English translations for Why Generix section'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'paragraph1_bg',
+                'paragraph2_bg',
+                'paragraph3_bg',
+                'button_text_bg'
+            ),
+            'description': 'Български преводи за секция "Защо Generix"'
+        }),
+        ('Button Link', {
+            'fields': ('button_link',),
+            'description': 'Link for the View All button (same for both languages)'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+
+
+@admin.register(CaseStudySlide)
+class CaseStudySlideAdmin(admin.ModelAdmin):
+    """Admin interface for Case Study Slides"""
+    
+    list_display = ['title_en', 'category_en', 'button_link', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['title_en', 'title_bg', 'category_en', 'category_bg']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'category_en',
+                'button_text_en'
+            ),
+            'description': 'English translations for case study slide'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'category_bg',
+                'button_text_bg'
+            ),
+            'description': 'Български преводи за case study слайда'
+        }),
+        ('Media & Link', {
+            'fields': ('background_image', 'overlay_image', 'button_link')
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True,
+            'button_text_en': 'Read More',
+            'button_text_bg': 'Прочети повече',
+            'category_en': 'Case Study',
+            'category_bg': 'Казус'
+        }
+
+
+@admin.register(PlatformsSectionHeader)
+class PlatformsSectionHeaderAdmin(admin.ModelAdmin):
+    """Admin interface for Platforms Section Header (Singleton)"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not PlatformsSectionHeader.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': ('title_en', 'subtitle_en'),
+            'description': 'Platforms section header in English'
+        }),
+        ('Bulgarian Content', {
+            'fields': ('title_bg', 'subtitle_bg'),
+            'description': 'Заглавие и подзаглавие на секцията с платформи на български'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+
+
+@admin.register(AboutUsTestimonial)
+class AboutUsTestimonialAdmin(admin.ModelAdmin):
+    """Admin interface for About Us Testimonial section (Singleton)"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not AboutUsTestimonial.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('Main Quote', {
+            'fields': ('quote_en', 'quote_bg'),
+            'description': 'Main testimonial quote'
+        }),
+        ('Author Information - English', {
+            'fields': (
+                'author_name_en',
+                'author_title_en',
+                'author_quote_en'
+            ),
+            'description': 'Author details in English'
+        }),
+        ('Author Information - Bulgarian', {
+            'fields': (
+                'author_name_bg',
+                'author_title_bg',
+                'author_quote_bg'
+            ),
+            'description': 'Информация за автора на български'
+        }),
+        ('Media', {
+            'fields': ('author_image',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'author_image': 'https://res.cloudinary.com/dsla98vyk/image/upload/v1760643033/profile_images/xj9yikmxwspkonywkmzm.png'
+        }
+
+
+@admin.register(AboutPageHero)
+class AboutPageHeroAdmin(admin.ModelAdmin):
+    """Admin interface for About Page Hero & Content (Singleton)"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not AboutPageHero.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('Hero Title', {
+            'fields': ('hero_title_en', 'hero_title_bg'),
+            'description': 'Main hero title for About page'
+        }),
+        ('Content - English', {
+            'fields': (
+                'paragraph1_en',
+                'paragraph2_en',
+                'paragraph3_en'
+            ),
+            'description': 'About page content paragraphs in English'
+        }),
+        ('Content - Bulgarian', {
+            'fields': (
+                'paragraph1_bg',
+                'paragraph2_bg',
+                'paragraph3_bg'
+            ),
+            'description': 'Параграфи на съдържанието на български'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+
+
+@admin.register(HomePageCTA)
+class HomePageCTAAdmin(admin.ModelAdmin):
+    """Admin interface for Home Page CTA (White Version) - Singleton"""
+    
+    def has_add_permission(self, request):
+        """Prevent adding more than one instance"""
+        return not HomePageCTA.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion"""
+        return False
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'button_text_en'
+            ),
+            'description': 'English translations for home page CTA'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'button_text_bg'
+            ),
+            'description': 'Български преводи за CTA на начална страница'
+        }),
+        ('Link', {
+            'fields': ('button_link',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'button_link': '/contact',
+            'button_text_en': 'Contact Us',
+            'button_text_bg': 'Свържете се с нас'
+        }
+
+
+@admin.register(CallToAction)
+class CallToActionAdmin(admin.ModelAdmin):
+    """Admin interface for reusable Call-to-Action sections (Gradient Version)"""
+    
+    list_display = ['name', 'title_en', 'button_link', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['name', 'title_en', 'title_bg', 'description_en', 'description_bg']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('Identification', {
+            'fields': ('name',),
+            'description': 'Internal name for identification purposes'
+        }),
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'description_en',
+                'button_text_en'
+            ),
+            'description': 'English translations for CTA'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'description_bg',
+                'button_text_bg'
+            ),
+            'description': 'Български преводи за CTA'
+        }),
+        ('Link', {
+            'fields': ('button_link',)
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True,
+            'button_link': '/contact',
+            'button_text_en': 'Contact Us',
+            'button_text_bg': 'Свържете се с нас'
+        }
+
+
+@admin.register(PlatformCard)
+class PlatformCardAdmin(admin.ModelAdmin):
+    """Admin interface for Platform Cards"""
+    
+    list_display = ['title_en', 'title_bg', 'route', 'is_platform', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_platform', 'is_active', 'created_at']
+    search_fields = ['title_en', 'title_bg', 'route']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('Type', {
+            'fields': ('is_platform',),
+            'description': 'Is this a platform with features page or a simple card (like CTA)?'
+        }),
+        ('Platform Page Content (only for platforms)', {
+            'fields': (
+                'hero_title_en',
+                'hero_title_bg',
+                'subtitle_en',
+                'subtitle_bg'
+            ),
+            'description': 'Hero title and subtitle for platform page (only shown when is_platform=True)',
+            'classes': ('collapse',)
+        }),
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'item1_en',
+                'item2_en',
+                'item3_en',
+                'item4_en'
+            ),
+            'description': 'English translations for card content'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'item1_bg',
+                'item2_bg',
+                'item3_bg',
+                'item4_bg'
+            ),
+            'description': 'Български преводи за съдържанието на картата'
+        }),
+        ('Media & Route', {
+            'fields': ('image_url', 'route', 'hover_color')
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    # Default values for new cards
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True,
+            'is_platform': True,
+            'hover_color': '#4F46E5'
+        }
+
+
+@admin.register(PlatformFeature)
+class PlatformFeatureAdmin(admin.ModelAdmin):
+    """Admin interface for Platform Features"""
+    
+    list_display = ['title_en', 'platform', 'order', 'is_active', 'updated_at']
+    list_filter = ['platform', 'is_active', 'created_at']
+    search_fields = ['title_en', 'title_bg', 'description_en', 'description_bg']
+    ordering = ['platform', 'order', 'id']
+    
+    fieldsets = (
+        ('Platform', {
+            'fields': ('platform',),
+            'description': 'Select platform (only platforms with is_platform=True are shown)'
+        }),
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'description_en'
+            ),
+            'description': 'English translations for feature content'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'description_bg'
+            ),
+            'description': 'Български преводи за съдържанието на функционалността'
+        }),
+        ('Media', {
+            'fields': ('icon_url',)
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True
+        }
+    
+    def save_model(self, request, obj, form, change):
+        """
+        Override save to show warning if platform has >6 features
+        Also catches ValidationError from model and displays it nicely
+        """
+        try:
+            # Check how many active features this platform already has
+            if not change:  # Only for new features
+                active_count = PlatformFeature.objects.filter(
+                    platform=obj.platform,
+                    is_active=True
+                ).count()
+                
+                if active_count >= 6:
+                    from django.contrib import messages
+                    messages.error(
+                        request,
+                        f'❌ Cannot add feature. "{obj.platform.title_en}" already has {active_count} active features. '
+                        f'Maximum is 6 features per platform. Please deactivate an existing feature first.'
+                    )
+                    return  # Don't save
+                elif active_count == 5:
+                    from django.contrib import messages
+                    messages.warning(
+                        request,
+                        f'⚠️ This will be the 6th (maximum) feature for "{obj.platform.title_en}".'
+                    )
+            
+            super().save_model(request, obj, form, change)
+            
+        except Exception as e:
+            from django.contrib import messages
+            messages.error(request, f'Error saving feature: {str(e)}')
+
+
+class ThemeSettingsForm(forms.ModelForm):
+    """Form with color picker widgets for theme colors"""
+    
+    class Meta:
+        model = ThemeSettings
+        fields = '__all__'
+        widgets = {
+            'color_primary_dark': forms.TextInput(attrs={'type': 'color'}),
+            'color_primary_light': forms.TextInput(attrs={'type': 'color'}),
+            'color_background': forms.TextInput(attrs={'type': 'color'}),
+            'color_text': forms.TextInput(attrs={'type': 'color'}),
+            'color_white': forms.TextInput(attrs={'type': 'color'}),
+            'color_accent': forms.TextInput(attrs={'type': 'color'}),
+            'color_accent_hover': forms.TextInput(attrs={'type': 'color'}),
+            'color_hover_indigo': forms.TextInput(attrs={'type': 'color'}),
+            'color_hover_pink': forms.TextInput(attrs={'type': 'color'}),
+            'color_hover_cyan': forms.TextInput(attrs={'type': 'color'}),
+            'color_success': forms.TextInput(attrs={'type': 'color'}),
+            'color_warning': forms.TextInput(attrs={'type': 'color'}),
+            'color_error': forms.TextInput(attrs={'type': 'color'}),
+            'color_info': forms.TextInput(attrs={'type': 'color'}),
+            'color_text_dark': forms.TextInput(attrs={'type': 'color'}),
+            'color_text_secondary': forms.TextInput(attrs={'type': 'color'}),
+            'color_neutral': forms.TextInput(attrs={'type': 'color'}),
+            'color_gray_light': forms.TextInput(attrs={'type': 'color'}),
+            'color_gray_medium': forms.TextInput(attrs={'type': 'color'}),
+            'color_gray_dark': forms.TextInput(attrs={'type': 'color'}),
+            'color_border_gray': forms.TextInput(attrs={'type': 'color'}),
+            'color_black': forms.TextInput(attrs={'type': 'color'}),
+            'color_background_secondary': forms.TextInput(attrs={'type': 'color'}),
+            'color_background_alt': forms.TextInput(attrs={'type': 'color'}),
+        }
+
+
+@admin.register(ThemeSettings)
+class ThemeSettingsAdmin(admin.ModelAdmin):
+    """Admin interface for Theme Settings - цветова палитра на сайта"""
+    
+    form = ThemeSettingsForm
+    
+    fieldsets = (
+        ('Main Brand Colors', {
+            'fields': (
+                'color_primary_dark',
+                'color_primary_light',
+                'color_background',
+                'color_text',
+                'color_white',
+            ),
+            'description': 'Основни цветове на бранда - тъмносиньо, светлосиньо, фон, текст, бяло'
+        }),
+        ('Additional Colors', {
+            'fields': (
+                'color_accent',
+                'color_accent_hover',
+            ),
+            'description': 'Допълнителни акцентни цветове'
+        }),
+        ('Platform Card Hover Colors', {
+            'fields': (
+                'color_hover_indigo',
+                'color_hover_pink',
+                'color_hover_cyan',
+            ),
+            'description': 'Цветове при hover на platform cards - индиго, розово, циан'
+        }),
+        ('Semantic Colors', {
+            'fields': (
+                'color_success',
+                'color_warning',
+                'color_error',
+                'color_info',
+            ),
+            'description': 'Семантични цветове за съобщения - успех, внимание, грешка, информация'
+        }),
+        ('Text Colors', {
+            'fields': (
+                'color_text_dark',
+                'color_text_secondary',
+            ),
+            'description': 'Допълнителни текстови цветове - тъмен текст, вторичен текст'
+        }),
+        ('Neutral & Gray Colors', {
+            'fields': (
+                'color_neutral',
+                'color_gray_light',
+                'color_gray_medium',
+                'color_gray_dark',
+            ),
+            'description': 'Неутрални и сиви цветове - neutral фон, светло/средно/тъмно сиво'
+        }),
+        ('Border Colors', {
+            'fields': (
+                'color_border_gray',
+            ),
+            'description': 'Цветове за borders - сиво border'
+        }),
+        ('Additional UI Colors', {
+            'fields': (
+                'color_black',
+                'color_background_secondary',
+                'color_background_alt',
+            ),
+            'description': 'Допълнителни UI цветове - черно, вторичен фон, алтернативен фон'
+        }),
+    )
+    
+    actions = ['reset_to_default']
+    
+    # Add custom button to change form
+    change_form_template = 'admin/theme_settings_change_form.html'
+    
+    def has_add_permission(self, request):
+        """Singleton - only one instance allowed"""
+        return not ThemeSettings.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion of theme settings"""
+        return False
+    
+    def response_change(self, request, obj):
+        """Handle custom reset button from change form"""
+        if "_reset_to_default" in request.POST:
+            # Reset to default colors
+            defaults = {
+                'color_primary_dark': '#0A1F44',
+                'color_primary_light': '#00B2FF',
+                'color_background': '#F5F7FA',
+                'color_text': '#3C3C3C',
+                'color_white': '#FFFFFF',
+                'color_accent': '#00B2FF',
+                'color_accent_hover': '#0095D9',
+                'color_hover_indigo': '#4F46E5',
+                'color_hover_pink': '#EC4899',
+                'color_hover_cyan': '#06B6D4',
+                'color_success': '#10b981',
+                'color_warning': '#f59e0b',
+                'color_error': '#ef4444',
+                'color_info': '#3b82f6',
+                'color_text_dark': '#333333',
+                'color_text_secondary': '#6B7280',
+                'color_neutral': '#F5F7FA',
+                'color_gray_light': '#666666',
+                'color_gray_medium': '#999999',
+                'color_gray_dark': '#555555',
+                'color_border_gray': '#e0e0e0',
+                'color_black': '#000000',
+                'color_background_secondary': '#f5f2f2',
+                'color_background_alt': '#E5E7EB',
+            }
+            
+            for field, value in defaults.items():
+                setattr(obj, field, value)
+            obj.save()
+            
+            self.message_user(request, "✅ Theme colors have been reset to default values!")
+            return super().response_change(request, obj)
+        
+        return super().response_change(request, obj)
+    
+    @admin.action(description='🔄 Reset to Default Theme Colors')
+    def reset_to_default(self, request, queryset):
+        """Reset all theme colors to default values"""
+        from django.contrib import messages
+        
+        # Default color values
+        defaults = {
+            'color_primary_dark': '#0A1F44',
+            'color_primary_light': '#00B2FF',
+            'color_background': '#F5F7FA',
+            'color_text': '#3C3C3C',
+            'color_white': '#FFFFFF',
+            'color_accent': '#00B2FF',
+            'color_accent_hover': '#0095D9',
+            'color_hover_indigo': '#4F46E5',
+            'color_hover_pink': '#EC4899',
+            'color_hover_cyan': '#06B6D4',
+            'color_success': '#10b981',
+            'color_warning': '#f59e0b',
+            'color_error': '#ef4444',
+            'color_info': '#3b82f6',
+            'color_text_dark': '#333333',
+            'color_text_secondary': '#6B7280',
+            'color_neutral': '#F5F7FA',
+            'color_gray_light': '#666666',
+            'color_gray_medium': '#999999',
+            'color_gray_dark': '#555555',
+            'color_border_gray': '#e0e0e0',
+            'color_black': '#000000',
+            'color_background_secondary': '#f5f2f2',
+            'color_background_alt': '#E5E7EB',
+        }
+        
+        # Update all selected objects
+        count = 0
+        for obj in queryset:
+            for field, value in defaults.items():
+                setattr(obj, field, value)
+            obj.save()
+            count += 1
+        
+        messages.success(request, f'✅ Successfully reset {count} theme(s) to default colors!')
+        
+        self.message_user(
+            request,
+            f'Theme colors have been reset to default. Please refresh your frontend to see changes.',
+            messages.SUCCESS
+        )
+
+
+@admin.register(TestimonialCard)
+class TestimonialCardAdmin(admin.ModelAdmin):
+    """Admin interface for Testimonial Cards"""
+    
+    list_display = ['name_en', 'name_bg', 'order', 'is_active', 'updated_at']
+    list_filter = ['is_active', 'created_at']
+    search_fields = ['name_en', 'name_bg', 'description_en', 'description_bg']
+    ordering = ['order', 'id']
+    
+    fieldsets = (
+        ('Logo', {
+            'fields': ('logo_url',),
+            'description': 'Company/Partner logo image URL'
+        }),
+        ('English Content', {
+            'fields': (
+                'name_en',
+                'description_en'
+            ),
+            'description': 'English translations for testimonial'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'name_bg',
+                'description_bg'
+            ),
+            'description': 'Български преводи за отзива'
+        }),
+        ('Settings', {
+            'fields': ('order', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def get_changeform_initial_data(self, request):
+        return {
+            'order': 0,
+            'is_active': True
+        }
+
+
+@admin.register(ContactPageContent)
+class ContactPageContentAdmin(admin.ModelAdmin):
+    """Admin interface for Contact Page Content"""
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'hero_title_en',
+                'title_en',
+                'subtitle_en',
+                'address_line1_en',
+                'address_line2_en',
+            ),
+            'description': 'English translations for contact page'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'hero_title_bg',
+                'title_bg',
+                'subtitle_bg',
+                'address_line1_bg',
+                'address_line2_bg',
+            ),
+            'description': 'Български преводи за контакт страницата'
+        }),
+        ('Contact Information', {
+            'fields': ('email',),
+            'description': 'Contact email (same for all languages)'
+        }),
+        ('Timestamps', {
+            'fields': ('updated_at',),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['updated_at']
+    
+    def has_add_permission(self, request):
+        """Prevent adding new instances - singleton pattern"""
+        return not ContactPageContent.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion - singleton pattern"""
+        return False
+
+
+@admin.register(AboutUsImageContent)
+class AboutUsImageContentAdmin(admin.ModelAdmin):
+    """Admin interface for About Us Image Purpose Content"""
+    
+    fieldsets = (
+        ('Background Image', {
+            'fields': ('image_url',),
+            'description': 'Background image URL for the purpose section'
+        }),
+        ('English Content', {
+            'fields': (
+                'purpose_title_en',
+                'purpose_description_en',
+                'purpose_text_en',
+            ),
+            'description': 'English translations for "Our Purpose" section'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'purpose_title_bg',
+                'purpose_description_bg',
+                'purpose_text_bg',
+            ),
+            'description': 'Български преводи за секция "Нашата цел"'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def has_add_permission(self, request):
+        """Prevent adding new instances - singleton pattern"""
+        return not AboutUsImageContent.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion - singleton pattern"""
+        return False
+
+
+@admin.register(AboutPageAchievements)
+class AboutPageAchievementsAdmin(admin.ModelAdmin):
+    """Admin interface for About Page Achievements Header"""
+    
+    fieldsets = (
+        ('English Content', {
+            'fields': (
+                'title_en',
+                'subtitle_en',
+            ),
+            'description': 'English translations for achievements section header'
+        }),
+        ('Bulgarian Content', {
+            'fields': (
+                'title_bg',
+                'subtitle_bg',
+            ),
+            'description': 'Български преводи за заглавие на achievements секцията'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def has_add_permission(self, request):
+        """Prevent adding new instances - singleton pattern"""
+        return not AboutPageAchievements.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        """Prevent deletion - singleton pattern"""
+        return False

@@ -1,0 +1,39 @@
+# === Python / Django ===
+backend/venv/
+*.pyc
+__pycache__/
+db.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.sqlite3
+*.env
+.env.*
+local_settings.py
+
+# Django static/media
+staticfiles/
+media/
+static/
+
+# === Node / Angular ===
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/cache/
+frontend/.angular/ssr/
+frontend/.env
+frontend/.env.*
+
+# === OS / Editor junk ===
+*.swp
+*.swo
+*.DS_Store
+*.idea/
+*.vscode/
+*.bak
+*.tmp
+*.orig
+Thumbs.db
+
+# === Git ===
+.git/

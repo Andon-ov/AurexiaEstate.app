@@ -1,0 +1,30 @@
+<!-- Loading Skeleton -->
+<section *ngIf="isLoading" class="hero-slider hero hero-skeleton">
+    <div class="hero-slide-wrapper">
+        <div class="hero-slide-content">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-description"></div>
+            <div class="skeleton-button"></div>
+        </div>
+    </div>
+</section>
+
+<!-- Actual Hero Slider -->
+<section *ngIf="!isLoading" class="hero-slider swiper hero">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" *ngFor="let slide of slides"
+            [style.backgroundImage]="'url(' + slide.backgroundImage + ')'">
+            <div class="hero-slide-wrapper">
+                <div class="hero-slide-content fade-in-up">
+                    <h1>{{ slide.title }}</h1>
+                    <p>{{ slide.description }}</p>
+                    <a [href]="slide.buttonLink" class="hero-button">
+                        {{ slide.buttonText }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</section>
+

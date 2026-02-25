@@ -1,0 +1,22 @@
+<a class="our-platforms-card" 
+   [href]="card.link" 
+   target="_blank" 
+   [ngStyle]="{'--hover-color': getHoverColorVariable()}">
+    <div class="card-content">
+        <div class="card-top">
+            <div class="card-image-container">
+                <img [src]="card.imageUrl" [alt]="card.title" loading="lazy" class="card-image" />
+            </div>
+            <div class="card-text">
+                <ul class="card-list">
+                    <li *ngFor="let item of card.items">{{ item }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-bottom">
+            <div class="card-title-wrapper">
+                <h4 class="card-title">{{ card.title }}</h4>
+            </div>
+        </div>
+    </div>
+</a>

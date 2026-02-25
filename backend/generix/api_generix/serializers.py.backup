@@ -1,0 +1,661 @@
+from rest_framework import serializers
+from .models import (
+    HeroSlide, 
+    CustomersSection, 
+    Achievement, 
+    Partner, 
+    WhyGenerixSection,
+    CaseStudySlide,
+    PlatformsSectionHeader,
+    AboutUsTestimonial,
+    AboutPageHero,
+    TestimonialCard,
+    HomePageCTA,
+    CallToAction,
+    PlatformCard,
+    PlatformFeature,
+    ThemeSettings,
+    AboutUsImageContent,
+    AboutPageAchievements,
+    ContactPageContent
+)
+
+
+class HeroSlideSerializer(serializers.ModelSerializer):
+    """
+    Serializer for HeroSlide model
+    Returns data in format matching Angular interface:
+    {
+        title: string,
+        description: string,
+        buttonText: string,
+        buttonLink: string,
+        backgroundImage: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    buttonText = serializers.SerializerMethodField()
+    buttonLink = serializers.CharField(source='button_link')
+    backgroundImage = serializers.URLField(source='background_image')
+    
+    class Meta:
+        model = HeroSlide
+        fields = ['title', 'description', 'buttonText', 'buttonLink', 'backgroundImage']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_description(self, obj):
+        """Return description based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.description_bg if lang == 'bg' else obj.description_en
+    
+    def get_buttonText(self, obj):
+        """Return button text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.button_text_bg if lang == 'bg' else obj.button_text_en
+
+
+class CustomersSectionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for CustomersSection model
+    Returns data in format:
+    {
+        title: string,
+        subtitle: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    subtitle = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = CustomersSection
+        fields = ['title', 'subtitle']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_subtitle(self, obj):
+        """Return subtitle based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.subtitle_bg if lang == 'bg' else obj.subtitle_en
+
+
+class AchievementSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Achievement model
+    Returns data in format:
+    {
+        title: string,
+        count: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Achievement
+        fields = ['title', 'count']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+
+
+class PartnerSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Partner model
+    Returns data in format:
+    {
+        name: string,
+        logoUrl: string
+    }
+    """
+    logoUrl = serializers.URLField(source='logo_url')
+    
+    class Meta:
+        model = Partner
+        fields = ['name', 'logoUrl']
+
+
+class WhyGenerixSectionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for WhyGenerixSection model
+    Returns data in format:
+    {
+        title: string,
+        paragraph1: string,
+        paragraph2: string,
+        paragraph3: string,
+        buttonText: string,
+        buttonLink: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    paragraph1 = serializers.SerializerMethodField()
+    paragraph2 = serializers.SerializerMethodField()
+    paragraph3 = serializers.SerializerMethodField()
+    buttonText = serializers.SerializerMethodField()
+    buttonLink = serializers.CharField(source='button_link')
+    
+    class Meta:
+        model = WhyGenerixSection
+        fields = ['title', 'paragraph1', 'paragraph2', 'paragraph3', 'buttonText', 'buttonLink']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_paragraph1(self, obj):
+        """Return paragraph1 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph1_bg if lang == 'bg' else obj.paragraph1_en
+    
+    def get_paragraph2(self, obj):
+        """Return paragraph2 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph2_bg if lang == 'bg' else obj.paragraph2_en
+    
+    def get_paragraph3(self, obj):
+        """Return paragraph3 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph3_bg if lang == 'bg' else obj.paragraph3_en
+    
+    def get_buttonText(self, obj):
+        """Return button text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.button_text_bg if lang == 'bg' else obj.button_text_en
+
+
+class CaseStudySlideSerializer(serializers.ModelSerializer):
+    """
+    Serializer for CaseStudySlide model
+    Returns data in format:
+    {
+        title: string,
+        category: string,
+        buttonText: string,
+        buttonLink: string,
+        backgroundImage: string,
+        overlayImage: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    buttonText = serializers.SerializerMethodField()
+    buttonLink = serializers.CharField(source='button_link')
+    backgroundImage = serializers.URLField(source='background_image')
+    overlayImage = serializers.URLField(source='overlay_image')
+    
+    class Meta:
+        model = CaseStudySlide
+        fields = ['title', 'category', 'buttonText', 'buttonLink', 'backgroundImage', 'overlayImage']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_category(self, obj):
+        """Return category based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.category_bg if lang == 'bg' else obj.category_en
+    
+    def get_buttonText(self, obj):
+        """Return button text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.button_text_bg if lang == 'bg' else obj.button_text_en
+
+
+class AboutUsTestimonialSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AboutUsTestimonial model
+    Returns data in format:
+    {
+        quote: string,
+        authorName: string,
+        authorTitle: string,
+        authorQuote: string,
+        authorImage: string
+    }
+    """
+    quote = serializers.SerializerMethodField()
+    authorName = serializers.SerializerMethodField()
+    authorTitle = serializers.SerializerMethodField()
+    authorQuote = serializers.SerializerMethodField()
+    authorImage = serializers.URLField(source='author_image')
+    
+    class Meta:
+        model = AboutUsTestimonial
+        fields = ['quote', 'authorName', 'authorTitle', 'authorQuote', 'authorImage']
+    
+    def get_quote(self, obj):
+        """Return quote based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.quote_bg if lang == 'bg' else obj.quote_en
+    
+    def get_authorName(self, obj):
+        """Return author name based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.author_name_bg if lang == 'bg' else obj.author_name_en
+    
+    def get_authorTitle(self, obj):
+        """Return author title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.author_title_bg if lang == 'bg' else obj.author_title_en
+    
+    def get_authorQuote(self, obj):
+        """Return author quote based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.author_quote_bg if lang == 'bg' else obj.author_quote_en
+
+
+class PlatformsSectionHeaderSerializer(serializers.ModelSerializer):
+    """
+    Serializer for PlatformsSectionHeader model
+    Returns data in format:
+    {
+        title: string,
+        subtitle: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    subtitle = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = PlatformsSectionHeader
+        fields = ['title', 'subtitle']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_subtitle(self, obj):
+        """Return subtitle based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.subtitle_bg if lang == 'bg' else obj.subtitle_en
+
+
+class AboutPageHeroSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AboutPageHero model
+    Returns data in format:
+    {
+        heroTitle: string,
+        paragraph1: string,
+        paragraph2: string,
+        paragraph3: string
+    }
+    """
+    heroTitle = serializers.SerializerMethodField()
+    paragraph1 = serializers.SerializerMethodField()
+    paragraph2 = serializers.SerializerMethodField()
+    paragraph3 = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = AboutPageHero
+        fields = ['heroTitle', 'paragraph1', 'paragraph2', 'paragraph3']
+    
+    def get_heroTitle(self, obj):
+        """Return hero title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.hero_title_bg if lang == 'bg' else obj.hero_title_en
+    
+    def get_paragraph1(self, obj):
+        """Return paragraph 1 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph1_bg if lang == 'bg' else obj.paragraph1_en
+    
+    def get_paragraph2(self, obj):
+        """Return paragraph 2 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph2_bg if lang == 'bg' else obj.paragraph2_en
+    
+    def get_paragraph3(self, obj):
+        """Return paragraph 3 based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.paragraph3_bg if lang == 'bg' else obj.paragraph3_en
+
+
+class HomePageCTASerializer(serializers.ModelSerializer):
+    """
+    Serializer for HomePageCTA model (white version)
+    Returns data in format:
+    {
+        title: string,
+        buttonText: string,
+        buttonLink: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    buttonText = serializers.SerializerMethodField()
+    buttonLink = serializers.CharField(source='button_link')
+    
+    class Meta:
+        model = HomePageCTA
+        fields = ['title', 'buttonText', 'buttonLink']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_buttonText(self, obj):
+        """Return button text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.button_text_bg if lang == 'bg' else obj.button_text_en
+
+
+class CallToActionSerializer(serializers.ModelSerializer):
+    """
+    Serializer for CallToAction model (gradient version)
+    Returns data in format:
+    {
+        name: string,
+        title: string,
+        description: string,
+        buttonText: string,
+        buttonLink: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    buttonText = serializers.SerializerMethodField()
+    buttonLink = serializers.CharField(source='button_link')
+    
+    class Meta:
+        model = CallToAction
+        fields = ['name', 'title', 'description', 'buttonText', 'buttonLink']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_description(self, obj):
+        """Return description based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.description_bg if lang == 'bg' else obj.description_en
+    
+    def get_buttonText(self, obj):
+        """Return button text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.button_text_bg if lang == 'bg' else obj.button_text_en
+
+
+class PlatformFeatureSerializer(serializers.ModelSerializer):
+    """
+    Serializer for PlatformFeature model
+    Returns data in format:
+    {
+        title: string,
+        description: string,
+        iconUrl: string
+    }
+    """
+    title = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    iconUrl = serializers.URLField(source='icon_url')
+    
+    class Meta:
+        model = PlatformFeature
+        fields = ['title', 'description', 'iconUrl']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_description(self, obj):
+        """Return description based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.description_bg if lang == 'bg' else obj.description_en
+
+
+class PlatformCardSerializer(serializers.ModelSerializer):
+    """
+    Serializer for PlatformCard model
+    Returns data in format matching Angular interface:
+    {
+        title: string,
+        imageUrl: string,
+        link: string,
+        items: string[],
+        hoverColor: string,
+        isPlatform: boolean,
+        heroTitle?: string,  // Only for platforms
+        subtitle?: string    // Only for platforms
+    }
+    """
+    title = serializers.SerializerMethodField()
+    imageUrl = serializers.URLField(source='image_url')
+    link = serializers.CharField(source='route')
+    items = serializers.SerializerMethodField()
+    hoverColor = serializers.CharField(source='hover_color')
+    isPlatform = serializers.BooleanField(source='is_platform')
+    heroTitle = serializers.SerializerMethodField()
+    subtitle = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = PlatformCard
+        fields = ['title', 'imageUrl', 'link', 'items', 'hoverColor', 'isPlatform', 'heroTitle', 'subtitle']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_items(self, obj):
+        """Return items list based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.get_items_bg() if lang == 'bg' else obj.get_items_en()
+    
+    def get_heroTitle(self, obj):
+        """Return hero title based on language from context (only for platforms)"""
+        if not obj.is_platform:
+            return None
+        lang = self.context.get('lang', 'en')
+        return obj.hero_title_bg if lang == 'bg' else obj.hero_title_en
+    
+    def get_subtitle(self, obj):
+        """Return subtitle based on language from context (only for platforms)"""
+        if not obj.is_platform:
+            return None
+        lang = self.context.get('lang', 'en')
+        return obj.subtitle_bg if lang == 'bg' else obj.subtitle_en
+
+
+class ThemeSettingsSerializer(serializers.ModelSerializer):
+    """
+    Serializer for ThemeSettings - returns CSS custom properties
+    Returns data in format matching CSS variables:
+    {
+        primaryDark: string,
+        primaryLight: string,
+        background: string,
+        text: string,
+        white: string,
+        accent: string,
+        accentHover: string,
+        hoverIndigo: string,
+        hoverPink: string,
+        hoverCyan: string,
+        success: string,
+        warning: string,
+        error: string,
+        info: string,
+        textDark: string,
+        textSecondary: string,
+        neutral: string,
+        grayLight: string,
+        grayMedium: string,
+        grayDark: string,
+        borderGray: string,
+        black: string,
+        backgroundSecondary: string
+    }
+    """
+    primaryDark = serializers.CharField(source='color_primary_dark')
+    primaryLight = serializers.CharField(source='color_primary_light')
+    background = serializers.CharField(source='color_background')
+    text = serializers.CharField(source='color_text')
+    white = serializers.CharField(source='color_white')
+    accent = serializers.CharField(source='color_accent')
+    accentHover = serializers.CharField(source='color_accent_hover')
+    hoverIndigo = serializers.CharField(source='color_hover_indigo')
+    hoverPink = serializers.CharField(source='color_hover_pink')
+    hoverCyan = serializers.CharField(source='color_hover_cyan')
+    success = serializers.CharField(source='color_success')
+    warning = serializers.CharField(source='color_warning')
+    error = serializers.CharField(source='color_error')
+    info = serializers.CharField(source='color_info')
+    textDark = serializers.CharField(source='color_text_dark')
+    textSecondary = serializers.CharField(source='color_text_secondary')
+    neutral = serializers.CharField(source='color_neutral')
+    grayLight = serializers.CharField(source='color_gray_light')
+    grayMedium = serializers.CharField(source='color_gray_medium')
+    grayDark = serializers.CharField(source='color_gray_dark')
+    borderGray = serializers.CharField(source='color_border_gray')
+    black = serializers.CharField(source='color_black')
+    backgroundSecondary = serializers.CharField(source='color_background_secondary')
+    backgroundAlt = serializers.CharField(source='color_background_alt')
+    
+    class Meta:
+        model = ThemeSettings
+        fields = [
+            'primaryDark',
+            'primaryLight',
+            'background',
+            'text',
+            'white',
+            'accent',
+            'accentHover',
+            'hoverIndigo',
+            'hoverPink',
+            'hoverCyan',
+            'success',
+            'warning',
+            'error',
+            'info',
+            'textDark',
+            'textSecondary',
+            'neutral',
+            'grayLight',
+            'grayMedium',
+            'grayDark',
+            'borderGray',
+            'black',
+            'backgroundSecondary',
+            'backgroundAlt'
+        ]
+
+
+class TestimonialCardSerializer(serializers.ModelSerializer):
+    """
+    Serializer for TestimonialCard
+    Returns data in format:
+    {
+        logoUrl: string,
+        name: string,
+        description: string
+    }
+    """
+    logoUrl = serializers.URLField(source='logo_url')
+    name = serializers.SerializerMethodField()
+    description = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = TestimonialCard
+        fields = ['logoUrl', 'name', 'description']
+    
+    def get_name(self, obj):
+        """Return name based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.name_bg if lang == 'bg' else obj.name_en
+    
+    def get_description(self, obj):
+        """Return description based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.description_bg if lang == 'bg' else obj.description_en
+
+
+class AboutUsImageContentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AboutUsImageContent - "Our Purpose" section
+    Returns content based on language (en/bg)
+    """
+    imageUrl = serializers.URLField(source='image_url', allow_blank=True, allow_null=True)
+    purposeTitle = serializers.SerializerMethodField()
+    purposeDescription = serializers.SerializerMethodField()
+    purposeText = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = AboutUsImageContent
+        fields = ['imageUrl', 'purposeTitle', 'purposeDescription', 'purposeText']
+    
+    def get_purposeTitle(self, obj):
+        """Return purpose title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.purpose_title_bg if lang == 'bg' else obj.purpose_title_en
+    
+    def get_purposeDescription(self, obj):
+        """Return purpose description based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.purpose_description_bg if lang == 'bg' else obj.purpose_description_en
+    
+    def get_purposeText(self, obj):
+        """Return purpose text based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.purpose_text_bg if lang == 'bg' else obj.purpose_text_en
+
+
+class AboutPageAchievementsSerializer(serializers.ModelSerializer):
+    """
+    Serializer for AboutPageAchievements header section
+    Returns header content based on language (en/bg)
+    """
+    title = serializers.SerializerMethodField()
+    subtitle = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = AboutPageAchievements
+        fields = ['title', 'subtitle']
+    
+    def get_title(self, obj):
+        """Return title based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.title_bg if lang == 'bg' else obj.title_en
+    
+    def get_subtitle(self, obj):
+        """Return subtitle based on language from context"""
+        lang = self.context.get('lang', 'en')
+        return obj.subtitle_bg if lang == 'bg' else obj.subtitle_en
+
+
+class ContactPageContentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for ContactPageContent
+    Returns content based on language (en/bg)
+    """
+    class Meta:
+        model = ContactPageContent
+        fields = [
+            'hero_title_en',
+            'title_en',
+            'subtitle_en',
+            'address_line1_en',
+            'address_line2_en',
+            'email',
+            'hero_title_bg',
+            'title_bg',
+            'subtitle_bg',
+            'address_line1_bg',
+            'address_line2_bg',
+        ]

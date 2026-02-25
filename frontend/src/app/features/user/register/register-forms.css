@@ -1,0 +1,61 @@
+/* Error message styles */
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #f5c6cb;
+}
+
+.invalid-input {
+  border: 1px solid #dc3545 !important;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* Password field styles - completely new approach */
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding-right: 40px;
+}
+
+/* Password toggle button styles */
+.toggle-password-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--color-primary-light);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 5px 10px;
+  z-index: 10;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.toggle-password-btn:hover {
+  opacity: 1;
+}
+
+.toggle-password-btn:focus {
+  outline: none;
+}
+
+.btn-text {
+  display: inline-block;
+}

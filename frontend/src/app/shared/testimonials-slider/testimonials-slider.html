@@ -1,0 +1,37 @@
+<div class="swiper-wrapper-card_CAU">
+    <!-- Loading skeleton -->
+    <div *ngIf="isLoading" class="testimonials-loading">
+        <div class="skeleton-card" *ngFor="let i of [1, 2, 3]">
+            <div class="skeleton-image"></div>
+            <div class="skeleton-text">
+                <div class="skeleton-line"></div>
+                <div class="skeleton-line short"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials slider -->
+    <div *ngIf="!isLoading" class="swiper card_CAU swiper-initialized swiper-horizontal swiper-backface-hidden">
+        <div class="swiper-wrapper" id="swiper-wrapper" aria-live="polite">
+            <div class="swiper-slide singleCard_CAU" *ngFor="let card of cards">
+                <div class="singleCard_CAU_img">
+                    <img [src]="card.logoUrl" [alt]="card.name" />
+                </div>
+                <div class="singleCard_CAU_text">
+                    <p>{{ card.description }}</p>
+                    <h4>{{ card.name }}</h4>
+                </div>
+
+                <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation buttons -->
+    <div *ngIf="!isLoading" class="swiperBtnPN">
+        <div class="swiper-button-prev prevIcon" tabindex="0" role="button" aria-label="Previous slide"
+            aria-controls="swiper-wrapper"></div>
+        <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide"
+            aria-controls="swiper-wrapper"></div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<section class="our-platforms">
+    <!-- Loading Skeleton -->
+    <div *ngIf="isLoading" class="our-platforms-wrapper">
+        <div class="our-platforms-header">
+            <div class="skeleton-title"></div>
+            <div class="skeleton-subtitle"></div>
+        </div>
+
+        <div class="our-platforms-cards">
+            <div class="skeleton-card" *ngFor="let i of [1, 2, 3]">
+                <div class="skeleton-card-image"></div>
+                <div class="skeleton-card-title"></div>
+                <div class="skeleton-card-items">
+                    <div class="skeleton-item"></div>
+                    <div class="skeleton-item"></div>
+                    <div class="skeleton-item"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Actual Content -->
+    <div *ngIf="!isLoading" class="our-platforms-wrapper">
+        <div class="our-platforms-header fade-in">
+            <h2 class="our-platforms-title">{{ header?.title }}</h2>
+
+            <div class="our-platforms-subtitle">
+                <p>{{ header?.subtitle }}</p>
+            </div>
+        </div>
+
+        <div class="our-platforms-cards">
+            <app-platform-card class="fade-in-up" *ngFor="let card of cards; let i = index" 
+                               [card]="card" [index]="i" 
+                               [style.animation-delay.ms]="i * 150"></app-platform-card>
+        </div>
+    </div>
+    <div class="our-platforms-blue-bar"></div>
+</section>

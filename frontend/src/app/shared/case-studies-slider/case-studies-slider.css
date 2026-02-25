@@ -1,0 +1,562 @@
+.case-study-carousel {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  width: 100%;
+  margin: 80px auto 60px auto;
+  height: 400px; /* Fixed height instead of 100% */
+  transform: translateZ(0); /* Hardware acceleration */
+  backface-visibility: hidden; /* Improves rendering */
+  will-change: transform; /* Hints the browser to optimize transformations */
+  cursor: pointer;
+}
+
+.case-study-slide {
+  background: var(--gradient-primary); /* Base gradient - z-index: 0 */
+  color: var(--color-white);
+  padding: 60px;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0); /* Hardware acceleration */
+}
+
+/* Background image layer - on top of gradient */
+.case-study-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* Gradient overlay layer - on top of background image */
+.case-study-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gradient-overlay);
+  z-index: 2;
+  pointer-events: none; /* Allow clicks to pass through to content below */
+}
+
+.case-study-content {
+  flex: 1;
+  position: relative;
+  z-index: 4; /* Text and buttons on top of everything */
+}
+
+.case-study-category {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--color-white);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 4px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.case-study-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  line-height: 1.3;
+  max-width: 500px;
+  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.2s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+.case-study-content .main-button {
+  position: relative;
+  animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s;
+  opacity: 0;
+  animation-fill-mode: forwards;
+  pointer-events: auto; /* Ensure button is clickable */
+}
+
+.case-study-image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1; /* Same level as background, part of the image layer */
+  opacity: 0;
+  animation: fadeInRight 1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  animation-fill-mode: forwards;
+}
+
+/* Additional Swiper styles for fixing 100% height */
+.swiper.case-studies-swiper {
+  height: 100%;
+}
+
+.swiper-wrapper {
+  height: 100%;
+}
+
+.swiper-slide {
+  height: 100%;
+  transform: translateZ(0); /* Forcing hardware acceleration */
+}
+
+.case-study-carousel,
+.swiper.case-studies-swiper,
+.swiper-wrapper,
+.swiper-slide {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Loading Skeleton Styles */
+.case-study-skeleton {
+  background: var(--gradient-primary);
+  color: var(--color-white);
+  padding: 60px;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.skeleton-content {
+  flex: 1;
+  z-index: 2;
+}
+
+.skeleton-category {
+  display: inline-block;
+  width: 100px;
+  height: 24px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  margin-bottom: 12px;
+}
+
+.skeleton-title {
+  width: 500px;
+  max-width: 80%;
+  height: 96px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  animation-delay: 0.1s;
+}
+
+.skeleton-button {
+  width: 180px;
+  height: 48px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 24px;
+  animation-delay: 0.2s;
+}
+
+.skeleton-image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  animation-delay: 0.3s;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ===============================
+   Responsive breakpoints
+   =============================== */
+
+/* 1440px - Large desktop */
+@media (max-width: 1440px) {
+  .case-study-carousel {
+    margin: 60px auto 50px auto;
+    height: 380px;
+  }
+
+  .case-study-slide {
+    padding: 50px;
+    min-height: 380px;
+  }
+
+  .case-study-title {
+    font-size: 30px;
+    max-width: 480px;
+  }
+
+  .case-study-image {
+    width: 48%;
+  }
+}
+
+/* 1024px - Medium desktop / Tablet landscape */
+@media (max-width: 1024px) {
+  .case-study-carousel {
+    margin: 50px auto 40px auto;
+    height: 350px;
+  }
+
+  .case-study-slide {
+    padding: 40px;
+    min-height: 350px;
+    background: transparent; /* Remove gradient background */
+  }
+
+  .case-study-background {
+    width: 100%; /* Full width background image */
+    opacity: 1;
+  }
+
+  .case-study-title {
+    font-size: 28px;
+    max-width: 450px;
+    margin-bottom: 25px;
+  }
+
+  .case-study-category {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .case-study-image {
+    display: none; /* Hide the decorative right image */
+  }
+}
+
+/* 768px - Tablet portrait */
+@media (max-width: 768px) {
+  .case-study-carousel {
+    margin: 40px auto 30px auto;
+    height: 320px;
+    border-radius: 8px;
+  }
+
+  .case-study-slide {
+    padding: 35px 30px;
+    min-height: 320px;
+    background: transparent; /* Remove gradient background */
+  }
+
+  .case-study-background {
+    width: 100%; /* Full width background image */
+    opacity: 1;
+  }
+
+  .case-study-content {
+    padding: 0 5px; /* Add horizontal breathing room */
+  }
+
+  .case-study-title {
+    font-size: 24px;
+    max-width: 400px;
+    margin-bottom: 24px; /* More space before button */
+    line-height: 1.35; /* Better line spacing */
+  }
+
+  .case-study-category {
+    font-size: 10px;
+    padding: 4px 8px;
+    margin-bottom: 14px; /* More space after category */
+  }
+
+  .case-study-content .main-button {
+    padding: 12px 28px;
+    font-size: 15px;
+    margin-top: 8px; /* Extra spacing above button */
+  }
+
+  .case-study-image {
+    display: none; /* Hide the decorative right image */
+  }
+
+  /* Skeleton adjustments */
+  .case-study-skeleton {
+    padding: 35px 30px;
+    min-height: 320px;
+    background: transparent;
+  }
+  
+  .skeleton-title {
+    height: 72px;
+    max-width: 85%;
+  }
+  
+  .skeleton-button {
+    width: 150px;
+    height: 44px;
+  }
+  
+  .skeleton-image {
+    display: none; /* Hide skeleton image too */
+  }
+}
+
+/* 425px - Large mobile */
+@media (max-width: 425px) {
+  .case-study-carousel {
+    margin: 30px auto 25px auto;
+    height: 280px;
+  }
+
+  .case-study-slide {
+    padding: 25px 20px;
+    min-height: 280px;
+    flex-direction: column;
+    justify-content: center;
+    background: transparent; /* Remove gradient background */
+  }
+
+  .case-study-background {
+    width: 100%; /* Full width background image */
+    opacity: 1;
+  }
+
+  .case-study-content {
+    padding: 0 4px; /* Horizontal breathing room */
+  }
+
+  .case-study-title {
+    font-size: 20px;
+    max-width: 100%;
+    margin-bottom: 18px; /* Adjusted spacing */
+    line-height: 1.3; /* Better readability */
+  }
+
+  .case-study-category {
+    font-size: 9px;
+    padding: 3px 7px;
+    margin-bottom: 12px;
+  }
+
+  .case-study-content .main-button {
+    padding: 10px 24px;
+    font-size: 14px;
+    margin-top: 6px; /* Reduced spacing */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-study-image {
+    display: none; /* Hide the decorative right image */
+  }
+
+  /* Skeleton adjustments */
+  .case-study-skeleton {
+    padding: 25px 20px;
+    min-height: 280px;
+    background: transparent;
+  }
+  
+  .skeleton-category {
+    width: 70px;
+    height: 18px;
+  }
+  
+  .skeleton-title {
+    height: 60px;
+    max-width: 90%;
+    margin-bottom: 18px;
+  }
+  
+  .skeleton-button {
+    width: 140px;
+    height: 40px;
+  }
+  
+  .skeleton-image {
+    display: none;
+  }
+}
+
+/* 375px - Medium mobile (iPhone SE, etc.) */
+@media (max-width: 375px) {
+  .case-study-carousel {
+    margin: 25px auto 20px auto;
+    height: 260px;
+  }
+
+  .case-study-slide {
+    padding: 22px 18px;
+    min-height: 260px;
+    background: transparent; /* Remove gradient background */
+    justify-content: center;
+  }
+
+  .case-study-background {
+    width: 100%; /* Full width background image */
+    opacity: 1;
+  }
+
+  .case-study-content {
+    padding: 0 3px; /* Horizontal breathing room */
+  }
+
+  .case-study-title {
+    font-size: 18px;
+    margin-bottom: 16px; /* Adjusted spacing */
+    line-height: 1.28; /* Better readability */
+  }
+
+  .case-study-category {
+    font-size: 8px;
+    padding: 3px 6px;
+    margin-bottom: 10px;
+  }
+
+  .case-study-content .main-button {
+    padding: 9px 20px;
+    font-size: 13px;
+    margin-top: 6px; /* Reduced spacing */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-study-image {
+    display: none; /* Hide the decorative right image */
+  }
+
+  /* Skeleton adjustments */
+  .case-study-skeleton {
+    padding: 22px 18px;
+    min-height: 260px;
+    background: transparent;
+  }
+  
+  .skeleton-category {
+    width: 65px;
+    height: 16px;
+  }
+  
+  .skeleton-title {
+    height: 54px;
+    max-width: 92%;
+    margin-bottom: 16px;
+  }
+  
+  .skeleton-button {
+    width: 130px;
+    height: 38px;
+  }
+  
+  .skeleton-image {
+    display: none;
+  }
+}
+
+/* 320px - Smallest mobile */
+@media (max-width: 320px) {
+  .case-study-carousel {
+    margin: 20px auto 15px auto;
+    height: 240px;
+    border-radius: 6px;
+  }
+
+  .case-study-slide {
+    padding: 20px 16px;
+    min-height: 240px;
+    background: transparent; /* Remove gradient background */
+    justify-content: center;
+  }
+
+  .case-study-background {
+    width: 100%; /* Full width background image */
+    opacity: 1;
+  }
+
+  .case-study-content {
+    padding: 0 2px; /* Minimal horizontal breathing room */
+  }
+
+  .case-study-title {
+    font-size: 16px;
+    margin-bottom: 15px; /* Adjusted spacing */
+    line-height: 1.22; /* Optimal readability */
+  }
+
+  .case-study-category {
+    font-size: 7px;
+    padding: 2px 5px;
+    margin-bottom: 9px;
+  }
+
+  .case-study-content .main-button {
+    padding: 8px 18px;
+    font-size: 12px;
+    margin-top: 8px; /* Reduced spacing */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .case-study-image {
+    display: none; /* Hide image completely on very small screens */
+  }
+
+  /* Skeleton adjustments */
+  .case-study-skeleton {
+    padding: 20px 16px;
+    min-height: 240px;
+    background: transparent;
+  }
+  
+  .skeleton-category {
+    width: 60px;
+    height: 14px;
+  }
+  
+  .skeleton-title {
+    height: 48px;
+    max-width: 95%;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-button {
+    width: 120px;
+    height: 36px;
+  }
+  
+  .skeleton-image {
+    display: none;
+  }
+}

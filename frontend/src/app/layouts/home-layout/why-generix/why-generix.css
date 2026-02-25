@@ -1,0 +1,513 @@
+.clientsAboutUs {
+  padding: 80px 0 0;
+  color: var(--color-text-dark);
+}
+
+.clientsAboutUs .container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.clientsAboutUsContain h2 {
+  color: var(--color-text-dark);
+  margin-bottom: 3rem;
+  font-size: 48px;
+  font-weight: 600;
+  line-height: 1.2;
+  font-family: var(--font-heading);
+}
+
+.clientsAboutUsContain .clientsAboutUs-subtitle {
+  font-size: 28px;
+  max-width: 77%;
+  color: var(--color-primary-dark);
+  font-weight: bold;
+  line-height: 1.4;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 30px;
+  align-items: baseline;
+}
+
+.clientsAboutUsContain .clientsAboutUs-subtitle::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-hover-indigo);
+  border-radius: 50%;
+  margin-top: 50px;
+  flex-shrink: 0;
+}
+
+.awards-section {
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.awards-text {
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--color-text);
+  margin-bottom: 40px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.awards-text::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background-color: var(--color-primary-light);
+  border-radius: 50%;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.awards-description {
+  font-size: 16px;
+  color: var(--color-gray-light);
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.awards-logos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.award-logo {
+  height: 60px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  object-fit: contain;
+}
+
+.award-logo:hover {
+  opacity: 1;
+}
+
+.awards-section .main-button {
+  margin: 0 auto; /* Center the button */
+  display: inline-flex; /* Better text centering */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Large Desktop (1440px - 1920px) */
+@media screen and (max-width: 1920px) {
+  .clientsAboutUs .container {
+    max-width: 1300px;
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 36px;
+    margin-bottom: 4rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 28px;
+    max-width: 80%;
+  }
+}
+
+/* Desktop (1024px - 1439px) */
+@media screen and (max-width: 1440px) {
+  .clientsAboutUs {
+    padding: 80px 0 0;
+  }
+
+  .clientsAboutUs .container {
+    max-width: 1140px;
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 34px;
+    margin-bottom: 3.5rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 26px;
+    max-width: 85%;
+    margin-bottom: 35px;
+    gap: 25px;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+/* Tablet (768px - 1023px) */
+@media screen and (max-width: 1024px) {
+  .clientsAboutUs {
+    padding: 70px 60px 0;
+    overflow: hidden;
+  }
+
+  .clientsAboutUs .container {
+    max-width: 900px;
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 32px;
+    margin-bottom: 3rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 24px;
+    max-width: 90%;
+    margin-bottom: 30px;
+    gap: 0; /* Remove gap since ::before is hidden */
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    display: none; /* Hide the circle on mobile/tablet */
+  }
+
+  .awards-section {
+    margin-bottom: 30px;
+  }
+
+  .main-button {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+}
+
+/* Small Tablet (426px - 767px) */
+@media screen and (max-width: 768px) {
+  .clientsAboutUs {
+    padding: 60px 0 0;
+  }
+
+  .clientsAboutUs .container {
+    max-width: 720px;
+    padding: 0 20px; /* More breathing room */
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 28px;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 22px;
+    max-width: 100%;
+    margin-bottom: 25px;
+    gap: 0; /* Remove gap since ::before is hidden */
+    text-align: left; /* Align text properly */
+    padding: 0 5px; /* Add some padding */
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    display: none; /* Hide the circle */
+  }
+
+  .awards-section {
+    margin-bottom: 25px;
+    align-items: center;
+  }
+
+  .awards-section .clientsAboutUs-subtitle {
+    text-align: left; /* Center text in awards section */
+  }
+
+  .main-button {
+    font-size: 14px;
+    padding: 10px 24px; /* Better padding for centered text */
+    display: block;
+    margin: 0 auto;
+    max-width: fit-content;
+  }
+}
+
+/* Mobile Landscape (375px - 425px) */
+@media screen and (max-width: 425px) {
+  .clientsAboutUs {
+    padding: 50px 0 0;
+  }
+
+  .clientsAboutUs .container {
+    padding: 0 18px; /* More breathing room on mobile */
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 26px;
+    margin-bottom: 2rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+    gap: 0; /* Remove gap since ::before is hidden */
+    padding: 0 5px; /* Add padding for breathing room */
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    display: none; /* Hide the circle */
+  }
+
+  .main-button {
+    padding: 10px 24px; /* Better padding */
+  }
+}
+
+/* Mobile Portrait (320px - 374px) */
+@media screen and (max-width: 375px) {
+  .clientsAboutUs {
+    padding: 40px 0 0;
+  }
+
+  .clientsAboutUs .container {
+    padding: 0 16px; /* Good breathing room */
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 24px;
+    margin-bottom: 1.8rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 18px;
+    margin-bottom: 18px;
+    gap: 0; /* Remove gap since ::before is hidden */
+    padding: 0 4px; /* Add padding for breathing room */
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    display: none; /* Hide the circle */
+  }
+
+  .main-button {
+    padding: 9px 20px; /* Better centered text */
+  }
+}
+
+/* Extra Small Mobile (0px - 319px) */
+@media screen and (max-width: 320px) {
+  .clientsAboutUs {
+    padding: 30px 0 0;
+  }
+
+  .clientsAboutUs .container {
+    padding: 0 15px; /* Essential breathing room */
+  }
+
+  .clientsAboutUsContain h2 {
+    font-size: 22px;
+    margin-bottom: 1.5rem;
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle {
+    font-size: 16px;
+    margin-bottom: 15px;
+    gap: 0; /* Remove gap since ::before is hidden */
+    padding: 0 3px; /* Add padding for breathing room */
+  }
+
+  .clientsAboutUsContain .clientsAboutUs-subtitle::before {
+    display: none; /* Hide the circle */
+  }
+
+  .main-button {
+    font-size: 12px;
+    padding: 9px 18px; /* Better centered text */
+  }
+}
+
+
+/* Loading Skeleton Styles */
+.skeleton-title {
+  height: 48px;
+  width: 50%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 3rem;
+}
+
+.skeleton-paragraph {
+  height: 80px;
+  width: 77%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 40px;
+}
+
+.skeleton-paragraph:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+.skeleton-paragraph:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+.awards-section .skeleton-paragraph {
+  animation-delay: 0.3s;
+}
+
+.skeleton-slider {
+  height: 400px;
+  width: 100%;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 12px;
+  margin-bottom: 40px;
+}
+
+.skeleton-slider:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.skeleton-slider:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.skeleton-button {
+  height: 48px;
+  width: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 24px;
+  margin: 0 20px;
+  animation-delay: 0.4s;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+@media screen and (max-width: 1920px) {
+  .skeleton-title {
+    width: 45%;
+    margin-bottom: 4rem;
+  }
+  
+  .skeleton-paragraph {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .skeleton-title {
+    height: 34px;
+    margin-bottom: 3.5rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 75px;
+    width: 85%;
+    margin-bottom: 35px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .skeleton-title {
+    height: 32px;
+    margin-bottom: 3rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 70px;
+    width: 90%;
+    margin-bottom: 30px;
+  }
+  
+  .skeleton-slider {
+    height: 350px;
+    margin-bottom: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .skeleton-title {
+    height: 28px;
+    width: 70%;
+    margin: 0 auto 2.5rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 65px;
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  
+  .skeleton-slider {
+    height: 300px;
+    margin-bottom: 25px;
+  }
+  
+  .skeleton-button {
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .skeleton-title {
+    height: 26px;
+    margin-bottom: 2rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 60px;
+    margin-bottom: 20px;
+  }
+  
+  .skeleton-slider {
+    height: 250px;
+  }
+  
+  .skeleton-button {
+    width: 180px;
+    height: 44px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .skeleton-title {
+    height: 24px;
+    margin-bottom: 1.8rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 55px;
+    margin-bottom: 18px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .skeleton-title {
+    height: 22px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .skeleton-paragraph {
+    height: 50px;
+    margin-bottom: 15px;
+  }
+  
+  .skeleton-button {
+    width: 160px;
+    height: 40px;
+  }
+}

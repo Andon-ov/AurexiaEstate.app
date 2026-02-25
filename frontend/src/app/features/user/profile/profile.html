@@ -1,0 +1,123 @@
+<!-- Profile Template -->
+<div class="profile-container">
+  <div class="profile-header">
+    <h2>{{ translation.t('auth.profile.title') }}</h2>
+
+    <div class="profile-image-container">
+      <div class="profile-image">
+        <img [src]="profileImagePreview || (user?.profile?.profile_image_url || '/assets/images/default-profile.svg')"
+          alt="Profile image" onerror="this.src='/assets/images/default-profile.svg'" />
+        <button type="button" class="change-image-btn" (click)="triggerFileInput()">
+          {{ translation.t('auth.profile.changeImage') }}
+        </button>
+      </div>
+      <input #fileInput type="file" accept="image/*" style="display:none" (change)="onFileSelected($event)">
+    </div>
+  </div>
+
+  <!-- Email Verification Status -->
+  <div class="email-verification-status" *ngIf="user && user.profile">
+    <div class="status-indicator" [ngClass]="{'verified': user.profile.is_email_verified === true}">
+      <i class="fa-solid"
+        [ngClass]="user.profile.is_email_verified === true ? 'fa-check-circle' : 'fa-exclamation-circle'"></i>&nbsp;&nbsp;
+      <span *ngIf="user.profile.is_email_verified === true">{{ translation.t('auth.profile.emailVerified') }}</span>
+      <span *ngIf="user.profile.is_email_verified !== true">{{ translation.t('auth.profile.emailNotVerified') }}</span>
+    </div>
+    <button *ngIf="user.profile.is_email_verified !== true" type="button" class="resend-verification-btn"
+      (click)="resendVerificationEmail()" [disabled]="isResendingEmail">
+      {{ isResendingEmail ? translation.t('auth.profile.sendingEmail') :
+      translation.t('auth.profile.resendVerification') }}
+    </button>
+  </div>
+
+  <div *ngIf="successMessage" class="alert alert-success">
+    {{ successMessage }}
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+    <div class="form-group">
+      <label for="first_name">{{ translation.t('auth.profile.formLabels.firstName') }}</label>
+      <input type="text" id="first_name" formControlName="first_name" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('first_name')?.invalid && profileForm.get('first_name')?.touched}">
+      <div *ngIf="profileForm.get('first_name')?.invalid && profileForm.get('first_name')?.touched"
+        class="invalid-feedback">
+        <span *ngIf="profileForm.get('first_name')?.errors?.['required']">{{
+          translation.t('auth.profile.validationErrors.firstNameRequired') }}</span>
+        <span *ngIf="profileForm.get('first_name')?.errors?.['minlength']">{{
+          translation.t('auth.profile.validationErrors.firstNameMinLength') }}</span>
+        <span *ngIf="profileForm.get('first_name')?.errors?.['maxlength']">{{
+          translation.t('auth.profile.validationErrors.firstNameMaxLength') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">{{ translation.t('auth.profile.formLabels.lastName') }}</label>
+      <input type="text" id="last_name" formControlName="last_name" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('last_name')?.invalid && profileForm.get('last_name')?.touched}">
+      <div *ngIf="profileForm.get('last_name')?.invalid && profileForm.get('last_name')?.touched"
+        class="invalid-feedback">
+        <span *ngIf="profileForm.get('last_name')?.errors?.['required']">{{
+          translation.t('auth.profile.validationErrors.lastNameRequired') }}</span>
+        <span *ngIf="profileForm.get('last_name')?.errors?.['minlength']">{{
+          translation.t('auth.profile.validationErrors.lastNameMinLength') }}</span>
+        <span *ngIf="profileForm.get('last_name')?.errors?.['maxlength']">{{
+          translation.t('auth.profile.validationErrors.lastNameMaxLength') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">{{ translation.t('auth.profile.formLabels.email') }}</label>
+      <input type="email" id="email" formControlName="email" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('email')?.invalid && profileForm.get('email')?.touched}">
+      <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="invalid-feedback">
+        <span *ngIf="profileForm.get('email')?.errors?.['required']">{{
+          translation.t('auth.profile.validationErrors.emailRequired') }}</span>
+        <span *ngIf="profileForm.get('email')?.errors?.['email'] || profileForm.get('email')?.errors?.['pattern']">{{
+          translation.t('auth.profile.validationErrors.emailInvalid') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone_number">{{ translation.t('auth.profile.formLabels.phoneNumber') }}</label>
+      <input type="text" id="phone_number" formControlName="phone_number" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('phone_number')?.invalid && profileForm.get('phone_number')?.touched}">
+      <div *ngIf="profileForm.get('phone_number')?.invalid && profileForm.get('phone_number')?.touched"
+        class="invalid-feedback">
+        <span *ngIf="profileForm.get('phone_number')?.errors?.['pattern']">{{
+          translation.t('auth.profile.validationErrors.phoneInvalid') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="company">{{ translation.t('auth.profile.formLabels.company') }}</label>
+      <input type="text" id="company" formControlName="company" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('company')?.invalid && profileForm.get('company')?.touched}">
+      <div *ngIf="profileForm.get('company')?.invalid && profileForm.get('company')?.touched" class="invalid-feedback">
+        <span *ngIf="profileForm.get('company')?.errors?.['maxlength']">{{
+          translation.t('auth.profile.validationErrors.companyMaxLength') }}</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="position">{{ translation.t('auth.profile.formLabels.position') }}</label>
+      <input type="text" id="position" formControlName="position" class="form-control"
+        [ngClass]="{'is-invalid': profileForm.get('position')?.invalid && profileForm.get('position')?.touched}">
+      <div *ngIf="profileForm.get('position')?.invalid && profileForm.get('position')?.touched"
+        class="invalid-feedback">
+        <span *ngIf="profileForm.get('position')?.errors?.['maxlength']">{{
+          translation.t('auth.profile.validationErrors.positionMaxLength') }}</span>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="main-button" [disabled]="profileForm.invalid || isSubmitting">
+        <span *ngIf="isSubmitting">{{ translation.t('auth.profile.saving') }}</span>
+        <span *ngIf="!isSubmitting">{{ translation.t('auth.profile.saveButton') }}</span>
+      </button>
+    </div>
+  </form>
+</div>

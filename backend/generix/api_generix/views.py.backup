@@ -1,0 +1,1022 @@
+"""
+Views for handling contact form submission and sending emails via Mailjet
+"""
+import logging
+import json
+import base64
+import requests
+from django.conf import settings
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework import status
+
+# Configure logger
+logger = logging.getLogger(__name__)
+
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
+from .cache_utils import conditional_cache
+from .models import (
+    HeroSlide,
+    CustomersSection,
+    Achievement,
+    Partner,
+    PlatformCard,
+    WhyGenerixSection,
+    CaseStudySlide,
+    PlatformsSectionHeader,
+    AboutUsTestimonial,
+    AboutPageHero,
+    HomePageCTA,
+    CallToAction,
+    PlatformFeature,
+    ThemeSettings,
+    TestimonialCard,
+    ContactPageContent
+)
+from .serializers import (
+    HeroSlideSerializer, 
+    CustomersSectionSerializer,
+    AchievementSerializer,
+    PartnerSerializer,
+    PlatformCardSerializer,
+    WhyGenerixSectionSerializer,
+    CaseStudySlideSerializer,
+    PlatformsSectionHeaderSerializer,
+    AboutUsTestimonialSerializer,
+    AboutPageHeroSerializer,
+    HomePageCTASerializer,
+    CallToActionSerializer,
+    PlatformFeatureSerializer,
+    ThemeSettingsSerializer,
+    TestimonialCardSerializer,
+    ContactPageContentSerializer
+)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('hero_slides')
+def get_hero_slides(request):
+    """
+    Get all active hero slides with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get all active slides ordered by order field
+    slides = HeroSlide.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize with language context
+    serializer = HeroSlideSerializer(slides, many=True, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('platforms_section_header')
+def get_platforms_section_header(request):
+    """
+    Get Platforms section header with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    header = PlatformsSectionHeader.load()
+    
+    # Serialize with language context
+    serializer = PlatformsSectionHeaderSerializer(header, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('platform_cards')
+def get_platform_cards(request):
+    """
+    Get all active platform cards with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get all active cards ordered by order field
+    cards = PlatformCard.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize with language context
+    serializer = PlatformCardSerializer(cards, many=True, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_customers_section(request):
+    """
+    Get customers section header with language support
+    Query parameter: lang (en|bg, default: en)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    section = CustomersSection.load()
+    
+    # Serialize with language context
+    serializer = CustomersSectionSerializer(section, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_achievements(request):
+    """
+    Get all active achievements with language support
+    Query parameter: lang (en|bg, default: en)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get all active achievements ordered by order field
+    achievements = Achievement.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize with language context
+    serializer = AchievementSerializer(achievements, many=True, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_partners(request):
+    """
+    Get all active partners
+    No language parameter needed - only logo URLs
+    """
+    # Get all active partners ordered by order field
+    partners = Partner.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize
+    serializer = PartnerSerializer(partners, many=True)
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('why_generix_section')
+def get_why_generix_section(request):
+    """
+    Get Why Generix section content with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    section = WhyGenerixSection.load()
+    
+    # Serialize with language context
+    serializer = WhyGenerixSectionSerializer(section, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('case_study_slides')
+def get_case_study_slides(request):
+    """
+    Get all active case study slides with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get all active slides ordered by order field
+    slides = CaseStudySlide.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize with language context
+    serializer = CaseStudySlideSerializer(slides, many=True, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('about_us_testimonial')
+def get_about_us_testimonial(request):
+    """
+    Get About Us testimonial with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    testimonial = AboutUsTestimonial.load()
+    
+    # Serialize with language context
+    serializer = AboutUsTestimonialSerializer(testimonial, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('about_page_hero')
+def get_about_page_hero(request):
+    """
+    Get About Page Hero & Content with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    about_hero = AboutPageHero.load()
+    
+    # Serialize with language context
+    serializer = AboutPageHeroSerializer(about_hero, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_home_page_cta(request):
+    """
+    Get Home Page CTA (white version) with language support
+    Query parameter: lang (en|bg, default: en)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get or create singleton instance
+    cta = HomePageCTA.load()
+    
+    # Serialize with language context
+    serializer = HomePageCTASerializer(cta, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('call_to_action')
+def get_call_to_action(request, name):
+    """
+    Get a specific Call-to-Action (gradient version) by name with language support
+    URL parameter: name (identifier of the CTA)
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get CTA by name
+    try:
+        cta = CallToAction.objects.get(name=name, is_active=True)
+    except CallToAction.DoesNotExist:
+        return Response(
+            {'error': f'Call-to-Action with name "{name}" not found or not active'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+    
+    # Serialize with language context
+    serializer = CallToActionSerializer(cta, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('platform_features')
+def get_platform_features(request, slug):
+    """
+    Get platform features by platform slug with language support
+    URL parameter: slug (platform route slug, e.g., 'corporate-business')
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    Returns: Platform info and list of features (maximum 6)
+    Response format:
+    {
+        "platform": {
+            "heroTitle": "...",
+            "subtitle": "...",
+            "title": "...",
+            ...
+        },
+        "features": [...]
+    }
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Find platform by slug in route
+    # Route format: /platforms/corporate-business
+    route = f'/platforms/{slug}'
+    
+    try:
+        platform = PlatformCard.objects.get(route=route, is_platform=True, is_active=True)
+    except PlatformCard.DoesNotExist:
+        return Response(
+            {'error': f'Platform with slug "{slug}" not found or not active'}, 
+            status=status.HTTP_404_NOT_FOUND
+        )
+    
+    # Get features for this platform (maximum 6, ordered)
+    features = PlatformFeature.objects.filter(
+        platform=platform,
+        is_active=True
+    ).order_by('order')[:6]
+    
+    # Serialize platform and features with language context
+    platform_serializer = PlatformCardSerializer(platform, context={'lang': lang})
+    features_serializer = PlatformFeatureSerializer(features, many=True, context={'lang': lang})
+    
+    return Response({
+        'platform': platform_serializer.data,
+        'features': features_serializer.data
+    })
+
+@csrf_exempt  # Disable CSRF protection for this API endpoint
+@api_view(['POST', 'OPTIONS'])
+@permission_classes([AllowAny])
+def contact_form_submit(request):
+    """
+    Handle contact form submissions and send email via Mailjet
+    """
+    # Print debug info
+    print(f"Request method: {request.method}")
+    print(f"Request headers: {request.headers}")
+    print(f"Request data: {request.data}")
+    
+    # Handle preflight OPTIONS request
+    if request.method == 'OPTIONS':
+        response = JsonResponse({})
+        response['Access-Control-Allow-Origin'] = '*'  # Allow any origin
+        response['Access-Control-Allow-Methods'] = 'POST, OPTIONS'
+        response['Access-Control-Allow-Headers'] = 'Content-Type, X-Requested-With'
+        return response
+    try:
+        # Get form data
+        data = request.data
+        first_name = data.get('firstName', '')
+        last_name = data.get('lastName', '')
+        phone = data.get('phone', '')
+        email = data.get('email', '')
+        message = data.get('message', '')
+        
+        # Validate required fields
+        if not all([first_name, last_name, phone, email, message]):
+            return JsonResponse(
+                {'error': 'Missing required fields'}, 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        # Format name for display
+        full_name = f"{first_name} {last_name}"
+        
+        # Format message for HTML (replace newlines with <br>)
+        message_html = message.replace('\n', '<br>')
+        
+        # Create email content
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body {{ font-family: Arial, sans-serif; line-height: 1.6; }}
+                .container {{ max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; }}
+                .header {{ background-color: #f7f7f7; padding: 15px; margin-bottom: 20px; }}
+                .footer {{ margin-top: 30px; font-size: 12px; color: #777; text-align: center; }}
+                .field-name {{ font-weight: bold; }}
+                .message-content {{ background-color: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; }}
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <h2>Ново съобщение от контактната форма</h2>
+                </div>
+                
+                <p><span class="field-name">Име:</span> {full_name}</p>
+                <p><span class="field-name">Телефон:</span> {phone}</p>
+                <p><span class="field-name">Електронна поща:</span> {email}</p>
+                
+                <h3>Съобщение:</h3>
+                <div class="message-content">
+                    {message_html}
+                </div>
+                
+                <div class="footer">
+                    <p>Това е автоматично генериран имейл от контактната форма на сайта Generix.</p>
+                </div>
+            </div>
+        </body>
+        </html>
+        """
+        
+        text_content = f"""
+        Ново съобщение от контактната форма
+        
+        Име: {full_name}
+        Телефон: {phone}
+        Електронна поща: {email}
+        
+        Съобщение:
+        {message}
+        
+        Това е автоматично генериран имейл от контактната форма на сайта Generix.
+        """
+        
+        # Prepare data for Mailjet API
+        payload = {
+            'Messages': [
+                {
+                    "From": {
+                        "Email": settings.DEFAULT_FROM_EMAIL,
+                        "Name": "Generix Contact Form"
+                    },
+                    "To": [
+                        {
+                            "Email": settings.CONTACT_FORM_RECIPIENT,  # Will need to be defined in settings
+                            "Name": "Generix Team"
+                        }
+                    ],
+                    "Subject": f"Ново запитване от {full_name}",
+                    "HTMLPart": html_content,
+                    "TextPart": text_content,
+                    "CustomID": f"contact-form-{phone}"
+                }
+            ]
+        }
+        
+        # Create authentication header
+        auth_string = f"{settings.MAILJET_API_KEY}:{settings.MAILJET_API_SECRET}"
+        auth_bytes = auth_string.encode('ascii')
+        auth_b64 = base64.b64encode(auth_bytes).decode('ascii')
+        
+        # Set headers
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Basic {auth_b64}'
+        }
+        
+        # Define API endpoint (with version)
+        api_version = getattr(settings, 'MAILJET_API_VERSION', 'v3.1')
+        url = f'https://api.mailjet.com/{api_version}/send'
+        
+        logger.info(f"Sending contact form email from {full_name}")
+        
+        # Send API request
+        response = requests.post(url, headers=headers, json=payload)
+        
+        # Check response
+        if response.status_code == 200:
+            logger.info(f"Email sent successfully via Mailjet API: {response.status_code}")
+            response_data = {
+                'success': True,
+                'message': 'Your message has been sent successfully!'
+            }
+            # Create a response with appropriate headers for CORS
+            json_response = JsonResponse(response_data)
+            json_response["Access-Control-Allow-Origin"] = "*"
+            return json_response
+        else:
+            logger.warning(f"Mailjet API returned non-200 status code: {response.status_code}")
+            error_message = 'Failed to send email'
+            error_detail = None
+            
+            try:
+                error_data = response.json()
+                logger.error(f"Error details: {json.dumps(error_data)}")
+                
+                # Check for common Mailjet errors
+                if 'Errors' in error_data:
+                    for error in error_data['Errors']:
+                        if error.get('ErrorCode') == 'mj-0003':  # Sender not verified
+                            error_message = "Email sending failed: Sender email is not verified in Mailjet"
+                            error_detail = "Please verify the sender email in your Mailjet account"
+                        elif error.get('ErrorCode') == 'mj-0013':  # API key authentication failed
+                            error_message = "Email sending failed: Invalid API credentials"
+                            error_detail = "Please check your Mailjet API key and secret"
+            except:
+                logger.error(f"Error response: {response.text}")
+            
+            error_response = JsonResponse({
+                'error': error_message,
+                'detail': error_detail or 'Check server logs for more details',
+                'statusCode': response.status_code
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            error_response["Access-Control-Allow-Origin"] = "*"
+            return error_response
+    
+    except Exception as e:
+        logger.error(f"Error in contact_form_submit: {str(e)}", exc_info=True)
+        error_response = JsonResponse(
+            {'error': 'An unexpected error occurred', 'detail': str(e)}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+        error_response["Access-Control-Allow-Origin"] = "*"
+        return error_response
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_theme_settings(request):
+    """
+    Get theme settings (CSS color palette)
+    No language parameter needed - colors are universal
+    """
+    try:
+        theme = ThemeSettings.load()
+        serializer = ThemeSettingsSerializer(theme)
+        return Response(serializer.data)
+    except Exception as e:
+        logger.error(f"Error fetching theme settings: {str(e)}", exc_info=True)
+        return Response(
+            {'error': 'Failed to load theme settings'}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('testimonial_cards')
+def get_testimonial_cards(request):
+    """
+    Get all active testimonial cards with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        return Response(
+            {'error': 'Invalid language parameter. Use "en" or "bg"'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    # Get all active testimonials ordered by order field
+    testimonials = TestimonialCard.objects.filter(is_active=True).order_by('order', 'id')
+    
+    # Serialize with language context
+    serializer = TestimonialCardSerializer(testimonials, many=True, context={'lang': lang})
+    
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_about_us_image_content(request):
+    """
+    Get About Us Image "Our Purpose" section content with language support
+    Query parameter: lang (en|bg, default: en)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        lang = 'en'
+    
+    try:
+        from .models import AboutUsImageContent
+        from .serializers import AboutUsImageContentSerializer
+        
+        content = AboutUsImageContent.load()
+        serializer = AboutUsImageContentSerializer(content, context={'lang': lang})
+        
+        return Response(serializer.data)
+    except Exception as e:
+        logger.error(f"Error fetching about us image content: {str(e)}", exc_info=True)
+        return Response(
+            {'error': 'Failed to load about us image content'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_about_page_achievements_header(request):
+    """
+    Get About Page Achievements section header with language support
+    Query parameter: lang (en|bg, default: en)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        lang = 'en'
+    
+    try:
+        from .models import AboutPageAchievements
+        from .serializers import AboutPageAchievementsSerializer
+        
+        header = AboutPageAchievements.load()
+        serializer = AboutPageAchievementsSerializer(header, context={'lang': lang})
+        
+        return Response(serializer.data)
+    except Exception as e:
+        logger.error(f"Error fetching about page achievements header: {str(e)}", exc_info=True)
+        return Response(
+            {'error': 'Failed to load achievements header'},
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+@conditional_cache('contact_page_content')
+def get_contact_page_content(request):
+    """
+    Get contact page content with language support
+    Query parameter: lang (en|bg, default: en)
+    Cached for 30 minutes (configurable in admin)
+    """
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate language parameter
+    if lang not in ['en', 'bg']:
+        lang = 'en'
+    
+    try:
+        content = ContactPageContent.load()
+        serializer = ContactPageContentSerializer(content)
+        data = serializer.data
+        
+        # Return language-specific fields
+        response_data = {
+            'heroTitle': data[f'hero_title_{lang}'],
+            'title': data[f'title_{lang}'],
+            'subtitle': data[f'subtitle_{lang}'],
+            'addressLine1': data[f'address_line1_{lang}'],
+            'addressLine2': data[f'address_line2_{lang}'],
+            'email': data['email']
+        }
+        
+        return Response(response_data)
+    except Exception as e:
+        logger.error(f"Error fetching contact page content: {str(e)}", exc_info=True)
+        return Response(
+            {'error': 'Failed to load contact page content'}, 
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR
+        )
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def search_content(request):
+    """
+    Global search across all content models with language support
+    Query parameters:
+        - query (required): Search term
+        - lang (optional): Language code (en|bg, default: en)
+    Returns:
+        List of search results with title, description, category, link, priority
+    """
+    from django.db.models import Q
+    
+    query = request.GET.get('query', '').strip()
+    lang = request.GET.get('lang', 'en')
+    
+    # Validate parameters
+    if not query:
+        return Response(
+            {'error': 'Query parameter is required'}, 
+            status=status.HTTP_400_BAD_REQUEST
+        )
+    
+    if lang not in ['en', 'bg']:
+        lang = 'en'
+    
+    results = []
+    query_lower = query.lower()
+    
+    # Search in Hero Slides
+    hero_slides = HeroSlide.objects.filter(is_active=True)
+    for slide in hero_slides:
+        title = getattr(slide, f'title_{lang}')
+        description = getattr(slide, f'description_{lang}')
+        
+        if query_lower in title.lower() or query_lower in description.lower():
+            results.append({
+                'title': title,
+                'description': description,
+                'category': 'hero',
+                'link': '/',
+                'priority': 7
+            })
+    
+    # Search in Platform Cards
+    platforms = PlatformCard.objects.filter(is_active=True)
+    for platform in platforms:
+        title = getattr(platform, f'title_{lang}')
+        items = platform.get_items_en() if lang == 'en' else platform.get_items_bg()
+        items_text = ', '.join(items)
+        
+        # Search in title and items
+        if query_lower in title.lower() or query_lower in items_text.lower():
+            results.append({
+                'title': title,
+                'description': items_text,
+                'category': 'platform',
+                'link': platform.route if platform.route else '/',
+                'priority': 8
+            })
+        
+        # Search in platform features if it's a platform
+        if platform.is_platform:
+            features = PlatformFeature.objects.filter(platform=platform, is_active=True)
+            for feature in features:
+                feature_title = getattr(feature, f'title_{lang}')
+                feature_desc = getattr(feature, f'description_{lang}')
+                
+                if query_lower in feature_title.lower() or query_lower in feature_desc.lower():
+                    results.append({
+                        'title': feature_title,
+                        'description': feature_desc,
+                        'category': 'feature',
+                        'link': platform.route if platform.route else '/',
+                        'priority': 6
+                    })
+    
+    # Search in Platforms Section Header
+    try:
+        platforms_header = PlatformsSectionHeader.load()
+        title = getattr(platforms_header, f'title_{lang}')
+        subtitle = getattr(platforms_header, f'subtitle_{lang}')
+        
+        if query_lower in title.lower() or query_lower in subtitle.lower():
+            results.append({
+                'title': title,
+                'description': subtitle,
+                'category': 'section',
+                'link': '/',
+                'priority': 5
+            })
+    except:
+        pass
+    
+    # Search in Why Generix Section
+    try:
+        why_generix = WhyGenerixSection.load()
+        title = getattr(why_generix, f'title_{lang}')
+        para1 = getattr(why_generix, f'paragraph1_{lang}')
+        para2 = getattr(why_generix, f'paragraph2_{lang}')
+        para3 = getattr(why_generix, f'paragraph3_{lang}')
+        
+        full_text = f"{title} {para1} {para2} {para3}".lower()
+        
+        if query_lower in full_text:
+            results.append({
+                'title': title,
+                'description': para1[:200] + '...' if len(para1) > 200 else para1,
+                'category': 'about',
+                'link': '/about',
+                'priority': 4
+            })
+    except:
+        pass
+    
+    # Search in Case Study Slides
+    case_studies = CaseStudySlide.objects.filter(is_active=True)
+    for case in case_studies:
+        title = getattr(case, f'title_{lang}')
+        category = getattr(case, f'category_{lang}')
+        
+        if query_lower in title.lower() or query_lower in category.lower():
+            results.append({
+                'title': title,
+                'description': category,
+                'category': 'case_study',
+                'link': case.button_link if case.button_link else '/about',
+                'priority': 5
+            })
+    
+    # Search in About Page Hero
+    try:
+        about_hero = AboutPageHero.load()
+        title = getattr(about_hero, f'hero_title_{lang}')
+        para1 = getattr(about_hero, f'paragraph1_{lang}')
+        para2 = getattr(about_hero, f'paragraph2_{lang}')
+        para3 = getattr(about_hero, f'paragraph3_{lang}')
+        
+        full_text = f"{title} {para1} {para2} {para3}".lower()
+        
+        if query_lower in full_text:
+            results.append({
+                'title': title,
+                'description': para1[:200] + '...' if len(para1) > 200 else para1,
+                'category': 'about',
+                'link': '/about',
+                'priority': 8
+            })
+    except:
+        pass
+    
+    # Search in Testimonials
+    testimonials = TestimonialCard.objects.filter(is_active=True)
+    for testimonial in testimonials:
+        name = getattr(testimonial, f'name_{lang}')
+        description = getattr(testimonial, f'description_{lang}')
+        
+        if query_lower in name.lower() or query_lower in description.lower():
+            results.append({
+                'title': f"{name} - Testimonial",
+                'description': description,
+                'category': 'testimonial',
+                'link': '/#testimonials',
+                'priority': 3
+            })
+    
+    # Search in Call to Actions
+    ctas = CallToAction.objects.filter(is_active=True)
+    for cta in ctas:
+        title = getattr(cta, f'title_{lang}')
+        description = getattr(cta, f'description_{lang}')
+        
+        if query_lower in title.lower() or query_lower in description.lower():
+            results.append({
+                'title': title,
+                'description': description,
+                'category': 'cta',
+                'link': cta.button_link if cta.button_link else '/contact',
+                'priority': 4
+            })
+    
+    # Search in About Us Image Content (Purpose section)
+    try:
+        from .models import AboutUsImageContent
+        about_us_image = AboutUsImageContent.load()
+        purpose_title = getattr(about_us_image, f'purpose_title_{lang}')
+        purpose_description = getattr(about_us_image, f'purpose_description_{lang}')
+        purpose_text = getattr(about_us_image, f'purpose_text_{lang}')
+        
+        full_text = f"{purpose_title} {purpose_description} {purpose_text}".lower()
+        
+        if query_lower in full_text:
+            results.append({
+                'title': purpose_title,
+                'description': purpose_description,
+                'category': 'about',
+                'link': '/about#purpose',
+                'priority': 7
+            })
+    except:
+        pass
+    
+    # Search in About Page Achievements Header
+    try:
+        from .models import AboutPageAchievements
+        achievements = AboutPageAchievements.load()
+        title = getattr(achievements, f'title_{lang}')
+        subtitle = getattr(achievements, f'subtitle_{lang}')
+        
+        if query_lower in title.lower() or query_lower in subtitle.lower():
+            results.append({
+                'title': title,
+                'description': subtitle,
+                'category': 'about',
+                'link': '/about#achievements',
+                'priority': 6
+            })
+    except:
+        pass
+    
+    # Search in Contact Page Content
+    try:
+        contact = ContactPageContent.load()
+        title = getattr(contact, f'title_{lang}')
+        subtitle = getattr(contact, f'subtitle_{lang}')
+        
+        if query_lower in title.lower() or query_lower in subtitle.lower():
+            results.append({
+                'title': title,
+                'description': subtitle,
+                'category': 'contact',
+                'link': '/contact',
+                'priority': 6
+            })
+    except:
+        pass
+    
+    # Remove duplicates and sort by priority
+    seen = set()
+    unique_results = []
+    for result in results:
+        key = (result['title'], result['description'])
+        if key not in seen:
+            seen.add(key)
+            unique_results.append(result)
+    
+    # Sort by priority (highest first)
+    unique_results.sort(key=lambda x: x['priority'], reverse=True)
+    
+    return Response(unique_results)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_cache_settings(request):
+    """
+    Get cache settings for Angular frontend
+    Returns cache_enabled and cache_timeout from CacheSettings model
+    """
+    from .models import CacheSettings
+    
+    try:
+        settings = CacheSettings.objects.first()
+        if not settings:
+            # Return default settings if not configured
+            return Response({
+                'cache_enabled': True,
+                'cache_timeout': 1800  # 30 minutes in seconds
+            })
+        
+        return Response({
+            'cache_enabled': settings.cache_enabled,
+            'cache_timeout': settings.cache_timeout
+        })
+    except Exception as e:
+        logger.error(f"Error fetching cache settings: {str(e)}")
+        return Response({
+            'cache_enabled': True,
+            'cache_timeout': 1800
+        })

@@ -1,0 +1,42 @@
+<section class="verify-email-page fade-in">
+    <div class="verifyEmailWrapper">
+        <div class="verify-email-section">
+            <div class="verify-email-box">
+                <h2 class="title fade-in-up">{{ translation.t('auth.verifyEmail.title') }}</h2>
+
+                <!-- Loading state -->
+                <div *ngIf="isLoading" class="loading-container fade-in-up delay-100">
+                    <div class="loading-spinner"></div>
+                    <p>{{ translation.t('auth.verifyEmail.verifying') }}</p>
+                </div>
+
+                <!-- Success state -->
+                <div *ngIf="!isLoading && isSuccess" class="success-container fade-in-up delay-100">
+                    <div class="success-icon">
+                        <i class="fa-solid fa-check-circle"></i>
+                    </div>
+                    <p class="message">{{ translation.t('auth.verifyEmail.success') }}</p>
+                    <button class="primary-button fade-in-up delay-300" (click)="goToHome()">
+                        {{ translation.t('auth.verifyEmail.goToHome') }}
+                    </button>
+                </div>
+
+                <!-- Error state -->
+                <div *ngIf="!isLoading && !isSuccess" class="error-container fade-in-up delay-100">
+                    <div class="error-icon">
+                        <i class="fa-solid fa-exclamation-circle"></i>
+                    </div>
+                    <p class="error-message">{{ errorMessage }}</p>
+                    <div class="actions fade-in-up delay-300">
+                        <button class="secondary-button" (click)="resendEmail()">
+                            {{ translation.t('auth.verifyEmail.resend') }}
+                        </button>
+                        <button class="primary-button" (click)="goToHome()">
+                            {{ translation.t('auth.verifyEmail.goToHome') }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

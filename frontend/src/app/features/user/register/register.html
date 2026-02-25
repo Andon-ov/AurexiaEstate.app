@@ -1,0 +1,125 @@
+<section class="login-page fade-in">
+    <div class="loginWrapper">
+        <!-- <div class="image-section">
+            <img src="./assets/images/frequently-searched-location/1.png" alt="Building Image" />
+        </div> -->
+        <div class="login-section">
+            <a class="goBack fade-in-up" routerLink="/">
+                <i class="fa-solid fa-chevron-left"></i>&nbsp;&nbsp;&nbsp;{{ translation.t('auth.register.back') }}</a>
+            <div class="login-box">
+                <h2 class="title fade-in-up">{{ translation.t('auth.register.title') }}</h2>
+                <p class="subtitle fade-in-up delay-100">
+                    {{ translation.t('auth.register.subtitle') }}
+                </p>
+
+                <div *ngIf="errorMessage" class="error-message fade-in-up">
+                    {{ errorMessage }}
+                </div>
+
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="fade-in-up delay-100">
+                    <label for="username">{{ translation.t('auth.register.usernameLabel') }}</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        formControlName="username" 
+                        placeholder="{{ translation.t('auth.register.usernamePlaceholder') }}" 
+                        class="fade-in-up delay-200"
+                        [ngClass]="{'invalid-input': registerForm.get('username')?.invalid && registerForm.get('username')?.touched}"
+                    />
+                    <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="error-text">
+                        {{ translation.t('auth.register.usernameRequired') }}
+                    </div>
+
+                    <label for="first_name">{{ translation.t('auth.register.firstNameLabel') }}</label>
+                    <input 
+                        type="text" 
+                        id="first_name" 
+                        formControlName="first_name" 
+                        placeholder="{{ translation.t('auth.register.firstNamePlaceholder') }}" 
+                        class="fade-in-up delay-200"
+                    />
+
+                    <label for="last_name">{{ translation.t('auth.register.lastNameLabel') }}</label>
+                    <input 
+                        type="text" 
+                        id="last_name" 
+                        formControlName="last_name" 
+                        placeholder="{{ translation.t('auth.register.lastNamePlaceholder') }}" 
+                        class="fade-in-up delay-200"
+                    />
+
+                    <label for="email">{{ translation.t('auth.register.emailLabel') }}</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        formControlName="email" 
+                        placeholder="{{ translation.t('auth.register.emailPlaceholder') }}" 
+                        class="fade-in-up delay-300"
+                        [ngClass]="{'invalid-input': registerForm.get('email')?.invalid && registerForm.get('email')?.touched}"
+                    />
+                    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="error-text">
+                        <span *ngIf="registerForm.get('email')?.errors?.['required']">
+                            {{ translation.t('auth.register.emailRequired') }}
+                        </span>
+                        <span *ngIf="registerForm.get('email')?.errors?.['email']">
+                            {{ translation.t('auth.register.emailInvalid') }}
+                        </span>
+                    </div>
+
+                    <label for="password">{{ translation.t('auth.register.passwordLabel') }}</label>
+                    <div class="password-wrapper fade-in-up delay-400">
+                        <input 
+                            [type]="showPassword ? 'text' : 'password'" 
+                            id="password" 
+                            formControlName="password"
+                            placeholder="{{ translation.t('auth.register.passwordPlaceholder') }}"
+                            [ngClass]="{'invalid-input': registerForm.get('password')?.invalid && registerForm.get('password')?.touched}"
+                        />
+                        <!-- Simplified button without FA icons -->
+                        <button 
+                           type="button"
+                           class="toggle-password-btn"
+                           (click)="togglePassword()"
+                           *ngIf="registerForm.get('password')?.value"
+                        >
+                           <span class="btn-text">{{ showPassword ? translation.t('auth.passwordVisibility.hide') : translation.t('auth.passwordVisibility.show') }}</span>
+                        </button>
+                    </div>
+                    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="error-text">
+                        <span *ngIf="registerForm.get('password')?.errors?.['required']">
+                            {{ translation.t('auth.register.passwordRequired') }}
+                        </span>
+                        <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
+                            {{ translation.t('auth.register.passwordMinLength') }}
+                        </span>
+                    </div>
+
+                    <div class="terms fade-in-up delay-500">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            formControlName="terms" 
+                        />
+                        <label for="terms">{{ translation.t('auth.register.termsCheckbox') }}</label>
+                    </div>
+                    <div *ngIf="registerForm.get('terms')?.invalid && registerForm.get('terms')?.touched" class="error-text">
+                        {{ translation.t('auth.register.termsRequired') }}
+                    </div>
+
+                    <button 
+                        class="main-button fade-in-up delay-600" 
+                        type="submit"
+                        [disabled]="registerForm.invalid || isSubmitting"
+                    >
+                        <span *ngIf="isSubmitting">{{ translation.t('auth.register.registering') }}</span>
+                        <span *ngIf="!isSubmitting">{{ translation.t('auth.register.registerButton') }}</span>
+                    </button>
+
+                    <p class="already-have-account fade-in-up delay-700">
+                        {{ translation.t('auth.register.alreadyHaveAccount') }} <a routerLink="/login">{{ translation.t('auth.register.signIn') }}</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

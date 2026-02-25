@@ -1,0 +1,4 @@
+/* Global style for all <a> elements */
+a {
+  cursor: pointer;
+}

@@ -1,0 +1,40 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # Hero slides endpoint
+    path('hero-slides/', views.get_hero_slides, name='hero_slides'),
+    # Platforms section endpoints
+    path('platforms/section-header/', views.get_platforms_section_header, name='platforms_section_header'),
+    path('platform-cards/', views.get_platform_cards, name='platform_cards'),
+    path('platform-features/<str:slug>/', views.get_platform_features, name='platform_features'),
+    # Customers section endpoints
+    path('customers/section/', views.get_customers_section, name='customers_section'),
+    path('customers/achievements/', views.get_achievements, name='achievements'),
+    path('customers/partners/', views.get_partners, name='partners'),
+    # Why Generix section endpoints
+    path('why-generix/section/', views.get_why_generix_section, name='why_generix_section'),
+    path('why-generix/case-studies/', views.get_case_study_slides, name='case_studies'),
+    # About Us section endpoints (homepage)
+    path('about-us/testimonial/', views.get_about_us_testimonial, name='about_us_testimonial'),
+    # About Page endpoints
+    path('about-page/hero/', views.get_about_page_hero, name='about_page_hero'),
+    path('about-page/achievements-header/', views.get_about_page_achievements_header, name='about_page_achievements_header'),
+    # About Us Image endpoints
+    path('about-us-image/purpose/', views.get_about_us_image_content, name='about_us_image_content'),
+    # CTA endpoints
+    path('home-page-cta/', views.get_home_page_cta, name='home_page_cta'),
+    path('cta/<str:name>/', views.get_call_to_action, name='call_to_action'),
+    # Theme settings endpoint
+    path('theme-settings/', views.get_theme_settings, name='theme_settings'),
+    # Testimonials endpoints
+    path('testimonials/', views.get_testimonial_cards, name='testimonial_cards'),
+    # Contact page content endpoint
+    path('contact-page/', views.get_contact_page_content, name='contact_page_content'),
+    # Add path for contact form email submission
+    path('contact/send-email', views.contact_form_submit, name='contact_form_submit'),
+    # Search endpoint
+    path('search/', views.search_content, name='search_content'),
+    # Cache settings endpoint for Angular frontend
+    path('cache-settings/', views.get_cache_settings, name='cache_settings'),
+]
