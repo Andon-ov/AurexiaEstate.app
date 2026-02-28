@@ -27,23 +27,20 @@ docker --version
 docker compose version
 ```
 
-### 2. Port Forwarding on Router
+### 2. Port Configuration
 
-Forward these ports to your server's local IP:
-- **Port 80** (HTTP) → Required for initial setup and Let's Encrypt
-- **Port 443** (HTTPS) → Required for SSL/HTTPS traffic
+Aurexia Estate runs on **port 8081** by default (configurable via `AUREXIA_PORT` in `.env`).
 
-### 3. Domain Setup (Optional but Recommended)
+If running alongside other apps (e.g., Generix on port 80), no port conflicts.
+
+For external access, forward port 8081 on your router to the server's local IP.
+
+### 3. Domain Setup (Optional)
 
 If you have a domain:
 1. Create an **A record** pointing to your public IP
-2. Create a **www** CNAME pointing to your domain
+2. Configure a reverse proxy (e.g., Nginx/Caddy) to proxy to port 8081
 3. Wait for DNS propagation (can take up to 24 hours)
-
-You can use free dynamic DNS services like:
-- DuckDNS (duckdns.org)
-- No-IP (noip.com)
-- Dynu (dynu.com)
 
 ---
 
@@ -119,46 +116,14 @@ python3 -c "import secrets; print(secrets.token_urlsafe(50))"
 #### Step 3: Build and Start Services
 
 ```bash
-# Build images
-docker compose build
+# Build and start all services
+docker compose up -d --build
 
-# Start database
-docker compose up -d db
+# Wait for database to be healthy, then run migrations
+docker exec aurexia-backend python manage.py migrate
 
-# Wait for database
-sleep 10
-
-# Run migrations
-docker compose run --rm backend python manage.py migrate
-
-# Create superuser
-docker compose run --rm backend python manage.py createsuperuser
-
-# Start all services
-docker compose up -d
-```
-
-#### Step 4: Obtain SSL Certificate (Optional)
-
-```bash
-# Make sure DOMAIN points to your server
-# Then run:
-docker compose run --rm certbot certonly \
-  --webroot \
-  --webroot-path=/var/www/certbot \
-  --email your-email@example.com \
-  --agree-tos \
-  --no-eff-email \
-  -d yourdomain.com \
-  -d www.yourdomain.com
-
-# After successful certificate:
-# 1. Update nginx configuration
-envsubst '${DOMAIN}' < nginx/conf.d/generix.conf.template > nginx/conf.d/generix.conf
-rm nginx/conf.d/default.conf
-
-# 2. Reload nginx
-docker compose restart nginx
+# Create superuser for Admin panel
+docker exec -it aurexia-backend python manage.py createsuperuser
 ```
 
 ---
@@ -198,13 +163,13 @@ docker compose restart
 
 ```bash
 # PostgreSQL CLI
-docker compose exec db psql -U generix_user -d generix_db
+docker exec -it aurexia-db psql -U postgres -d aurexia_db
 
 # Backup database
-docker compose exec db pg_dump -U generix_user generix_db > backup.sql
+docker exec -t aurexia-db pg_dump -U postgres aurexia_db > aurexia_db_backup.sql
 
 # Restore database
-docker compose exec -T db psql -U generix_user generix_db < backup.sql
+docker exec -i aurexia-db psql -U postgres -d aurexia_db < generix_db_backup.sql
 ```
 
 ### Update Application
@@ -217,7 +182,7 @@ git pull origin main
 docker compose up -d --build
 
 # Run migrations if needed
-docker compose run --rm backend python manage.py migrate
+docker exec aurexia-backend python manage.py migrate
 ```
 
 ---
@@ -228,6 +193,12 @@ docker compose run --rm backend python manage.py migrate
 
 ```bash
 docker compose ps
+
+# Expected containers:
+# aurexia-db        (postgres:15-alpine)  - Healthy
+# aurexia-backend   (python:3.11-slim)    - Running
+# aurexia-frontend  (node:20-alpine)      - Running  
+# aurexia-nginx     (nginx:alpine)        - Running
 ```
 
 ### Check Resource Usage
@@ -251,13 +222,8 @@ docker image prune -a
 
 ### SSL Certificate Renewal
 
-Certbot runs automatically every 12 hours to renew certificates.
-
-Manual renewal:
-```bash
-docker compose run --rm certbot renew
-docker compose restart nginx
-```
+> **Note:** SSL/Certbot is not configured in the current setup (HTTP only on port 8081).
+> When you get a domain, add certbot service to `docker-compose.yml` and update nginx config.
 
 ---
 
@@ -272,7 +238,10 @@ sudo apt install ufw
 # Allow SSH (IMPORTANT - do this first!)
 sudo ufw allow 22/tcp
 
-# Allow HTTP and HTTPS
+# Allow Aurexia Estate port
+sudo ufw allow 8081/tcp
+
+# If Generix is also running:
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 
@@ -304,10 +273,10 @@ mkdir -p $BACKUP_DIR
 DATE=$(date +%Y%m%d_%H%M%S)
 
 # Backup database
-docker compose exec -T db pg_dump -U generix_user generix_db > "$BACKUP_DIR/db_$DATE.sql"
+docker exec -t aurexia-db pg_dump -U postgres aurexia_db > "$BACKUP_DIR/db_$DATE.sql"
 
 # Backup media files
-docker compose exec -T backend tar -czf - /app/mediafiles > "$BACKUP_DIR/media_$DATE.tar.gz"
+docker exec aurexia-backend tar -czf - /app/mediafiles > "$BACKUP_DIR/media_$DATE.tar.gz"
 
 echo "Backup completed: $DATE"
 EOF
@@ -343,23 +312,13 @@ docker compose restart backend
 
 ```bash
 # Check database status
-docker compose exec db pg_isready -U generix_user
+docker exec aurexia-db pg_isready -U postgres
 
 # Restart database
 docker compose restart db
 
 # Check database logs
 docker compose logs db
-```
-
-### SSL Certificate Issues
-
-```bash
-# Test certificate renewal
-docker compose run --rm certbot renew --dry-run
-
-# Check certificate expiry
-docker compose exec nginx openssl x509 -in /etc/letsencrypt/live/yourdomain.com/fullchain.pem -noout -dates
 ```
 
 ### Frontend Not Loading
@@ -376,10 +335,23 @@ docker compose up -d --build frontend
 
 ## 📱 Access Your Application
 
-### Local Network Access
-- Frontend: `http://your-server-local-ip`
-- API: `http://your-server-local-ip/api/`
-- Admin: `http://your-server-local-ip/admin/`
+### Local Network Access (Home Server: 192.168.1.41)
+
+| Service        | URL                                        |
+| -------------- | ------------------------------------------ |
+| **Frontend**   | http://192.168.1.41:8081                   |
+| **API**        | http://192.168.1.41:8081/api/              |
+| **Admin Panel**| http://192.168.1.41:8081/admin/            |
+
+### 🔑 Admin Panel Credentials
+
+| Field      | Value   |
+| ---------- | ------- |
+| **URL**    | http://192.168.1.41:8081/admin/ |
+| **Username** | admin |
+| **Password** | admin |
+
+> ⚠️ **Security Note:** Change the admin password for production use!
 
 ### External Access (with domain)
 - Frontend: `https://yourdomain.com`
@@ -388,41 +360,49 @@ docker compose up -d --build frontend
 
 ---
 
-## 🔄 Automatic Updates with Watchtower (Optional)
+## 🔄 CI/CD with GitHub Actions
+
+The project includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that auto-deploys on push to `main`.
+
+### Setup GitHub Secrets:
+
+| Secret             | Value               |
+| ------------------ | ------------------- |
+| `SERVER_HOST`      | 192.168.1.41        |
+| `SERVER_USER`      | server              |
+| `SSH_PRIVATE_KEY`  | (ed25519 private key) |
+
+### Generate SSH Key on Server:
 
 ```bash
-# Add to docker-compose.yml
-docker run -d \
-  --name watchtower \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  containrrr/watchtower \
-  --interval 3600
+ssh-keygen -t ed25519 -C "github-actions" -f ~/.ssh/github_actions
+cat ~/.ssh/github_actions.pub >> ~/.ssh/authorized_keys
+cat ~/.ssh/github_actions  # Copy this to GitHub Secret SSH_PRIVATE_KEY
 ```
 
 ---
 
-## �️ Database Management
+## 🗃️ Database Management
 
 ### Restore Database from Backup
 
 The project includes a `generix_db_backup.sql` file. To restore it:
 
-1.  **Copy the backup file to the database container:**
-    ```bash
-    docker cp generix_db_backup.sql generix-db:/tmp/backup.sql
-    ```
+```bash
+# Copy backup to container
+docker cp generix_db_backup.sql aurexia-db:/tmp/backup.sql
 
-2.  **Execute the restore command:**
-    ```bash
-    docker exec -it generix-db psql -U generix_user -d generix_db -f /tmp/backup.sql
-    ```
+# Restore (duplicate key errors are harmless — existing data is skipped)
+docker exec -it aurexia-db psql -U postgres -d aurexia_db -f /tmp/backup.sql
+
+# Run migrations after restore
+docker exec aurexia-backend python manage.py migrate
+```
 
 ### Create a New Backup
 
-To create a new backup of your running database:
-
 ```bash
-docker exec -t generix-db pg_dump -U generix_user generix_db > generix_db_backup_new.sql
+docker exec -t aurexia-db pg_dump -U postgres aurexia_db > aurexia_db_backup.sql
 ```
 
 ---
