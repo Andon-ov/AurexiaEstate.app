@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinValueValidator, MaxValueValidator
-from cloudinary.models import CloudinaryField
 
 
 class Destination(models.Model):
@@ -49,15 +48,15 @@ class Destination(models.Model):
         verbose_name="Slug",
         help_text="URL-friendly identifier (e.g., 'spain', 'dubai')"
     )
-    hero_image = CloudinaryField(
-        "Hero Image",
-        folder='aurexia/destinations/heroes',
-        help_text="Large hero image for destination page"
+    hero_image = models.URLField(
+        max_length=500,
+        verbose_name="Hero Image URL",
+        help_text="Large hero image URL for destination page (e.g., from Cloudinary, Unsplash)"
     )
-    thumbnail_image = CloudinaryField(
-        "Thumbnail Image",
-        folder='aurexia/destinations/thumbnails',
-        help_text="Thumbnail for destination cards"
+    thumbnail_image = models.URLField(
+        max_length=500,
+        verbose_name="Thumbnail Image URL",
+        help_text="Thumbnail URL for destination cards"
     )
     
     # SEO
@@ -330,10 +329,10 @@ class Property(models.Model):
     )
     
     # Media
-    featured_image = CloudinaryField(
-        "Featured Image",
-        folder='aurexia/properties/featured',
-        help_text="Main property image"
+    featured_image = models.URLField(
+        max_length=500,
+        verbose_name="Featured Image URL",
+        help_text="Main property image URL (e.g., from Cloudinary, Unsplash)"
     )
     video_url = models.URLField(
         blank=True,
@@ -467,9 +466,10 @@ class PropertyImage(models.Model):
         related_name='images',
         verbose_name="Property"
     )
-    image = CloudinaryField(
-        "Image",
-        folder='aurexia/properties/gallery'
+    image = models.URLField(
+        max_length=500,
+        verbose_name="Image URL",
+        help_text="Gallery image URL (e.g., from Cloudinary, Unsplash)"
     )
     
     # Captions (optional)
