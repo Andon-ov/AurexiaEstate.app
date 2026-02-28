@@ -38,7 +38,7 @@ export class AboutUsService {
    */
   getTestimonial(lang: string): Observable<AboutUsTestimonial> {
     return this.http.get<AboutUsTestimonial>(
-      `${this.apiUrl}/generix/about-us/testimonial/`,
+      `${this.apiUrl}/generix/about-testimonial/`,
       { params: { lang } }
     );
   }
@@ -50,7 +50,7 @@ export class AboutUsService {
    */
   getAboutPageHero(lang: string): Observable<AboutPageHero> {
     return this.http.get<AboutPageHero>(
-      `${this.apiUrl}/generix/about-page/hero/`,
+      `${this.apiUrl}/generix/about-testimonial/`,
       { params: { lang } }
     );
   }
@@ -62,7 +62,7 @@ export class AboutUsService {
    */
   getAchievementsHeader(lang: string): Observable<AboutPageAchievementsHeader> {
     return this.http.get<AboutPageAchievementsHeader>(
-      `${this.apiUrl}/generix/about-page/achievements-header/`,
+      `${this.apiUrl}/generix/achievements/`,
       { params: { lang } }
     );
   }

@@ -14,7 +14,7 @@ export interface AboutUsImageContent {
   providedIn: 'root'
 })
 export class AboutUsImageService {
-  private apiUrl = `${environment.apiUrl}/generix/about-us-image/purpose/`;
+  private apiUrl = `${environment.apiUrl}/generix/about-testimonial/`;
 
   constructor(private http: HttpClient) {}
 

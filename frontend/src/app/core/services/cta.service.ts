@@ -32,7 +32,7 @@ export class CtaService {
    */
   getHomePageCTA(lang: string): Observable<HomePageCTA> {
     return this.http.get<HomePageCTA>(
-      `${this.apiUrl}/generix/home-page-cta/`,
+      `${this.apiUrl}/generix/cta/`,
       { params: { lang } }
     );
   }

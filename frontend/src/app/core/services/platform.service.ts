@@ -29,7 +29,7 @@ export class PlatformService {
    */
   getPlatformsSectionHeader(lang: string = 'en'): Observable<PlatformsSectionHeader> {
     return this.http.get<PlatformsSectionHeader>(
-      `${this.apiUrl}/generix/platforms/section-header/`,
+      `${this.apiUrl}/generix/achievements/`,
       { params: { lang } }
     );
   }
@@ -40,7 +40,7 @@ export class PlatformService {
    * @returns Observable of PlatformCard array
    */
   getPlatformCards(lang: string = 'en'): Observable<PlatformCard[]> {
-    return this.http.get<PlatformCard[]>(`${this.apiUrl}/generix/platform-cards/`, {
+    return this.http.get<PlatformCard[]>(`${this.apiUrl}/generix/partners/`, {
       params: { lang }
     });
   }
@@ -53,7 +53,7 @@ export class PlatformService {
    */
   getPlatformFeatures(slug: string, lang: string): Observable<PlatformPageResponse> {
     return this.http.get<PlatformPageResponse>(
-      `${this.apiUrl}/generix/platform-features/${slug}/`,
+      `${this.apiUrl}/generix/partners/`,
       { params: { lang } }
     );
   }

@@ -17,7 +17,7 @@ export interface ContactFormData {
 })
 export class ContactService {
   // Use environment API URL instead of hardcoded localhost
-  private apiUrl: string = `${environment.apiUrl}/generix/contact/send-email`;
+  private apiUrl: string = `${environment.apiUrl}/generix/contact-page/`;
   
   constructor(private http: HttpClient) {}
   

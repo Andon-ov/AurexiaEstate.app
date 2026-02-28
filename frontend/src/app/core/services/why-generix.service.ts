@@ -36,7 +36,7 @@ export class WhyGenerixService {
    */
   getSection(lang: string): Observable<WhyGenerixSection> {
     return this.http.get<WhyGenerixSection>(
-      `${this.apiUrl}/generix/why-generix/section/`,
+      `${this.apiUrl}/generix/cta/`,
       { params: { lang } }
     );
   }
@@ -48,7 +48,7 @@ export class WhyGenerixService {
    */
   getCaseStudies(lang: string): Observable<CaseStudySlide[]> {
     return this.http.get<CaseStudySlide[]>(
-      `${this.apiUrl}/generix/why-generix/case-studies/`,
+      `${this.apiUrl}/generix/testimonials/`,
       { params: { lang } }
     );
   }

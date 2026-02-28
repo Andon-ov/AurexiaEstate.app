@@ -27,7 +27,7 @@ export interface SearchResult {
 export class SearchService {
   private http = inject(HttpClient);
   private i18n = inject(I18nService);
-  private apiUrl = `${environment.apiUrl}/generix/search/`;
+  private apiUrl = `${environment.apiUrl}/aurexia/`;
   
   /**
    * Извършва търсене в данните на приложението чрез API
