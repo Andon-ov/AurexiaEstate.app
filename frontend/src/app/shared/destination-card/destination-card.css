@@ -1,7 +1,7 @@
 .destination-card {
   display: block;
   position: relative;
-  border-radius: 4px;
+  border-radius: 0;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
@@ -22,73 +22,40 @@
 }
 
 .destination-card:hover .destination-card__image {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .destination-card__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.85) 0%,
-    rgba(0, 0, 0, 0.3) 50%,
-    rgba(0, 0, 0, 0.1) 100%
+    to bottom,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.4) 50%,
+    rgba(0, 0, 0, 0.15) 100%
   );
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 32px 24px;
+  align-items: center;
+  justify-content: center;
   transition: background 0.3s ease;
 }
 
 .destination-card:hover .destination-card__overlay {
   background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.15) 100%
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.2) 100%
   );
 }
 
 .destination-card__name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  font-weight: 300;
   color: #ffffff;
-  margin-bottom: 8px;
+  margin: 0;
   line-height: 1.2;
-}
-
-.destination-card__description {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.5;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height 0.4s ease, opacity 0.3s ease;
-}
-
-.destination-card:hover .destination-card__description {
-  max-height: 100px;
-  opacity: 1;
-}
-
-.destination-card__link {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--color-accent-gold, #c9a84c);
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
-}
-
-.destination-card:hover .destination-card__link {
-  color: var(--color-accent-gold-hover, #b39440);
+  text-align: center;
+  letter-spacing: 1px;
 }

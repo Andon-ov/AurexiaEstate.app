@@ -1,21 +1,20 @@
 .property-card {
   display: block;
-  background: var(--color-surface, #1a1a1a);
-  border-radius: 4px;
+  background: transparent;
+  border-radius: 0;
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .property-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
 }
 
 .property-card__image-wrapper {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 4 / 5;
   overflow: hidden;
 }
 
@@ -23,90 +22,44 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s ease;
 }
 
 .property-card:hover .property-card__image {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
-.property-card__badge {
+.property-card__overlay {
   position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(0, 0, 0, 0.7);
-  color: var(--color-accent-gold, #c9a84c);
-  padding: 4px 12px;
-  font-size: 0.7rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-  letter-spacing: 2px;
-  border-radius: 2px;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.75) 0%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  display: flex;
+  align-items: flex-end;
+  padding: 32px 24px;
 }
 
 .property-card__content {
-  padding: 24px;
-}
-
-.property-card__location {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  color: var(--color-text-secondary, #a0a0a0);
-  margin-bottom: 8px;
-  letter-spacing: 0.5px;
+  width: 100%;
 }
 
 .property-card__title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--color-text-primary, #ffffff);
-  margin-bottom: 8px;
-  line-height: 1.3;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: #ffffff;
+  margin-bottom: 4px;
+  line-height: 1.2;
 }
 
 .property-card__price {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--color-accent-gold, #c9a84c);
-  margin-bottom: 12px;
-}
-
-.property-card__description {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.85rem;
-  color: var(--color-text-secondary, #a0a0a0);
-  line-height: 1.6;
-  margin-bottom: 16px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.property-card__details {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
-  color: var(--color-text-secondary, #a0a0a0);
-}
-
-.property-card__detail {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.property-card__detail i {
-  color: var(--color-accent-gold, #c9a84c);
-  font-size: 0.75rem;
-}
-
-.property-card__detail-separator {
-  color: var(--color-text-secondary, #a0a0a0);
-  opacity: 0.4;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
 }
