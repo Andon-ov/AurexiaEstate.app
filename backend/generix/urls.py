@@ -22,6 +22,11 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 
 
+def health_check(request):
+    """Health check endpoint for Docker"""
+    return JsonResponse({'status': 'healthy'})
+
+
 def api_root(request):
     """API root endpoint"""
     return JsonResponse({
@@ -38,6 +43,7 @@ def api_root(request):
 
 api_patterns = [
     path('', api_root, name='api-root'),
+    path('health/', health_check, name='health-check'),
     path('auth/', include('generix.api_auth.urls')),
     path('generix/', include('generix.api_generix.urls')),
     path('aurexia/', include('generix.api_aurexia.urls')),
