@@ -15,7 +15,7 @@ echo "🏗️  Rebuilding backend container with new code..."
 docker compose build backend --no-cache
 
 echo "▶️  Starting database..."
-docker compose up -d postgres
+docker compose up -d db
 echo "⏳ Waiting for postgres..."
 sleep 5
 

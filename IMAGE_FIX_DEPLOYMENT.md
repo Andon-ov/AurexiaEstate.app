@@ -35,7 +35,7 @@ docker compose build backend --no-cache
 
 ### 6. Пусни database
 ```bash
-docker compose up -d postgres
+docker compose up -d db
 sleep 5
 ```
 
