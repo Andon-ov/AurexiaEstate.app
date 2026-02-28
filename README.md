@@ -363,7 +363,7 @@ Build файловете ще са в `frontend/dist/browser/`
 |----------|-------------|---------|----------|
 | `SECRET_KEY` | Django secret key | `django-insecure-xyz...` | ✅ Yes |
 | `DEBUG` | Debug mode | `True` / `False` | ✅ Yes |
-| `ALLOWED_HOSTS` | Allowed domains | `localhost,aurexia.estate` | ✅ Yes |
+| `ALLOWED_HOSTS` | Allowed domains | `localhost,aurexia.run.place` | ✅ Yes |
 | `DB_NAME` | PostgreSQL database name | `aurexia_db` | ✅ Yes |
 | `DB_USER` | Database user | `postgres` | ✅ Yes |
 | `DB_PASSWORD` | Database password | `1123QwER` | ✅ Yes |
@@ -387,7 +387,7 @@ Build файловете ще са в `frontend/dist/browser/`
 
 1. Всички променливи от таблицата по-горе
 2. `DEBUG=False` (задължително!)
-3. `ALLOWED_HOSTS` с production domain(s): `aurexia.estate,www.aurexia.estate`
+3. `ALLOWED_HOSTS` с production domain(s): `aurexia.run.place`
 4. `DB_HOST` с remote PostgreSQL hostname
 5. Production URLs за `BASE_URL` и `CORS_ALLOWED_ORIGINS`
 6. Cloudinary настройки с production cloud
@@ -1401,7 +1401,7 @@ cache.clear()   // Изчисти кеша и направи refresh
 - [ ] Choose hosting platform (AWS, DigitalOcean, Azure, etc.)
 - [ ] Configure production PostgreSQL database
 - [ ] Set up Cloudinary production folders
-- [ ] Configure domain (aurexia.estate)
+- [x] Configure domain (aurexia.run.place) - proxied via Generix nginx
 - [ ] SSL certificates (Let's Encrypt)
 - [ ] Environment variables for production
 - [ ] Nginx configuration
@@ -1622,7 +1622,7 @@ curl -X POST http://localhost:8000/api/aurexia/inquiries/ \
 #### Infrastructure
 - [ ] Configure production database
 - [ ] Set up production Cloudinary folders
-- [ ] Configure production domain (aurexia.estate)
+- [x] Configure production domain (aurexia.run.place)
 - [ ] SSL certificates
 - [ ] Environment variables for production
 
@@ -1725,8 +1725,8 @@ This project is proprietary software. All rights reserved.
 **Aurexia Estate Development Team**
 
 - Platform: Luxury Real Estate Connector
-- Email: inquiries@aurexia.estate
 - GitHub: [@Andon-ov](https://github.com/Andon-ov)
+- Live: http://aurexia.run.place
 
 **Previous Version:** Generix App (backend refactored January 2025, frontend implemented February 2026)
 

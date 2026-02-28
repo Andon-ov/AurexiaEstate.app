@@ -353,10 +353,17 @@ docker compose up -d --build frontend
 
 > ⚠️ **Security Note:** Change the admin password for production use!
 
-### External Access (with domain)
-- Frontend: `https://yourdomain.com`
-- API: `https://yourdomain.com/api/`
-- Admin: `https://yourdomain.com/admin/`
+### External Access (Production)
+
+**Domain:** `aurexia.run.place` (proxied via Generix nginx on port 80)
+
+| Service        | URL                                        |
+| -------------- | ------------------------------------------ |
+| **Frontend**   | http://aurexia.run.place                   |
+| **API**        | http://aurexia.run.place/api/              |
+| **Admin Panel**| http://aurexia.run.place/admin/            |
+
+**Setup:** Domain `aurexia.run.place` points to public IP `213.91.179.101`. Generix nginx (`/home/server/GitHub/generix.app/nginx/conf.d/aurexia.conf`) proxies requests to `http://192.168.1.41:8081`.
 
 ---
 
