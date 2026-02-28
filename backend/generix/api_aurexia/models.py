@@ -688,3 +688,41 @@ class InvestorListing(models.Model):
         # For now, this is a placeholder
         self.properties_count = 0  # Update logic here
         self.save()
+
+
+# =============================================================================
+# Proxy Models - Display api_generix singletons under Aurexia Estate API admin
+# =============================================================================
+
+from generix.api_generix.models import (
+    CacheSettings as _CacheSettings,
+    ThemeSettings as _ThemeSettings,
+    ContactPageContent as _ContactPageContent,
+)
+
+
+class CacheSettingsProxy(_CacheSettings):
+    """Proxy model to show CacheSettings under Aurexia Estate API in admin"""
+    class Meta:
+        proxy = True
+        app_label = 'api_aurexia'
+        verbose_name = 'Cache Settings'
+        verbose_name_plural = 'Cache Settings'
+
+
+class ThemeSettingsProxy(_ThemeSettings):
+    """Proxy model to show ThemeSettings under Aurexia Estate API in admin"""
+    class Meta:
+        proxy = True
+        app_label = 'api_aurexia'
+        verbose_name = 'Theme Settings'
+        verbose_name_plural = 'Theme Settings'
+
+
+class ContactPageContentProxy(_ContactPageContent):
+    """Proxy model to show ContactPageContent under Aurexia Estate API in admin"""
+    class Meta:
+        proxy = True
+        app_label = 'api_aurexia'
+        verbose_name = 'Contact Page Content'
+        verbose_name_plural = 'Contact Page Content'

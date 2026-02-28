@@ -4,6 +4,8 @@ from . import views
 
 # Create a router and register viewsets
 router = DefaultRouter()
+router.register(r'cache-settings', views.CacheSettingsViewSet, basename='cache-settings')
+router.register(r'theme-settings', views.ThemeSettingsViewSet, basename='theme-settings')
 router.register(r'destinations', views.DestinationViewSet, basename='destinations')
 router.register(r'features', views.PropertyFeatureViewSet, basename='features')
 router.register(r'properties', views.PropertyViewSet, basename='properties')

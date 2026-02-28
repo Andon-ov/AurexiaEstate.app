@@ -6,7 +6,15 @@ from .models import (
     PropertyFeatureLink,
     PropertyImage,
     PropertyInquiry,
-    InvestorListing
+    InvestorListing,
+    CacheSettingsProxy,
+    ThemeSettingsProxy,
+    ContactPageContentProxy,
+)
+from generix.api_generix.models import (
+    CacheSettings,
+    ThemeSettings,
+    ContactPageContent,
 )
 
 
@@ -354,6 +362,158 @@ class InvestorListingAdmin(admin.ModelAdmin):
         updated = queryset.update(subscription_status='inactive')
         self.message_user(request, f'{updated} investors deactivated.')
     deactivate_subscription.short_description = "Deactivate subscription"
+
+
+# =============================================================================
+# Proxy Model Admin - CacheSettings, ThemeSettings, ContactPageContent
+# =============================================================================
+
+@admin.register(CacheSettingsProxy)
+class CacheSettingsProxyAdmin(admin.ModelAdmin):
+    """Admin interface for Cache Settings (Singleton)"""
+    
+    list_display = ['cache_enabled', 'cache_timeout', 'updated_at']
+    
+    fieldsets = (
+        ('Cache Configuration', {
+            'fields': ('cache_enabled', 'cache_timeout'),
+            'description': 'Control API response caching for all content endpoints. Changes will clear all cached data.'
+        }),
+    )
+    
+    def has_add_permission(self, request):
+        return not CacheSettings.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+
+@admin.register(ThemeSettingsProxy)
+class ThemeSettingsProxyAdmin(admin.ModelAdmin):
+    """Admin interface for Aurexia Estate Theme Settings (Singleton)"""
+    
+    list_display = ['__str__', 'color_primary', 'color_accent_gold', 'updated_at']
+    
+    fieldsets = (
+        ('Aurexia Brand Colors', {
+            'fields': (
+                'color_primary',
+                'color_surface',
+                'color_accent_gold',
+                'color_accent_gold_hover'
+            ),
+            'description': 'Primary dark luxury theme colors'
+        }),
+        ('Text Colors', {
+            'fields': (
+                'color_text_primary',
+                'color_text_secondary',
+                'color_text_muted'
+            )
+        }),
+        ('Semantic Colors', {
+            'fields': (
+                'color_success',
+                'color_warning',
+                'color_error',
+                'color_info'
+            ),
+            'classes': ('collapse',)
+        }),
+        ('Additional UI Colors', {
+            'fields': (
+                'color_white',
+                'color_black',
+                'color_border',
+                'color_overlay'
+            ),
+            'classes': ('collapse',)
+        }),
+        ('Typography', {
+            'fields': (
+                'font_heading',
+                'font_body'
+            ),
+            'description': 'Font families for headings and body text'
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['created_at', 'updated_at']
+    
+    def has_add_permission(self, request):
+        return not ThemeSettings.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
+
+
+@admin.register(ContactPageContentProxy)
+class ContactPageContentProxyAdmin(admin.ModelAdmin):
+    """Admin interface for Contact Page Content (Singleton)"""
+    
+    list_display = ['hero_title_en', 'email', 'phone', 'updated_at']
+    
+    fieldsets = (
+        ('Hero Section - English', {
+            'fields': ('hero_title_en',)
+        }),
+        ('Hero Section - Bulgarian', {
+            'fields': ('hero_title_bg',)
+        }),
+        ('Contact Section - English', {
+            'fields': (
+                'title_en',
+                'subtitle_en',
+                'address_line1_en',
+                'address_line2_en'
+            )
+        }),
+        ('Contact Section - Bulgarian', {
+            'fields': (
+                'title_bg',
+                'subtitle_bg',
+                'address_line1_bg',
+                'address_line2_bg'
+            )
+        }),
+        ('Contact Details', {
+            'fields': ('email', 'phone')
+        }),
+        ('Timestamps', {
+            'fields': ('updated_at',),
+            'classes': ('collapse',)
+        }),
+    )
+    
+    readonly_fields = ['updated_at']
+    
+    def has_add_permission(self, request):
+        return not ContactPageContent.objects.exists()
+    
+    def has_delete_permission(self, request, obj=None):
+        return False
+    
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
 
 
 # Configure admin site header  

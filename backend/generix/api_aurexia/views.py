@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAdminUser
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
+from django.core.cache import cache
 from .models import (
     Destination,
     PropertyFeature,
@@ -22,6 +23,41 @@ from .serializers import (
     PropertyInquirySerializer,
     InvestorListingSerializer
 )
+from generix.api_generix.models import CacheSettings, ThemeSettings
+from generix.api_generix.serializers import CacheSettingsSerializer, ThemeSettingsSerializer
+from generix.api_generix.cache_utils import cached_api_view
+
+
+class CacheSettingsViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet for Cache Settings (Read-only, singleton)
+    """
+    queryset = CacheSettings.objects.all()
+    serializer_class = CacheSettingsSerializer
+    permission_classes = [AllowAny]
+
+    def list(self, request):
+        """Return the singleton cache settings instance"""
+        settings = CacheSettings.load()
+        serializer = self.get_serializer(settings)
+        return Response(serializer.data)
+
+
+class ThemeSettingsViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    ViewSet for Theme Settings (singleton)
+    Returns Aurexia Estate theme configuration
+    """
+    queryset = ThemeSettings.objects.all()
+    serializer_class = ThemeSettingsSerializer
+    permission_classes = [AllowAny]
+
+    @cached_api_view()
+    def list(self, request):
+        """Return the singleton theme settings instance"""
+        theme = ThemeSettings.load()
+        serializer = self.get_serializer(theme)
+        return Response(serializer.data)
 
 
 class DestinationViewSet(viewsets.ReadOnlyModelViewSet):

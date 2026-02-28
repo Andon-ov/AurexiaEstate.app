@@ -4,43 +4,24 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from django.core.cache import cache
 from .models import (
-    CacheSettings,
     HeroSlide,
     Achievement,
     Partner,
     AboutUsTestimonial,
     CallToAction,
-    ThemeSettings,
     TestimonialCard,
     ContactPageContent
 )
 from .serializers import (
-    CacheSettingsSerializer,
     HeroSlideSerializer,
     AchievementSerializer,
     PartnerSerializer,
     AboutUsTestimonialSerializer,
     CallToActionSerializer,
-    ThemeSettingsSerializer,
     TestimonialCardSerializer,
     ContactPageContentSerializer
 )
 from .cache_utils import cached_api_view
-
-
-class CacheSettingsViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    ViewSet for Cache Settings (Read-only, singleton)
-    """
-    queryset = CacheSettings.objects.all()
-    serializer_class = CacheSettingsSerializer
-    permission_classes = [AllowAny]
-    
-    def list(self, request):
-        """Return the singleton cache settings instance"""
-        settings = CacheSettings.load()
-        serializer = self.get_serializer(settings)
-        return Response(serializer.data)
 
 
 class HeroSlideViewSet(viewsets.ReadOnlyModelViewSet):
@@ -117,23 +98,6 @@ class CallToActionViewSet(viewsets.ReadOnlyModelViewSet):
     @cached_api_view()
     def retrieve(self, request, *args, **kwargs):
         return super().retrieve(request, *args, **kwargs)
-
-
-class ThemeSettingsViewSet(viewsets.ReadOnlyModelViewSet):
-    """
-    ViewSet for Theme Settings (singleton)
-    Returns Aurexia Estate theme configuration
-    """
-    queryset = ThemeSettings.objects.all()
-    serializer_class = ThemeSettingsSerializer
-    permission_classes = [AllowAny]
-    
-    @cached_api_view()
-    def list(self, request):
-        """Return the singleton theme settings instance"""
-        theme = ThemeSettings.load()
-        serializer = self.get_serializer(theme)
-        return Response(serializer.data)
 
 
 class TestimonialCardViewSet(viewsets.ReadOnlyModelViewSet):
