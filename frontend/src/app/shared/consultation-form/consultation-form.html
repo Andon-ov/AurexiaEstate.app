@@ -1,0 +1,58 @@
+<div class="consultation-form" [class.consultation-form--compact]="compact">
+  <div *ngIf="!isSuccess">
+    <h3 class="consultation-form__title">{{ translation.t('consultation.title') }}</h3>
+    <p class="consultation-form__subtitle">{{ translation.t('consultation.subtitle') }}</p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="consultation-form__form">
+      <div class="consultation-form__row">
+        <div class="consultation-form__field">
+          <label class="consultation-form__label">{{ translation.t('consultation.fullName') }}</label>
+          <input type="text" formControlName="full_name" class="consultation-form__input"
+                 [placeholder]="translation.t('consultation.fullNamePlaceholder')" />
+        </div>
+        <div class="consultation-form__field">
+          <label class="consultation-form__label">{{ translation.t('consultation.email') }}</label>
+          <input type="email" formControlName="email" class="consultation-form__input"
+                 [placeholder]="translation.t('consultation.emailPlaceholder')" />
+        </div>
+      </div>
+
+      <div class="consultation-form__row">
+        <div class="consultation-form__field">
+          <label class="consultation-form__label">{{ translation.t('consultation.phone') }}</label>
+          <input type="tel" formControlName="phone" class="consultation-form__input"
+                 [placeholder]="translation.t('consultation.phonePlaceholder')" />
+        </div>
+        <div class="consultation-form__field">
+          <label class="consultation-form__label">{{ translation.t('consultation.contactMethod') }}</label>
+          <select formControlName="preferred_contact_method" class="consultation-form__select">
+            <option value="email">{{ translation.t('consultation.viaEmail') }}</option>
+            <option value="phone">{{ translation.t('consultation.viaPhone') }}</option>
+            <option value="whatsapp">{{ translation.t('consultation.viaWhatsApp') }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="consultation-form__field">
+        <label class="consultation-form__label">{{ translation.t('consultation.message') }}</label>
+        <textarea formControlName="message" class="consultation-form__textarea" rows="4"
+                  [placeholder]="translation.t('consultation.messagePlaceholder')"></textarea>
+      </div>
+
+      <div *ngIf="errorMessage" class="consultation-form__error">
+        {{ errorMessage }}
+      </div>
+
+      <button type="submit" class="consultation-form__submit" [disabled]="form.invalid || isSubmitting">
+        <span *ngIf="!isSubmitting">{{ translation.t('consultation.submit') }}</span>
+        <span *ngIf="isSubmitting">{{ translation.t('consultation.submitting') }}</span>
+      </button>
+    </form>
+  </div>
+
+  <div *ngIf="isSuccess" class="consultation-form__success">
+    <i class="fa-solid fa-circle-check"></i>
+    <h3>{{ translation.t('consultation.successTitle') }}</h3>
+    <p>{{ translation.t('consultation.successMessage') }}</p>
+  </div>
+</div>

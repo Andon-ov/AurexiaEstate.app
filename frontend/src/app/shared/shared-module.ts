@@ -11,6 +11,9 @@ import { CaseStudiesSlider } from './case-studies-slider/case-studies-slider';
 import { AnimateOnScrollDirective } from './directives/animate-on-scroll.directive';
 import { PlatformFeaturesComponent } from './platform-features/platform-features';
 import { Cta } from './cta/cta';
+import { PropertyCard } from './property-card/property-card';
+import { DestinationCard } from './destination-card/destination-card';
+import { ConsultationForm } from './consultation-form/consultation-form';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { Cta } from './cta/cta';
     CaseStudiesSlider,
     PlatformFeaturesComponent,
     Cta,
+    PropertyCard,
+    DestinationCard,
+    ConsultationForm,
   ],
   imports: [
     CommonModule,
@@ -38,7 +44,10 @@ import { Cta } from './cta/cta';
     CaseStudiesSlider,
     AnimateOnScrollDirective,
     PlatformFeaturesComponent,
-    Cta
+    Cta,
+    PropertyCard,
+    DestinationCard,
+    ConsultationForm,
   ],
 })
 export class SharedModule {}

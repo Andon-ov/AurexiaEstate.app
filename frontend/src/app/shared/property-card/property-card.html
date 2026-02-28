@@ -1,0 +1,25 @@
+<a [routerLink]="propertyLink" class="property-card">
+  <div class="property-card__image-wrapper">
+    <img [src]="property.featured_image" [alt]="title" class="property-card__image" loading="lazy" />
+    <span class="property-card__badge">{{ property.destination_name_en | uppercase }}</span>
+  </div>
+  <div class="property-card__content">
+    <p class="property-card__location">{{ property.city }}, {{ destinationName }}</p>
+    <h3 class="property-card__title">{{ title }}</h3>
+    <p class="property-card__price">{{ property.formatted_price }}</p>
+    <p class="property-card__description">{{ shortDescription }}</p>
+    <div class="property-card__details">
+      <span class="property-card__detail">
+        <i class="fa-solid fa-bed"></i> {{ property.bedrooms }} {{ translation.t('property.bedrooms') }}
+      </span>
+      <span class="property-card__detail-separator">&bull;</span>
+      <span class="property-card__detail">
+        <i class="fa-solid fa-bath"></i> {{ property.bathrooms }} {{ translation.t('property.bathrooms') }}
+      </span>
+      <span class="property-card__detail-separator">&bull;</span>
+      <span class="property-card__detail">
+        <i class="fa-solid fa-ruler-combined"></i> {{ property.area_sqm }} m&sup2;
+      </span>
+    </div>
+  </div>
+</a>

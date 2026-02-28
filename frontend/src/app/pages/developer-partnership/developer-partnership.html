@@ -1,0 +1,114 @@
+<section class="developer-partnership">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <span class="hero__label">{{ translation.t('developerPartnership.hero.label') }}</span>
+      <h1 class="hero__title">{{ translation.t('developerPartnership.hero.title') }}</h1>
+      <p class="hero__subtitle">{{ translation.t('developerPartnership.hero.subtitle') }}</p>
+    </div>
+  </div>
+
+  <!-- Why Partner -->
+  <div class="why-partner">
+    <div class="why-partner__inner">
+      <span class="section-label">{{ translation.t('developerPartnership.why.label') }}</span>
+      <h2 class="section-heading">{{ translation.t('developerPartnership.why.title') }}</h2>
+      <p class="section-intro">{{ translation.t('developerPartnership.why.intro') }}</p>
+
+      <div class="why-partner__grid">
+        <div class="why-partner__item" *ngFor="let item of [1,2,3,4]">
+          <div class="why-partner__number">{{ '0' + item }}</div>
+          <h3>{{ translation.t('developerPartnership.why.item' + item + '.title') }}</h3>
+          <p>{{ translation.t('developerPartnership.why.item' + item + '.text') }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Partnership Model -->
+  <div class="pricing">
+    <div class="pricing__inner">
+      <span class="section-label">{{ translation.t('developerPartnership.pricing.label') }}</span>
+      <h2 class="section-heading">{{ translation.t('developerPartnership.pricing.title') }}</h2>
+
+      <div class="pricing__cards">
+        <!-- Standard -->
+        <div class="pricing__card">
+          <div class="pricing__card-header">
+            <h3>{{ translation.t('developerPartnership.pricing.standard.name') }}</h3>
+            <div class="pricing__price">
+              <span class="pricing__amount">€5,000</span>
+              <span class="pricing__period">/ {{ translation.t('developerPartnership.pricing.perMonth') }}</span>
+            </div>
+          </div>
+          <ul class="pricing__features">
+            <li *ngFor="let f of [1,2,3,4,5]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              {{ translation.t('developerPartnership.pricing.standard.feature' + f) }}
+            </li>
+          </ul>
+          <a href="mailto:partnerships@aurexiaestate.com" class="pricing__btn pricing__btn--outline">
+            {{ translation.t('developerPartnership.pricing.contactUs') }}
+          </a>
+        </div>
+
+        <!-- Premium -->
+        <div class="pricing__card pricing__card--featured">
+          <div class="pricing__card-badge">{{ translation.t('developerPartnership.pricing.recommended') }}</div>
+          <div class="pricing__card-header">
+            <h3>{{ translation.t('developerPartnership.pricing.premium.name') }}</h3>
+            <div class="pricing__price">
+              <span class="pricing__amount">€12,000</span>
+              <span class="pricing__period">/ {{ translation.t('developerPartnership.pricing.perMonth') }}</span>
+            </div>
+          </div>
+          <ul class="pricing__features">
+            <li *ngFor="let f of [1,2,3,4,5,6]">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="2">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              {{ translation.t('developerPartnership.pricing.premium.feature' + f) }}
+            </li>
+          </ul>
+          <a href="mailto:partnerships@aurexiaestate.com" class="pricing__btn pricing__btn--filled">
+            {{ translation.t('developerPartnership.pricing.contactUs') }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selection Criteria -->
+  <div class="criteria">
+    <div class="criteria__inner">
+      <span class="section-label">{{ translation.t('developerPartnership.criteria.label') }}</span>
+      <h2 class="section-heading">{{ translation.t('developerPartnership.criteria.title') }}</h2>
+      <p class="section-intro">{{ translation.t('developerPartnership.criteria.intro') }}</p>
+
+      <div class="criteria__list">
+        <div class="criteria__item" *ngFor="let c of [1,2,3,4]">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a84c" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          <span>{{ translation.t('developerPartnership.criteria.item' + c) }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <div class="cta__inner">
+      <h2 class="cta__title">{{ translation.t('developerPartnership.cta.title') }}</h2>
+      <p class="cta__text">{{ translation.t('developerPartnership.cta.text') }}</p>
+      <a href="mailto:partnerships@aurexiaestate.com" class="cta__btn">
+        {{ translation.t('developerPartnership.cta.button') }}
+      </a>
+    </div>
+  </div>
+
+</section>

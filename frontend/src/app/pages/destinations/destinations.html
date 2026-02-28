@@ -1,0 +1,37 @@
+<!-- Destinations Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title">{{ translation.t('destinations.hero.title') }}</h1>
+    <p class="page-hero__subtitle">{{ translation.t('destinations.hero.subtitle') }}</p>
+  </div>
+</section>
+
+<!-- Destinations List -->
+<section class="destinations-list">
+  <div class="container">
+    <div class="destinations-list__items" *ngIf="!isLoading">
+      <a *ngFor="let destination of destinations"
+         [routerLink]="['/destinations', destination.slug]"
+         class="destination-row">
+        <div class="destination-row__image-wrapper">
+          <img [src]="destination.hero_image" [alt]="getName(destination)" class="destination-row__image" loading="lazy" />
+          <div class="destination-row__image-overlay"></div>
+        </div>
+        <div class="destination-row__content">
+          <h2 class="destination-row__name">{{ getName(destination) }}</h2>
+          <p class="destination-row__tagline" *ngIf="destination.short_description_en">
+            {{ currentLang === 'bg' ? destination.short_description_bg : destination.short_description_en }}
+          </p>
+          <p class="destination-row__description">{{ getDescription(destination) }}</p>
+          <span class="destination-row__link">
+            {{ translation.t('destinations.explore') }} {{ getName(destination) }} &rarr;
+          </span>
+        </div>
+      </a>
+    </div>
+
+    <div class="destinations-list__loading" *ngIf="isLoading">
+      <div class="loading-placeholder" *ngFor="let i of [1,2,3]"></div>
+    </div>
+  </div>
+</section>

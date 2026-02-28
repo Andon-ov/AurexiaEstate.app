@@ -1,6 +1,65 @@
-<app-hero-slider></app-hero-slider>
-<app-platforms></app-platforms>
-<app-customers></app-customers>
-<app-why-generix></app-why-generix>
-<app-about-us></app-about-us>
-<app-cta-white></app-cta-white>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero__background">
+    <img src="https://images.unsplash.com/photo-1622015663381-d2e05ae91b72?w=1920&q=80" alt="Luxury Estate" class="hero__image" />
+    <div class="hero__overlay"></div>
+  </div>
+  <div class="hero__content">
+    <h1 class="hero__title">{{ translation.t('home.hero.title') }}</h1>
+    <p class="hero__subtitle">{{ translation.t('home.hero.subtitle') }}</p>
+    <a routerLink="/portfolio" class="hero__cta">{{ translation.t('home.hero.cta') }}</a>
+  </div>
+</section>
+
+<!-- Elite Consultancy Section -->
+<section class="consultancy">
+  <div class="container">
+    <h2 class="section-title">{{ translation.t('home.consultancy.title') }}</h2>
+    <p class="consultancy__text">{{ translation.t('home.consultancy.text') }}</p>
+  </div>
+</section>
+
+<!-- Featured Properties Section -->
+<section class="featured-properties" *ngIf="featuredProperties.length > 0 || isLoadingProperties">
+  <div class="container">
+    <h2 class="section-title">{{ translation.t('home.featuredProperties.title') }}</h2>
+    <p class="section-subtitle">{{ translation.t('home.featuredProperties.subtitle') }}</p>
+
+    <div class="featured-properties__grid" *ngIf="!isLoadingProperties">
+      <app-property-card *ngFor="let property of featuredProperties" [property]="property"></app-property-card>
+    </div>
+
+    <div class="featured-properties__loading" *ngIf="isLoadingProperties">
+      <div class="loading-placeholder" *ngFor="let i of [1,2,3]"></div>
+    </div>
+
+    <div class="featured-properties__action">
+      <a routerLink="/portfolio" class="btn-gold">{{ translation.t('home.featuredProperties.viewAll') }}</a>
+    </div>
+  </div>
+</section>
+
+<!-- Destinations Section -->
+<section class="destinations" *ngIf="featuredDestinations.length > 0 || isLoadingDestinations">
+  <div class="container">
+    <h2 class="section-title">{{ translation.t('home.destinations.title') }}</h2>
+    <p class="section-subtitle">{{ translation.t('home.destinations.subtitle') }}</p>
+
+    <div class="destinations__grid" *ngIf="!isLoadingDestinations">
+      <app-destination-card *ngFor="let destination of featuredDestinations" [destination]="destination"></app-destination-card>
+    </div>
+
+    <div class="destinations__loading" *ngIf="isLoadingDestinations">
+      <div class="loading-placeholder loading-placeholder--tall" *ngFor="let i of [1,2,3]"></div>
+    </div>
+  </div>
+</section>
+
+<!-- Aurexia Bridge Section -->
+<section class="aurexia-bridge">
+  <div class="container">
+    <h2 class="section-title">{{ translation.t('home.bridge.title') }}</h2>
+    <p class="aurexia-bridge__text">{{ translation.t('home.bridge.text') }}</p>
+    <a routerLink="/service-model" class="btn-gold-outline">{{ translation.t('home.bridge.cta') }}</a>
+  </div>
+</section>

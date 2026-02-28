@@ -1,0 +1,112 @@
+.property-card {
+  display: block;
+  background: var(--color-surface, #1a1a1a);
+  border-radius: 4px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.property-card__image-wrapper {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
+.property-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.property-card:hover .property-card__image {
+  transform: scale(1.05);
+}
+
+.property-card__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.7);
+  color: var(--color-accent-gold, #c9a84c);
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  border-radius: 2px;
+}
+
+.property-card__content {
+  padding: 24px;
+}
+
+.property-card__location {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.property-card__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #ffffff);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.property-card__price {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-accent-gold, #c9a84c);
+  margin-bottom: 12px;
+}
+
+.property-card__description {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.property-card__details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  color: var(--color-text-secondary, #a0a0a0);
+}
+
+.property-card__detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.property-card__detail i {
+  color: var(--color-accent-gold, #c9a84c);
+  font-size: 0.75rem;
+}
+
+.property-card__detail-separator {
+  color: var(--color-text-secondary, #a0a0a0);
+  opacity: 0.4;
+}

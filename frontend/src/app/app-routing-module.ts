@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Contact } from './pages/contact/contact';
 import { Home } from './pages/home/home';
-import { PlatformPageComponent } from './pages/platform-page/platform-page.component';
-import { About } from './pages/about/about';
-import { Search } from './pages/search/search';
+
+// Aurexia pages
+import { Portfolio } from './pages/portfolio/portfolio';
+import { Destinations } from './pages/destinations/destinations';
+import { DestinationDetail } from './pages/destination-detail/destination-detail';
+import { PropertyDetailComponent } from './pages/property-detail/property-detail';
+import { ServiceModelComponent } from './pages/service-model/service-model';
+import { DeveloperPartnershipComponent } from './pages/developer-partnership/developer-partnership';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: Home },
 
   { path: 'home', component: Home },
 
-  {
-    path: 'contact',
-    component: Contact,
-  },
-  {
-    path: 'about',
-    component: About,
-  },
-  {
-    path: 'search',
-    component: Search,
-  },
-  /* Parameterized route for all platforms */
-  {
-    path: 'platforms/:type',
-    component: PlatformPageComponent
-  },
+  // Aurexia routes
+  { path: 'portfolio', component: Portfolio },
+  { path: 'destinations', component: Destinations },
+  { path: 'destinations/:slug', component: DestinationDetail },
+  { path: 'property/:slug', component: PropertyDetailComponent },
+  { path: 'service-model', component: ServiceModelComponent },
+  { path: 'developer-partnership', component: DeveloperPartnershipComponent },
 
   // Authentication module
   {

@@ -1,0 +1,12 @@
+<a [routerLink]="destinationLink" class="destination-card">
+  <div class="destination-card__image-wrapper">
+    <img [src]="destination.thumbnail_image" [alt]="name" class="destination-card__image" loading="lazy" />
+    <div class="destination-card__overlay">
+      <h3 class="destination-card__name">{{ name }}</h3>
+      <p class="destination-card__description">{{ shortDescription }}</p>
+      <span class="destination-card__link">
+        {{ translation.t('destinations.explore') }} {{ name }} &rarr;
+      </span>
+    </div>
+  </div>
+</a>

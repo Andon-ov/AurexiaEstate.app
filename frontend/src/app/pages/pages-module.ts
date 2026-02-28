@@ -6,14 +6,34 @@ import { SharedModule } from '../shared/shared-module';
 import { HomeLayoutModule } from '../layouts/home-layout/home-layout-module';
 
 import { Home } from './home/home';
-import { Contact } from './contact/contact';
 
-import { PlatformPageComponent } from './platform-page/platform-page.component';
-import { About } from './about/about';
+// Aurexia pages
+import { Portfolio } from './portfolio/portfolio';
+import { Destinations } from './destinations/destinations';
+import { DestinationDetail } from './destination-detail/destination-detail';
+import { PropertyDetailComponent } from './property-detail/property-detail';
+import { ServiceModelComponent } from './service-model/service-model';
+import { DeveloperPartnershipComponent } from './developer-partnership/developer-partnership';
 
 @NgModule({
-  declarations: [Home, Contact, PlatformPageComponent, About],
+  declarations: [
+    Home,
+    Portfolio,
+    Destinations,
+    DestinationDetail,
+    PropertyDetailComponent,
+    ServiceModelComponent,
+    DeveloperPartnershipComponent,
+  ],
   imports: [CommonModule, RouterModule, CoreModule, SharedModule, HomeLayoutModule],
-  exports: [Home, Contact, PlatformPageComponent, About],
+  exports: [
+    Home,
+    Portfolio,
+    Destinations,
+    DestinationDetail,
+    PropertyDetailComponent,
+    ServiceModelComponent,
+    DeveloperPartnershipComponent,
+  ],
 })
 export class PagesModule {}

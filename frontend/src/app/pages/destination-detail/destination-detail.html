@@ -1,0 +1,51 @@
+<div *ngIf="isLoading" class="page-loading">
+  <div class="loading-spinner"></div>
+</div>
+
+<div *ngIf="!isLoading && destination">
+  <!-- Hero -->
+  <section class="dest-hero">
+    <div class="dest-hero__background">
+      <img [src]="destination.hero_image" [alt]="name" class="dest-hero__image" />
+      <div class="dest-hero__overlay"></div>
+    </div>
+    <div class="dest-hero__content">
+      <a routerLink="/destinations" class="dest-hero__back">
+        {{ translation.t('destinations.allDestinations') }}
+      </a>
+      <h1 class="dest-hero__title">{{ name }}</h1>
+      <p class="dest-hero__tagline">{{ shortDescription }}</p>
+    </div>
+  </section>
+
+  <!-- Description -->
+  <section class="dest-description">
+    <div class="container">
+      <p class="dest-description__text">{{ description }}</p>
+    </div>
+  </section>
+
+  <!-- Properties in this destination -->
+  <section class="dest-properties" *ngIf="properties.length > 0 || isLoadingProperties">
+    <div class="container">
+      <h2 class="section-title">
+        {{ translation.t('destinations.availableProperties') }} {{ name }}
+      </h2>
+
+      <div class="dest-properties__grid" *ngIf="!isLoadingProperties">
+        <app-property-card *ngFor="let property of properties" [property]="property"></app-property-card>
+      </div>
+
+      <div class="dest-properties__loading" *ngIf="isLoadingProperties">
+        <div class="loading-placeholder" *ngFor="let i of [1,2]"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div *ngIf="!isLoading && !destination" class="page-not-found">
+  <div class="container">
+    <h2>{{ translation.t('destinations.notFound') }}</h2>
+    <a routerLink="/destinations" class="btn-gold">{{ translation.t('destinations.backToAll') }}</a>
+  </div>
+</div>

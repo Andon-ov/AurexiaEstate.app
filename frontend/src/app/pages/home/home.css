@@ -1,0 +1,270 @@
+/* Hero Section */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.hero__background {
+  position: absolute;
+  inset: 0;
+}
+
+.hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 10, 10, 0.5) 0%,
+    rgba(10, 10, 10, 0.7) 50%,
+    rgba(10, 10, 10, 0.9) 100%
+  );
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 800px;
+  padding: 0 24px;
+}
+
+.hero__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.hero__subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+.hero__cta {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #0a0a0a;
+  background: var(--color-accent-gold, #c9a84c);
+  padding: 16px 40px;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.hero__cta:hover {
+  background: var(--color-accent-gold-hover, #b39440);
+}
+
+/* Shared Section Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #ffffff);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  text-align: center;
+  margin-bottom: 48px;
+  line-height: 1.6;
+}
+
+/* Elite Consultancy */
+.consultancy {
+  padding: 100px 0;
+  background: var(--color-surface, #1a1a1a);
+  text-align: center;
+}
+
+.consultancy__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  max-width: 800px;
+  margin: 24px auto 0;
+  line-height: 1.8;
+}
+
+/* Featured Properties */
+.featured-properties {
+  padding: 100px 0;
+  background: var(--color-primary, #0a0a0a);
+}
+
+.featured-properties__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.featured-properties__loading {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.loading-placeholder {
+  background: var(--color-surface, #1a1a1a);
+  border-radius: 4px;
+  aspect-ratio: 4 / 5;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-placeholder--tall {
+  aspect-ratio: 3 / 4;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+.featured-properties__action {
+  text-align: center;
+  margin-top: 48px;
+}
+
+/* Destinations */
+.destinations {
+  padding: 100px 0;
+  background: var(--color-surface, #1a1a1a);
+}
+
+.destinations__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.destinations__loading {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+/* Aurexia Bridge */
+.aurexia-bridge {
+  padding: 120px 0;
+  background: var(--color-primary, #0a0a0a);
+  text-align: center;
+}
+
+.aurexia-bridge__text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  max-width: 700px;
+  margin: 24px auto 40px;
+  line-height: 1.8;
+}
+
+/* Gold Buttons */
+.btn-gold {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #0a0a0a;
+  background: var(--color-accent-gold, #c9a84c);
+  padding: 14px 36px;
+  border-radius: 2px;
+  transition: background 0.3s ease;
+}
+
+.btn-gold:hover {
+  background: var(--color-accent-gold-hover, #b39440);
+}
+
+.btn-gold-outline {
+  display: inline-block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-accent-gold, #c9a84c);
+  background: transparent;
+  border: 1px solid var(--color-accent-gold, #c9a84c);
+  padding: 14px 36px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-gold-outline:hover {
+  background: var(--color-accent-gold, #c9a84c);
+  color: #0a0a0a;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .featured-properties__grid,
+  .featured-properties__loading,
+  .destinations__grid,
+  .destinations__loading {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero__title {
+    font-size: 2.2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 0.95rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .featured-properties__grid,
+  .featured-properties__loading,
+  .destinations__grid,
+  .destinations__loading {
+    grid-template-columns: 1fr;
+  }
+
+  .consultancy,
+  .featured-properties,
+  .destinations,
+  .aurexia-bridge {
+    padding: 60px 0;
+  }
+}

@@ -1,0 +1,33 @@
+<!-- Portfolio Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1 class="page-hero__title">{{ translation.t('portfolio.hero.title') }}</h1>
+    <p class="page-hero__subtitle">{{ translation.t('portfolio.hero.subtitle') }}</p>
+  </div>
+</section>
+
+<!-- Properties Grid -->
+<section class="portfolio-grid">
+  <div class="container">
+    <div class="portfolio-grid__list" *ngIf="!isLoading">
+      <app-property-card *ngFor="let property of properties" [property]="property"></app-property-card>
+    </div>
+
+    <div class="portfolio-grid__loading" *ngIf="isLoading">
+      <div class="loading-placeholder" *ngFor="let i of [1,2,3,4,5,6]"></div>
+    </div>
+
+    <div class="portfolio-grid__empty" *ngIf="!isLoading && properties.length === 0">
+      <p>{{ translation.t('portfolio.empty') }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- Consultation CTA -->
+<section class="portfolio-cta">
+  <div class="container">
+    <h2 class="section-title">{{ translation.t('portfolio.cta.title') }}</h2>
+    <p class="section-subtitle">{{ translation.t('portfolio.cta.subtitle') }}</p>
+    <a href="mailto:inquiries@aurexiaestate.com" class="btn-gold">{{ translation.t('portfolio.cta.button') }}</a>
+  </div>
+</section>

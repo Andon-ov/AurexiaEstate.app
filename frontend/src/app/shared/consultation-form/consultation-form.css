@@ -1,0 +1,160 @@
+.consultation-form {
+  background: var(--color-surface, #1a1a1a);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  border-radius: 4px;
+  padding: 40px;
+}
+
+.consultation-form--compact {
+  padding: 24px;
+}
+
+.consultation-form__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--color-text-primary, #ffffff);
+  margin-bottom: 8px;
+}
+
+.consultation-form__subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary, #a0a0a0);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.consultation-form__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.consultation-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.consultation-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.consultation-form__label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #a0a0a0);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.consultation-form__input,
+.consultation-form__select,
+.consultation-form__textarea {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text-primary, #ffffff);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding: 12px 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.consultation-form__input:focus,
+.consultation-form__select:focus,
+.consultation-form__textarea:focus {
+  border-color: var(--color-accent-gold, #c9a84c);
+}
+
+.consultation-form__input::placeholder,
+.consultation-form__textarea::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.consultation-form__select option {
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.consultation-form__textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.consultation-form__submit {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #0a0a0a;
+  background: var(--color-accent-gold, #c9a84c);
+  border: none;
+  border-radius: 2px;
+  padding: 14px 32px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  align-self: flex-start;
+}
+
+.consultation-form__submit:hover:not(:disabled) {
+  background: var(--color-accent-gold-hover, #b39440);
+}
+
+.consultation-form__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.consultation-form__error {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  color: #ff6b6b;
+  padding: 12px 16px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 2px;
+}
+
+.consultation-form__success {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.consultation-form__success i {
+  font-size: 3rem;
+  color: var(--color-accent-gold, #c9a84c);
+  margin-bottom: 16px;
+}
+
+.consultation-form__success h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--color-text-primary, #ffffff);
+  margin-bottom: 8px;
+}
+
+.consultation-form__success p {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary, #a0a0a0);
+}
+
+@media (max-width: 768px) {
+  .consultation-form {
+    padding: 24px 16px;
+  }
+
+  .consultation-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .consultation-form__submit {
+    width: 100%;
+  }
+}

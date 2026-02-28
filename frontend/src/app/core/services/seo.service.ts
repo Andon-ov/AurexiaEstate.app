@@ -23,10 +23,10 @@ export interface SEOData {
   providedIn: 'root'
 })
 export class SeoService {
-  private defaultTitle = 'Generix - Insurance Platform Solutions';
-  private defaultDescription = 'Intelligent insurance platform solutions for self-service and corporate business. Automate workflows and deliver seamless digital experiences.';
-  private defaultImage = 'http://generix.publicvm.com/assets/images/og-image.png';
-  private baseUrl = 'http://generix.publicvm.com';
+  private defaultTitle = 'Aurexia Estate - Luxury Real Estate Investments';
+  private defaultDescription = 'Your exclusive gateway to global real estate investments. We connect high-net-worth investors with premium developers across Europe and the Middle East.';
+  private defaultImage = '/assets/images/og-image.png';
+  private baseUrl = 'https://aurexiaestate.com';
 
   constructor(
     private titleService: Title,
