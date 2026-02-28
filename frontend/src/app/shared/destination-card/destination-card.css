@@ -5,7 +5,7 @@
   overflow: hidden;
   text-decoration: none;
   color: inherit;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 4 / 5;
 }
 
 .destination-card__image-wrapper {
@@ -51,11 +51,11 @@
 
 .destination-card__name {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: 300;
   color: #ffffff;
   margin: 0;
   line-height: 1.2;
   text-align: center;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }

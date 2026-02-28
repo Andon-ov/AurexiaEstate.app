@@ -85,9 +85,9 @@
 
 .section-title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 2.8rem;
+  font-size: 2.4rem;
   font-weight: 300;
-  color: #2a2a2a;
+  color: #333333;
   text-align: center;
   margin-bottom: 16px;
   letter-spacing: 0.5px;
@@ -95,10 +95,11 @@
 
 .section-subtitle {
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 300;
   color: #666666;
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 80px;
   line-height: 1.8;
   max-width: 600px;
   margin-left: auto;
@@ -107,30 +108,30 @@
 
 /* Elite Consultancy */
 .consultancy {
-  padding: 120px 0;
+  padding: 180px 0;
   background: #ffffff;
   text-align: center;
 }
 
 .consultancy__text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 300;
   color: #555555;
   max-width: 800px;
   margin: 24px auto 0;
   line-height: 2;
-  font-weight: 300;
 }
 
 /* Featured Properties */
 .featured-properties {
-  padding: 120px 0;
-  background: #0a0a0a;
+  padding: 180px 0;
+  background: #ffffff;
 }
 
 .featured-properties__grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 2fr 1fr;
   grid-template-rows: auto auto;
   gap: 16px;
 }
@@ -179,7 +180,7 @@
 
 /* Destinations */
 .destinations {
-  padding: 120px 0;
+  padding: 180px 0;
   background: #ffffff;
 }
 
@@ -197,19 +198,19 @@
 
 /* Aurexia Bridge */
 .aurexia-bridge {
-  padding: 120px 0;
+  padding: 180px 0;
   background: #ffffff;
   text-align: center;
 }
 
 .aurexia-bridge__text {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.95rem;
+  font-weight: 300;
   color: #555555;
   max-width: 700px;
   margin: 24px auto 40px;
   line-height: 2;
-  font-weight: 300;
 }
 
 /* Gold Buttons */
@@ -218,14 +219,14 @@
   align-items: center;
   gap: 8px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 1.5px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #2a2a2a;
+  color: #333333;
   background: transparent;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #333333;
   padding: 14px 32px;
   border-radius: 0;
   transition: all 0.3s ease;
@@ -237,7 +238,7 @@
 }
 
 .btn-gold:hover {
-  background: #2a2a2a;
+  background: #333333;
   color: #ffffff;
 }
 
@@ -246,14 +247,14 @@
   align-items: center;
   gap: 8px;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 1.5px;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
   text-decoration: none;
-  color: #2a2a2a;
+  color: #333333;
   background: transparent;
-  border: 1px solid #2a2a2a;
+  border: 1px solid #333333;
   padding: 14px 32px;
   border-radius: 0;
   transition: all 0.3s ease;
@@ -265,7 +266,7 @@
 }
 
 .btn-gold-outline:hover {
-  background: #2a2a2a;
+  background: #333333;
   color: #ffffff;
 }
 
@@ -276,6 +277,20 @@
   .destinations__grid,
   .destinations__loading {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .featured-properties__grid > :nth-child(1),
+  .featured-properties__grid > :nth-child(2),
+  .featured-properties__grid > :nth-child(3) {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  
+  .consultancy,
+  .featured-properties,
+  .destinations,
+  .aurexia-bridge {
+    padding: 100px 0;
   }
 }
 
