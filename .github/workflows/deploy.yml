@@ -1,0 +1,37 @@
+name: Deploy to Home Server
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            cd ~/GitHub/AurexiaEstate.app
+            
+            # Pull latest changes
+            git pull origin main
+            
+            # Build and restart containers
+            docker compose down
+            docker compose up -d --build
+            
+            # Wait for backend to be ready
+            echo "Waiting for services..."
+            sleep 10
+            
+            # Show status
+            docker compose ps
+            
+            # Clean up old images
+            docker image prune -f

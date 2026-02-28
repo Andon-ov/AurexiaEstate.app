@@ -2,19 +2,19 @@ services:
   # PostgreSQL Database
   db:
     image: postgres:15-alpine
-    container_name: generix-db
+    container_name: aurexia-db
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-generix_db}
-      POSTGRES_USER: ${POSTGRES_USER:-generix_user}
+      POSTGRES_DB: ${POSTGRES_DB:-aurexia_db}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - aurexia_postgres_data:/var/lib/postgresql/data
     networks:
-      - generix-network
+      - aurexia-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-generix_user}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -24,7 +24,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: generix-backend
+    container_name: aurexia-backend
     restart: unless-stopped
     environment:
       # Django settings
@@ -37,7 +37,7 @@ services:
       CSRF_COOKIE_SECURE: ${CSRF_COOKIE_SECURE:-False}
       
       # Database
-      DATABASE_URL: postgresql://${POSTGRES_USER:-generix_user}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-generix_db}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-aurexia_db}
       
       # Cloudinary
       CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
@@ -51,48 +51,44 @@ services:
       MAILJET_SENDER_NAME: ${MAILJET_SENDER_NAME}
       RECIPIENT_EMAIL: ${RECIPIENT_EMAIL}
     volumes:
-      - static_volume:/app/staticfiles
-      - media_volume:/app/mediafiles
+      - aurexia_static:/app/staticfiles
+      - aurexia_media:/app/mediafiles
     networks:
-      - generix-network
+      - aurexia-network
     depends_on:
       db:
         condition: service_healthy
     command: >
       sh -c "python manage.py migrate --noinput &&
              python manage.py collectstatic --noinput &&
-             gunicorn --bind 0.0.0.0:8000 --workers 4 --threads 2 --timeout 60 --access-logfile - --error-logfile - generix.wsgi:application"
+             gunicorn --bind 0.0.0.0:8000 --workers 3 --threads 2 --timeout 60 --access-logfile - --error-logfile - generix.wsgi:application"
 
   # Angular Frontend
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-    container_name: generix-frontend
+    container_name: aurexia-frontend
     restart: unless-stopped
     networks:
-      - generix-network
+      - aurexia-network
     depends_on:
       - backend
 
-  # Nginx Reverse Proxy with SSL
+  # Nginx Reverse Proxy
   nginx:
     image: nginx:alpine
-    container_name: generix-nginx
+    container_name: aurexia-nginx
     restart: unless-stopped
     ports:
-      - "80:80"
-      - "443:443"
+      - "${AUREXIA_PORT:-8081}:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-      - static_volume:/usr/share/nginx/html/static:ro
-      - media_volume:/usr/share/nginx/html/media:ro
-      - certbot_data:/var/www/certbot:ro
-      - letsencrypt_data:/etc/letsencrypt:ro
+      - aurexia_static:/usr/share/nginx/html/static:ro
+      - aurexia_media:/usr/share/nginx/html/media:ro
     networks:
-      - generix-network
+      - aurexia-network
     depends_on:
       - backend
       - frontend
@@ -102,27 +98,14 @@ services:
       timeout: 10s
       retries: 3
 
-  # Certbot for SSL certificates
-  certbot:
-    image: certbot/certbot:latest
-    container_name: generix-certbot
-    volumes:
-      - certbot_data:/var/www/certbot
-      - letsencrypt_data:/etc/letsencrypt
-    entrypoint: /bin/sh -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot --quiet; sleep 12h & wait $${!}; done"
-
 networks:
-  generix-network:
+  aurexia-network:
     driver: bridge
 
 volumes:
-  postgres_data:
+  aurexia_postgres_data:
     driver: local
-  static_volume:
+  aurexia_static:
     driver: local
-  media_volume:
-    driver: local
-  certbot_data:
-    driver: local
-  letsencrypt_data:
+  aurexia_media:
     driver: local

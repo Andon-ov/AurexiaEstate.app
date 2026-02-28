@@ -9,6 +9,8 @@ db.sqlite3
 *.sqlite3
 *.env
 .env.*
+!.env.production.example
+!.env.example
 local_settings.py
 
 # Django static/media
