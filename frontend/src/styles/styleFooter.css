@@ -61,9 +61,9 @@
 	margin: 0 auto;
 	content: '';
 	position: absolute;
-	box-shadow: 0 0 120px 55px rgba(0, 178, 255, 0.08);
-	-moz-box-shadow: 0 0 120px 55px rgba(0, 178, 255, 0.08);
-	-webkit-box-shadow: 0 0 120px 55px rgba(0, 178, 255, 0.08);
+	box-shadow: 0 0 120px 55px rgba(201, 168, 76, 0.08);
+	-moz-box-shadow: 0 0 120px 55px rgba(201, 168, 76, 0.08);
+	-webkit-box-shadow: 0 0 120px 55px rgba(201, 168, 76, 0.08);
 }
 
 /* Footer: Navbar

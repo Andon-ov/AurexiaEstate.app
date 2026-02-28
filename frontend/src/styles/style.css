@@ -131,22 +131,29 @@ body {
 
 
  :root {
-        /* === MAIN BRAND COLORS === */
-        --color-primary-dark: #0A1F44;         /* Тъмносиньо – фон, заглавия */
-        --color-primary-light: #00B2FF;        /* Синьо-зелено – акценти, бутони */
-        --color-background: #F5F7FA;           /* Светлосиво – фон на секции */
-        --color-text: #3C3C3C;                 /* Тъмно сиво – основен текст */
-        --color-white: #FFFFFF;                /* Бяло – фон, контраст */
+        /* === AUREXIA ESTATE — Dark Luxury Color Palette === */
         
-        /* === ADDITIONAL COLORS === */
-        /* Accent colors */
-        --color-accent: #00B2FF;               /* Accent color (same as primary-light) */
-        --color-accent-hover: #0095D9;         /* Darker shade for hover */
+        /* Main brand colors (mapped from Django ThemeSettings) */
+        --color-primary: #0a0a0a;              /* Deep black – primary background */
+        --color-surface: #1a1a1a;              /* Elevated surfaces and cards */
+        --color-accent-gold: #c9a84c;          /* Royal gold – buttons, highlights, borders */
+        --color-accent-gold-hover: #b39440;    /* Darker gold for hover states */
         
-        /* Platform card hover colors */
-        --color-hover-indigo: #4F46E5;         /* Indigo for first card */
-        --color-hover-pink: #EC4899;           /* Pink for second card */
-        --color-hover-cyan: #06B6D4;           /* Cyan for third card */
+        /* Legacy aliases — kept for backward-compatibility with shared/layout CSS */
+        --color-primary-dark: #0a0a0a;         /* Same as --color-primary */
+        --color-primary-light: #c9a84c;        /* Maps to accent gold (was blue) */
+        --color-background: #0f0f0f;           /* Dark background for sections */
+        --color-text: #ffffff;                 /* Primary text – white on dark */
+        --color-white: #ffffff;                /* Pure white */
+        
+        /* Accent aliases */
+        --color-accent: #c9a84c;               /* Accent = gold */
+        --color-accent-hover: #b39440;         /* Hover = darker gold */
+        
+        /* Platform card hover colors (legacy – may be used by remaining shared comps) */
+        --color-hover-indigo: #c9a84c;         /* Remapped to gold */
+        --color-hover-pink: #b39440;           /* Remapped to gold hover */
+        --color-hover-cyan: #d4b85c;           /* Lighter gold variant */
         
         /* Semantic colors */
         --color-success: #10b981;
@@ -155,57 +162,59 @@ body {
         --color-info: #3b82f6;
         
         /* Text variations */
-        --color-text-light: #FFFFFF;           /* White text */
-        --color-text-muted: rgba(60, 60, 60, 0.6);  /* Muted text */
-        --color-text-secondary: #6B7280;       /* Secondary text */
-        --color-text-dark: #333333;            /* Dark text for headings */
+        --color-text-primary: #ffffff;         /* White on dark backgrounds */
+        --color-text-light: #ffffff;           /* White text (alias) */
+        --color-text-muted: #6b7280;           /* Muted text for labels */
+        --color-text-secondary: #a0a0a0;       /* Light gray for descriptions */
+        --color-text-dark: #ffffff;            /* Headings on dark bg (was #333) */
         
-        /* Neutral colors */
-        --color-neutral: #F5F7FA;              /* Neutral background (same as background) */
-        --color-gray-light: #666666;           /* Light gray text */
-        --color-gray-medium: #999999;          /* Medium gray */
+        /* Neutral / gray colors */
+        --color-neutral: #0f0f0f;              /* Neutral background (dark) */
+        --color-gray-light: #a0a0a0;           /* Light gray text */
+        --color-gray-medium: #707070;          /* Medium gray */
         --color-gray-dark: #555555;            /* Dark gray */
         
         /* Background variations */
-        --color-background-dark: #0A1F44;      /* Dark background (same as primary-dark) */
-        --color-background-alt: #E5E7EB;       /* Alternative light background */
+        --color-background-dark: #0a0a0a;      /* Same as primary */
+        --color-background-alt: #141414;       /* Alternative dark background */
         
         /* Border colors */
-        --color-border: #E5E7EB;               /* Default border */
-        --color-border-light: #F3F4F6;         /* Light border */
-        --color-border-gray: #e0e0e0;          /* Gray border */
+        --color-border: #2a2a2a;               /* Subtle dark border */
+        --color-border-light: #1e1e1e;         /* Lighter dark border */
+        --color-border-gray: #2a2a2a;          /* Gray border (dark theme) */
         
         /* Additional UI colors */
-        --mainColor: var(--color-primary-light);      /* Alias for mobile menu */
-        --backgroundColor: #f5f2f2;                   /* Alternative background */
+        --mainColor: var(--color-accent-gold);        /* Alias for mobile menu */
+        --backgroundColor: #0f0f0f;                   /* Alternative background */
         --mainBlackColor: #000000;                    /* Black color */
+        --color-overlay: rgba(0, 0, 0, 0.5);         /* Semi-transparent overlay */
         
-        /* === GRADIENTS (dynamically generated by ThemeService) === */
-        /* These will be set at runtime based on Django theme settings */
-        --gradient-primary: linear-gradient(135deg, #0A1F44 0%, #00B2FF 100%);
-        --gradient-button: linear-gradient(90deg, #00B2FF 0%, #0095D9 100%);
-        --gradient-header: linear-gradient(135deg, #0A1F44 0%, #003D66 50%, #00B2FF 100%);
-        --gradient-overlay: linear-gradient(135deg, rgba(10, 31, 68, 0.9), rgba(0, 178, 255, 0.8));
-        --color-gradient-card: linear-gradient(135deg, #FFFFFF 0%, #F5F7FA 100%);
+        /* === GRADIENTS === */
+        /* Updated for dark luxury gold theme; also set dynamically by ThemeService */
+        --gradient-primary: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        --gradient-button: linear-gradient(90deg, #c9a84c 0%, #b39440 100%);
+        --gradient-header: linear-gradient(135deg, #0a0a0a 0%, #111111 50%, #1a1a1a 100%);
+        --gradient-overlay: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.8));
+        --color-gradient-card: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
         
-        /* === SHADOWS (static shadows, dynamic ones set by ThemeService) === */
-        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
-        --shadow-button: 0 4px 14px rgba(0, 178, 255, 0.3);
-        --shadow-button-hover: 0 6px 20px rgba(0, 178, 255, 0.4);
-        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.08);
-        --shadow-card-hover: 0 20px 40px rgba(0, 178, 255, 0.15);
-        --shadow-platform-card: 0 20px 60px rgba(0, 0, 0, 0.15);
+        /* === SHADOWS === */
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+        --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+        --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5);
+        --shadow-button: 0 4px 14px rgba(201, 168, 76, 0.3);
+        --shadow-button-hover: 0 6px 20px rgba(201, 168, 76, 0.4);
+        --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
+        --shadow-card-hover: 0 20px 40px rgba(201, 168, 76, 0.15);
+        --shadow-platform-card: 0 20px 60px rgba(0, 0, 0, 0.4);
         
         /* === TEXT SHADOWS === */
-        --text-shadow-sm: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        --text-shadow-md: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        --text-shadow-sm: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        --text-shadow-md: 2px 2px 4px rgba(0, 0, 0, 0.5);
         
         /* === TYPOGRAPHY === */
-        --font-heading: "Inter", "Poppins", sans-serif;
-        --font-body: "Inter", sans-serif;
+        --font-heading: "Cormorant Garamond", serif;
+        --font-body: "Montserrat", sans-serif;
 
         /* === SPACING === */
         --container-width: 1300px;

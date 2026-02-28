@@ -18,7 +18,7 @@ interface CacheEntry {
   providedIn: 'root'
 })
 export class CacheService {
-  private apiUrl = `${environment.apiUrl}/generix/cache-settings/`;
+  private apiUrl = `${environment.apiUrl}/aurexia/cache-settings/`;
   private cacheEnabled = true;
   private cacheDuration = 30 * 60 * 1000; // Default 30 minutes
   private cache = new Map<string, CacheEntry>();

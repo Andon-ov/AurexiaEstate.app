@@ -49,8 +49,8 @@ export class CacheInterceptor implements HttpInterceptor {
    * Check if URL should be cached
    */
   private shouldCache(url: string): boolean {
-    // Cache only API endpoints (not cache-settings itself to avoid recursion)
-    return url.includes('/api/generix/') && !url.includes('/cache-settings/');
+    // Cache API endpoints (not cache-settings itself to avoid recursion)
+    return url.includes('/api/aurexia/') && !url.includes('/cache-settings/');
   }
 
   /**

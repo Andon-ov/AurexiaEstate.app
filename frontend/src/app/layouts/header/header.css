@@ -6,28 +6,43 @@
   right: 0;
 }
 
+/* Logo text */
+.logo-text,
+.mobile-logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: #f5f5f5;
+  text-decoration: none;
+}
+
+.logo-accent {
+  color: #c9a84c;
+}
+
 .logo-img {
-  width: 156px; /* Increased by ~30% from original 120px */
+  width: 156px;
   transition: var(--transition);
 }
 
 .navbar > .container-fluid {
   top: 0;
   z-index: 100;
-  background-color: rgba(15, 23, 42, 0.95);
+  background-color: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   min-height: 10vh;
 }
 
 .navbar.border-3 {
-  background-color: rgba(15, 23, 42, 0.95);
+  background-color: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 nav.container-fluid {
-  background-color: rgba(15, 23, 42, 0.95);
+  background-color: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   z-index: 1;
@@ -103,7 +118,7 @@ a.nav-link:active {
 
 .signIn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 178, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.5);
 }
 
 .signIn:hover::before {
@@ -129,7 +144,7 @@ a.nav-link:active {
 
 .signUp:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 178, 255, 0.5);
+  box-shadow: 0 6px 20px rgba(201, 168, 76, 0.5);
   color: white;
 }
 
@@ -885,7 +900,7 @@ ul.lang-options.open {
   }
 
   .mobile-dropdown-link:hover {
-    background: rgba(0, 178, 255, 0.05);
+    background: rgba(201, 168, 76, 0.05);
     color: var(--mainColor) !important;
   }
 
