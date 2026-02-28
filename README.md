@@ -5,7 +5,7 @@
 
 **Refactored from**: Generix App  
 **Version**: 2.0  
-**Status**: In Development
+**Status**: Active Development (Backend complete, Frontend implemented)
 
 ---
 
@@ -66,12 +66,12 @@
 - **dj-database-url** - Database configuration
 
 ### Frontend
-- **Angular 19** - TypeScript framework
-- **RxJS** - Reactive programming
-- **ngx-translate** - i18n library
-- **Font Awesome** - Icons
-- **SCSS** - CSS preprocessor
-- **TypeScript 5.7** - Static typing
+- **Angular 20.2.0** - TypeScript framework
+- **RxJS 7.8** - Reactive programming
+- **Custom i18n** - TranslationService + I18nService (loads `/assets/i18n/{lang}.json`)
+- **Swiper 12** - Touch slider/carousel
+- **CSS** - Component-scoped styles
+- **TypeScript 5.9.2** - Static typing
 
 ### DevOps & Infrastructure
 - **Docker** - Containerization
@@ -121,67 +121,78 @@ AurexiaEstate.app/
 │   ├── .env                     # Environment variables (not in git)
 │   └── .env.example             # Environment template
 │
-├── frontend/                    # Angular Frontend (TO BE UPDATED)
+├── frontend/                    # Angular Frontend
 │   ├── src/
 │   │   ├── app/
-│   │   │   ├── core/            # Core services
+│   │   │   ├── core/            # Core services & models
+│   │   │   │   ├── models/
+│   │   │   │   │   ├── destination.model.ts  # Destination interfaces
+│   │   │   │   │   ├── property.model.ts     # Property/Feature/Image interfaces
+│   │   │   │   │   └── inquiry.model.ts      # PropertyInquiry interface
 │   │   │   │   ├── services/
-│   │   │   │   │   ├── cache.service.ts
-│   │   │   │   │   ├── translation.service.ts
-│   │   │   │   │   ├── theme.service.ts  # ⭐ NEW: Dark theme
-│   │   │   │   │   └── seo.service.ts
-│   │   │   │   └── interceptors/
-│   │   │   ├── services/        # API services (TO BE CREATED)
-│   │   │   │   ├── destination.service.ts    # ⭐ NEW
-│   │   │   │   ├── property.service.ts       # ⭐ NEW
-│   │   │   │   ├── inquiry.service.ts        # ⭐ NEW
-│   │   │   │   └── hero.service.ts
+│   │   │   │   │   ├── destination.service.ts # Destinations API
+│   │   │   │   │   ├── property.service.ts    # Properties API with search/filters
+│   │   │   │   │   ├── inquiry.service.ts     # Property inquiry forms
+│   │   │   │   │   ├── cache.service.ts       # Browser cache management
+│   │   │   │   │   ├── translation.service.ts # i18n translations
+│   │   │   │   │   ├── i18n.service.ts        # Language switching
+│   │   │   │   │   ├── theme.service.ts       # Dark theme integration
+│   │   │   │   │   ├── seo.service.ts         # Meta tags, Open Graph, structured data
+│   │   │   │   │   └── auth.service.ts        # Authentication
+│   │   │   │   ├── interceptors/
+│   │   │   │   │   └── cache.interceptor.ts   # HTTP cache interceptor
+│   │   │   │   └── core-module.ts
 │   │   │   ├── features/        # Feature modules
-│   │   │   │   └── user/
-│   │   │   │       ├── login/
-│   │   │   │       └── register/
-│   │   │   ├── pages/           # Page components (TO BE UPDATED)
-│   │   │   │   ├── home/
-│   │   │   │   ├── destinations/            # ⭐ NEW
-│   │   │   │   ├── destination-detail/      # ⭐ NEW
-│   │   │   │   ├── properties/              # ⭐ NEW
-│   │   │   │   ├── property-detail/         # ⭐ NEW
-│   │   │   │   ├── about/
-│   │   │   │   ├── contact/
-│   │   │   │   ├── search/
-│   │   │   │   ├── privacy-policy/
-│   │   │   │   └── cookie-policy/
+│   │   │   │   └── user/        # Login, Register, Profile
+│   │   │   ├── pages/           # Page components
+│   │   │   │   ├── home/                     # Aurexia homepage (hero, featured, destinations)
+│   │   │   │   ├── portfolio/                # Property listings with filters
+│   │   │   │   ├── destinations/             # Destinations grid
+│   │   │   │   ├── destination-detail/       # Destination page with properties
+│   │   │   │   ├── property-detail/          # Property page with gallery & inquiry
+│   │   │   │   ├── service-model/            # "The Aurexia Bridge" methodology
+│   │   │   │   ├── developer-partnership/    # Developer partnership & pricing
+│   │   │   │   ├── contact/                  # Contact page
+│   │   │   │   ├── about/                    # About page (legacy)
+│   │   │   │   ├── privacy-policy/           # Privacy policy (lazy loaded)
+│   │   │   │   └── cookie-policy/            # Cookie policy (lazy loaded)
 │   │   │   ├── layouts/         # Layout components
-│   │   │   │   ├── header/
-│   │   │   │   ├── footer/
-│   │   │   │   └── home-layout/
+│   │   │   │   ├── header/      # Aurexia navigation (text logo, gold accents)
+│   │   │   │   ├── footer/      # Aurexia footer (columns, branding)
+│   │   │   │   └── home-layout/ # Reusable layout sections
 │   │   │   ├── shared/          # Shared components
-│   │   │   │   ├── property-card/           # ⭐ NEW
-│   │   │   │   ├── property-filters/        # ⭐ NEW
-│   │   │   │   ├── property-inquiry-form/   # ⭐ NEW
-│   │   │   │   ├── testimonials/
-│   │   │   │   └── call-to-action/
+│   │   │   │   ├── property-card/            # Reusable property card
+│   │   │   │   ├── destination-card/         # Reusable destination card
+│   │   │   │   ├── consultation-form/        # Property inquiry form
+│   │   │   │   ├── testimonials/             # Testimonial cards
+│   │   │   │   └── call-to-action/           # CTA blocks
 │   │   │   ├── app-module.ts
 │   │   │   ├── app-routing-module.ts
 │   │   │   └── app.ts
 │   │   ├── assets/
-│   │   │   ├── i18n/            # Translation files
-│   │   │   │   ├── bg.json      # Български
-│   │   │   │   └── en.json      # English
+│   │   │   ├── i18n/            # Translation files (EN/BG)
+│   │   │   │   ├── bg.json      # Български (~480 keys)
+│   │   │   │   └── en.json      # English (~480 keys)
 │   │   │   └── images/
-│   │   ├── styles.scss          # Global styles
+│   │   ├── styles/              # Global stylesheets
+│   │   ├── styles.css           # Root styles
 │   │   ├── index.html
 │   │   └── main.ts
 │   ├── public/
-│   │   ├── sitemap.xml          # SEO sitemap
-│   │   └── favicon.ico
-│   ├── angular.json             # Angular config
-│   ├── package.json             # npm dependencies
-│   ├── tsconfig.json            # TypeScript config
+│   │   ├── sitemap.xml
+│   │   └── robots.txt
+│   ├── angular.json
+│   ├── package.json
+│   ├── tsconfig.json
 │   └── tsconfig.app.json
 │
-├── render.yaml                  # Render.com Blueprint
-├── DEPLOYMENT.md                # Deployment guide
+├── nginx/                       # Nginx configuration
+│   ├── nginx.conf
+│   └── conf.d/
+├── docker-compose.yml            # Docker deployment
+├── deploy.sh                     # Automated deployment script
+├── DOCKER_DEPLOYMENT.md          # Docker deployment guide
+├── REFACTORING_SUMMARY.md        # Refactoring documentation
 ├── .gitignore
 └── README.md
 ```
@@ -200,8 +211,8 @@ AurexiaEstate.app/
 ### 1. Клониране на репото
 
 ```bash
-git clone https://github.com/Andon-ov/generix.app.git
-cd generix.app
+git clone https://github.com/Andon-ov/AurexiaEstate.app.git
+cd AurexiaEstate.app
 ```
 
 ### 2. Backend Setup (Django)
@@ -541,64 +552,68 @@ docker exec -i postgres-aurexia psql -U postgres aurexia_db < aurexia_backup.sql
 
 ## ⚡ Функционалности
 
-### 🎨 Frontend Features (TO BE UPDATED)
+### 🎨 Frontend Features
 
 #### 1. **Responsive Design**
 - Mobile-first approach
 - Optimized for all devices
 - Dark luxury theme (#0a0a0a, #c9a84c gold accents)
 - Touch-friendly navigation
+- Breakpoints: 480px, 768px, 1024px, 1200px
 
 #### 2. **Bilingual Support (EN/BG)**
-- Dynamic language switching
-- Translation files: `assets/i18n/bg.json`, `assets/i18n/en.json`
+- Dynamic language switching via `I18nService` + `TranslationService`
+- Translation files: `assets/i18n/bg.json`, `assets/i18n/en.json` (~480 keys each)
 
 ```typescript
-// Usage example
-{{ 'destinations.hero.title' | translate }}
+// Usage in templates
+{{ translation.t('portfolio.hero.title') }}
+
+// Usage in components
+this.translation.t('property.bedrooms')
 ```
 
-#### 3. **Property Search & Filtering**
-- Advanced search by price, bedrooms, area
-- Filter by destination, property type, status
-- Real-time results
-- Price range sliders
-
-#### 4. **Property Gallery**
-- Full-screen image gallery
-- Swipeable on mobile
-- Lightbox with captions
+#### 3. **Property Portfolio & Search**
+- Full portfolio page with property listings
+- Filter by destination, property type
+- Property cards with prices, specs, featured images
 - Cloudinary optimized images
 
-#### 5. **Interactive Maps**
-- Property location markers
-- Google Maps / Leaflet integration
-- Destination exploration
+#### 4. **Property Detail Pages**
+- Image gallery with thumbnail navigation
+- Key stats (bedrooms, bathrooms, area, plot size)
+- Features grid with icons
+- Bilingual descriptions
+- Consultation form sidebar
+- Back navigation to portfolio
 
-#### 6. **Property Inquiry Forms**
-- Contact forms for each property
-- Budget range selection
-- Preferred contact method
-- Lead tracking in Django Admin
+#### 5. **Destinations**
+- Destinations listing with cards
+- Destination detail pages with properties
+- Featured destinations on homepage
+- Bilingual destination content
+
+#### 6. **Aurexia Business Pages**
+- **Service Model** - "The Aurexia Bridge" methodology page with process steps
+- **Developer Partnership** - Partnership tiers with pricing (Standard €5k/mo, Premium €12k/mo)
 
 #### 7. **SEO Optimization**
-- **Meta tags** - Property-specific titles, descriptions
-- **Open Graph** - Social media sharing with property images
-- **Twitter Cards** - Twitter listing previews
-- **Sitemap.xml** - Auto-generated property URLs
-- **Structured Data** - JSON-LD schema for real estate
-- **Canonical URLs**
+- **Meta tags** - Dynamic titles, descriptions per page
+- **Open Graph** - Social media sharing
+- **Structured Data** - JSON-LD breadcrumbs
+- **Language alternates** - hreflang for EN/BG
+- **Sitemap.xml** - Static sitemap
 
 #### 8. **Smooth Animations**
-- CSS animations: `fadeIn`, `fadeInUp`, `fadeInLeft`, `fadeInRight`
-- Parallax scrolling effects
-- Hover animations for property cards
+- CSS animations and transitions
+- Hover effects on property cards
+- Gold accent highlights
+- Parallax hero sections
 
-#### 9. **Smart Loading**
-- Skeleton loaders
-- Lazy loading for property images
-- Progressive image loading
-- Infinite scroll for property listings
+#### 9. **Smart Caching**
+- HTTP interceptor caches GET requests to `/api/aurexia/` and `/api/generix/`
+- Cache control via Django Admin (CacheSettings)
+- Browser console commands: `cache.status()`, `cache.clear()`, etc.
 
 ### 🔧 Backend Features
 
@@ -747,12 +762,12 @@ def send_contact_email(name, email, phone, message):
             {
                 "From": {
                     "Email": settings.DEFAULT_FROM_EMAIL,
-                    "Name": "Generix Contact Form"
+                    "Name": "Aurexia Estate"
                 },
                 "To": [
                     {
                         "Email": settings.CONTACT_FORM_RECIPIENT,
-                        "Name": "Generix Team"
+                        "Name": "Aurexia Estate Team"
                     }
                 ],
                 "Subject": f"New Contact Form Submission from {name}",
@@ -785,11 +800,11 @@ def send_contact_email(name, email, phone, message):
 data = {
     'Messages': [
         {
-            "From": {"Email": "noreply@generix.app", "Name": "Generix"},
+            "From": {"Email": "noreply@aurexia.estate", "Name": "Aurexia Estate"},
             "To": [{"Email": user_email, "Name": user_name}],
             "TemplateID": 123456,  # Template ID from Mailjet
             "TemplateLanguage": True,
-            "Subject": "Welcome to Generix",
+            "Subject": "Welcome to Aurexia Estate",
             "Variables": {
                 "user_name": user_name,
                 "verification_link": verification_url
@@ -1079,7 +1094,7 @@ data = {
 
 ---
 
-## 🎨 Frontend Структура (TO BE UPDATED)
+## 🎨 Frontend Структура
 
 ### Core Services
 
@@ -1096,49 +1111,86 @@ cache.help()     // Show all commands
 **`translation.service.ts`** - i18n service
 ```typescript
 // Get translation
-translation.t('destinations.hero.title')
+translation.t('portfolio.hero.title')
+```
 
+**`i18n.service.ts`** - Language management
+```typescript
 // Change language
-translation.setLanguage('bg')
-translation.setLanguage('en')
+i18n.setLanguage('bg')
+i18n.setLanguage('en')
 
 // Get current language
-translation.currentLang
+i18n.getCurrentLanguage()
 ```
 
 **`seo.service.ts`** - SEO meta tags
 ```typescript
-// Update meta tags for properties
-seo.updateTitle('Luxury Villa in Dubai Marina - Aurexia Estate')
-seo.updateDescription('4-bedroom beachfront villa...')
-seo.updateKeywords('dubai real estate, luxury villa, beachfront property')
-seo.updateOgTags({ title, description, image, url })
+// Update SEO tags for a page
+seo.updateSEOTags({
+  title: 'Luxury Villa in Dubai Marina - Aurexia Estate',
+  description: '4-bedroom beachfront villa...',
+  keywords: 'dubai real estate, luxury villa',
+  ogImage: 'https://res.cloudinary.com/.../villa.jpg',
+  ogUrl: 'https://aurexia.estate/property/luxury-villa-dubai'
+});
+
+// Add breadcrumb structured data
+seo.addBreadcrumbStructuredData([
+  { name: 'Home', url: '/' },
+  { name: 'Portfolio', url: '/portfolio' }
+]);
+
+// Set language alternates
+seo.setLanguageAlternates('/property/villa-dubai');
 ```
 
-### Services (API calls) - TO BE CREATED
+### API Services
 
-**`destination.service.ts`** - Destinations API ⭐ NEW
-**`property.service.ts`** - Properties API with filtering/search ⭐ NEW
-**`inquiry.service.ts`** - Property inquiry forms ⭐ NEW
-**`feature.service.ts`** - Property features API ⭐ NEW
-**`contact.service.ts`** - Contact form API (existing)
+**`destination.service.ts`** - Destinations API
+```typescript
+getDestinations(): Observable<Destination[]>
+getDestinationBySlug(slug: string): Observable<DestinationDetail>
+getFeaturedDestinations(): Observable<Destination[]>
+```
 
-### Routing (TO BE UPDATED)
+**`property.service.ts`** - Properties API with filtering/search
+```typescript
+getProperties(params?: PropertySearchParams): Observable<PropertyListItem[]>
+getPropertyBySlug(slug: string): Observable<PropertyDetail>
+getFeaturedProperties(): Observable<PropertyListItem[]>
+searchProperties(params: PropertySearchParams): Observable<PropertyListItem[]>
+```
+
+**`inquiry.service.ts`** - Property inquiry forms
+```typescript
+submitInquiry(inquiry: PropertyInquiryCreate): Observable<any>
+```
+
+### Shared Components
+
+**`<app-property-card>`** - Reusable property card for listings
+**`<app-destination-card>`** - Reusable destination card
+**`<app-consultation-form>`** - Property inquiry/consultation form
+
+### Routing
 
 ```typescript
-// Planned Routes
-/                         -> Home (hero with featured properties)
-/destinations             -> Destinations listing
-/destinations/:slug       -> Destination detail with properties
-/properties               -> All properties with filters
-/properties/:slug         -> Property detail page
-/property-inquiry/:id     -> Property inquiry form
-/about                    -> About Aurexia Estate
-/contact                  -> Contact page
-/login                    -> Login
-/register                 -> Register
-/privacy-policy           -> Privacy Policy
-/cookie-policy            -> Cookie Policy
+// Active Routes
+/                                -> Home (hero, featured properties & destinations)
+/portfolio                       -> Property portfolio (all listings)
+/destinations                    -> Destinations grid
+/destinations/:slug              -> Destination detail with properties
+/property/:slug                  -> Property detail with gallery & inquiry form
+/service-model                   -> The Aurexia Bridge methodology
+/developer-partnership           -> Developer partnership & pricing
+/contact                         -> Contact page
+/about                           -> About page
+/login                           -> Login (lazy loaded AuthModule)
+/register                        -> Register (lazy loaded AuthModule)
+/user/profile                    -> User profile (lazy loaded UserModule)
+/privacy-policy                  -> Privacy Policy (lazy loaded)
+/cookie-policy                   -> Cookie Policy (lazy loaded)
 ```
 
 ---
@@ -1174,10 +1226,16 @@ seo.updateOgTags({ title, description, image, url })
 
 ```python
 # backend/generix/urls.py
+api_patterns = [
+    path('', api_root, name='api-root'),
+    path('auth/', include('generix.api_auth.urls')),
+    path('generix/', include('generix.api_generix.urls')),
+    path('aurexia/', include('generix.api_aurexia.urls')),
+]
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('api_auth.urls')),
-    path('api/generix/', include('api_generix.urls')),
+    path('api/', include(api_patterns)),
 ]
 ```
 
@@ -1186,13 +1244,12 @@ urlpatterns = [
 **Custom admin features:**
 - Cloudinary image upload widget
 - Rich text editor
-- Inline editing
-- Bulk actions
+- Inline editing (PropertyImages, PropertyFeatureLinks)
+- Bulk actions (mark inquiries as contacted, activate/deactivate subscriptions)
 - Search & filtering
 
 **Access:**
 - Development: `http://localhost:8000/admin/`
-- Production: `http://generix.publicvm.com/admin/`
 
 ---
 
@@ -1275,13 +1332,15 @@ cache.refresh()  // Синхронизира настройките
 - `backend/generix/api_generix/views.py` - get_cache_settings endpoint
 
 **Кеширани endpoints:**
-- Hero Slides
-- Platform Cards & Features
-- Why Generix Section & Case Studies
-- About Us Testimonial & Hero
-- Call to Action
-- Testimonials
-- Contact Page Content
+- `/api/aurexia/destinations/` - Destinations
+- `/api/aurexia/properties/` - Properties
+- `/api/aurexia/features/` - Property features
+- `/api/generix/hero-slides/` - Hero Slides
+- `/api/generix/achievements/` - Achievements
+- `/api/generix/partners/` - Partners
+- `/api/generix/theme-settings/` - Theme Settings
+- `/api/generix/testimonials/` - Testimonials
+- `/api/generix/contact-page/` - Contact Page Content
 
 **Cache Key формат:**
 ```
@@ -1291,7 +1350,7 @@ cache.refresh()  // Синхронизира настройките
 **Кешът НЕ се прилага за:**
 - POST/PUT/DELETE заявки
 - `/api/generix/cache-settings/` endpoint (за да избегнем рекурсия)
-- Заявки извън `/api/generix/` scope
+- Заявки извън `/api/generix/` и `/api/aurexia/` scope
 
 ### 🐛 Debugging
 
@@ -1361,7 +1420,7 @@ cache.clear()   // Изчисти кеша и направи refresh
 
 ### Deployment Reference
 
-Detailed Docker deployment guide: **[DOCKER_DEPLOYMENT.md](./DOCKER_DEPLOYMENT.md)** (from previous Generix version)
+Detailed Docker deployment guide: **[DOCKER_DEPLOYMENT.md](./DOCKER_DEPLOYMENT.md)**
 
 **Deployment Process (when ready):**
 1. Update environment variables for production
@@ -1462,71 +1521,77 @@ curl -X POST http://localhost:8000/api/aurexia/inquiries/ \
 - Django admin fully configured
 - Database running successfully
 
-### Frontend Status: 🔄 IN DEVELOPMENT
-- Angular components need to be updated for Aurexia Estate
-- Property listing pages to be created
-- Destination pages to be created
-- Property detail pages with inquiry forms to be created
-- Dark luxury theme to be applied
+### Frontend Status: ✅ IMPLEMENTED
+- All Aurexia pages created (Home, Portfolio, Destinations, Property Detail, Service Model, Developer Partnership)
+- Header/Footer rebranded with Aurexia navigation and text logo
+- Dark luxury theme applied (#0a0a0a, #c9a84c)
+- Bilingual i18n translations (EN/BG) with ~480 keys each
+- API services created (destination, property, inquiry)
+- Shared components (property-card, destination-card, consultation-form)
+- SEO service integration on all pages
+- Build compiles successfully
 
 ### Current Limitations:
 
-#### 1. Frontend Not Yet Updated
-**Status**: Backend complete, frontend pending
-**TODO**: 
-- Create destination.service.ts, property.service.ts, inquiry.service.ts
-- Build destination-list, property-list, property-detail components
-- Implement property search and filtering UI
-- Apply dark theme (#0a0a0a, #c9a84c)
-
-#### 2. No Test Data
-**Status**: Database is empty (fresh migrations)
+#### 1. No Test Data
+**Status**: Database needs to be populated
 **TODO**: 
 - Create superuser for Django Admin access
 - Add sample destinations (Dubai, Spain, Switzerland, etc.)
 - Add property features (Pool, Gym, Security, etc.)
 - Add sample properties with images
 
+#### 2. Legacy Generix Components
+**Status**: Old Generix layout components still exist but are not used by Aurexia pages
+- `home-layout/platforms/`, `home-layout/customers/`, `home-layout/why-generix/` - Not referenced by new pages
+- `pages/platform-page/`, `pages/search/` - Legacy routes still in routing
+- These can be safely removed in a cleanup pass
+
 #### 3. Email Configuration
-**Status**: Mailjet credentials configured but not tested
+**Status**: Mailjet credentials configured but property inquiry emails not yet tested
 **TODO**: 
-- Test property inquiry email notifications
+- Test property inquiry email notifications via `consultation-form` component
 - Configure email templates for Aurexia branding
 
 ---
 
 ## 🔮 Roadmap - Aurexia Estate
 
-### Phase 1: Frontend Development (Current Priority)
+### Phase 1: Frontend Development ✅ COMPLETE
 
-#### Angular Services
-- [ ] Create `destination.service.ts` with REST API integration
-- [ ] Create `property.service.ts` with filtering/search
-- [ ] Create `inquiry.service.ts` for contact forms
-- [ ] Create TypeScript interfaces for all models
+#### Angular Services ✅
+- [x] Create `destination.service.ts` with REST API integration
+- [x] Create `property.service.ts` with filtering/search
+- [x] Create `inquiry.service.ts` for contact forms
+- [x] Create TypeScript interfaces for all models
 
-#### Core Pages
-- [ ] **Destinations Page** - Grid/list of luxury locations
-- [ ] **Destination Detail** - Properties in specific destination
-- [ ] **Properties Listing** - Filterable property grid with search
-- [ ] **Property Detail** - Full property page with gallery, specs, inquiry form
-- [ ] **Property Search** - Advanced search with price/beds/area filters
+#### Core Pages ✅
+- [x] **Home Page** - Hero, featured properties, featured destinations, business model CTA
+- [x] **Portfolio Page** - Filterable property grid
+- [x] **Destinations Page** - Grid of luxury locations
+- [x] **Destination Detail** - Properties in specific destination
+- [x] **Property Detail** - Full property page with gallery, specs, consultation form
+- [x] **Service Model** - "The Aurexia Bridge" methodology page
+- [x] **Developer Partnership** - Partnership tiers with pricing
 
-#### UI Components
-- [ ] **Property Card** - Reusable property display component
-- [ ] **Property Gallery** - Lightbox image gallery component
-- [ ] **Property Inquiry Form** - Contact form for specific property
-- [ ] **Search Filters** - Price range, bedrooms, area, type selectors
-- [ ] **Property Map** - Interactive map with property markers
+#### UI Components ✅
+- [x] **Property Card** - Reusable property display component
+- [x] **Destination Card** - Reusable destination card
+- [x] **Consultation Form** - Contact/inquiry form for properties
 
-#### Dark Luxury Theme
-- [ ] Apply `#0a0a0a` primary color globally
-- [ ] Apply `#c9a84c` gold accents for CTAs and highlights
-- [ ] Update typography to Cormorant Garamond + Montserrat
-- [ ] Create luxury hover effects and animations
-- [ ] Update all existing components with dark theme
+#### Dark Luxury Theme ✅
+- [x] Apply `#0a0a0a` primary color on all pages
+- [x] Apply `#c9a84c` gold accents for CTAs and highlights
+- [x] Typography: Cormorant Garamond (headings) + Montserrat (body)
+- [x] Luxury hover effects and animations on cards
+- [x] Header/Footer rebranded with text logo "AUREXIA."
 
-### Phase 2: Content & Testing (1-2 weeks)
+#### Navigation & i18n ✅
+- [x] Header with Aurexia navigation (Portfolio, Destinations, Service Model, For Developers)
+- [x] Footer with column layout (Explore, Company, Legal)
+- [x] Bilingual translations EN/BG (~480 keys each)
+
+### Phase 2: Content & Testing (Next)
 
 #### Data Population
 - [ ] Create Django superuser
@@ -1539,6 +1604,12 @@ curl -X POST http://localhost:8000/api/aurexia/inquiries/ \
 - [ ] Test property inquiry emails with Mailjet
 - [ ] Create HTML email templates for Aurexia branding
 - [ ] Configure auto-response emails for inquiries
+
+#### Cleanup
+- [ ] Remove legacy Generix layout components (platforms, customers, why-generix)
+- [ ] Remove unused page routes (platform-page, search)
+- [ ] Update global CSS variables to match dark theme consistently
+- [ ] Update COLOR_SYSTEM.md for Aurexia palette
 
 #### SEO & Analytics
 - [ ] Update sitemap.xml with property URLs
@@ -1610,7 +1681,7 @@ curl -X POST http://localhost:8000/api/aurexia/inquiries/ \
 
 ### Internal Documentation
 
-- **[REFACTORING_SUMMARY.md](./REFACTORING_SUMMARY.md)** - Complete refactoring documentation (Generix → Aurexia)
+- **[REFACTORING_SUMMARY.md](./REFACTORING_SUMMARY.md)** - Backend refactoring documentation (Generix → Aurexia)
 - **[DOCKER_DEPLOYMENT.md](./DOCKER_DEPLOYMENT.md)** - Docker deployment guide
 - **[backend/.env](./backend/.env)** - Environment variables (not in repo, create locally)
 - **[frontend/COLOR_SYSTEM.md](./frontend/COLOR_SYSTEM.md)** - Color palette documentation
@@ -1657,7 +1728,7 @@ This project is proprietary software. All rights reserved.
 - Email: inquiries@aurexia.estate
 - GitHub: [@Andon-ov](https://github.com/Andon-ov)
 
-**Previous Version:** Generix App (refactored to Aurexia Estate in January 2025)
+**Previous Version:** Generix App (backend refactored January 2025, frontend implemented February 2026)
 
 ---
 
@@ -1673,7 +1744,7 @@ This project is proprietary software. All rights reserved.
 
 **Technology Stack:**
 - Django 5.2.5 + DRF 3.16.1 + django-filter 25.1
-- Angular 19
+- Angular 20.2.0 + TypeScript 5.9.2
 - PostgreSQL 15
 - Cloudinary 1.44.1
 - Mailjet REST API

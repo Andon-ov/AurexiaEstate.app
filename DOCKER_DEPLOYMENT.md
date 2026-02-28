@@ -1,8 +1,8 @@
-# Generix.app Docker Deployment Guide
+# Aurexia Estate Docker Deployment Guide
 
 ## 🏠 Home Server Setup for Ubuntu 22.04
 
-Complete guide to deploy Generix.app on your home Ubuntu server using Docker.
+Complete guide to deploy Aurexia Estate on your home Ubuntu server using Docker.
 
 ---
 
@@ -439,7 +439,7 @@ If you encounter issues:
 
 ## 🎉 Success!
 
-Your Generix.app should now be running on your home server!
+Your Aurexia Estate app should now be running on your home server!
 
 **Next Steps:**
 1. ✅ Access the admin panel and configure your site

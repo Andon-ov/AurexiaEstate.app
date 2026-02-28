@@ -1,230 +1,176 @@
-# Color System - Simplified Blue Theme
+# Color System - Aurexia Estate Dark Luxury Theme
 
 ## Overview
 
-This document describes the simplified color system for the Generix.app frontend. The palette has been reduced from 50+ variables to **5 core colors** with ~20 supporting semantic variables for easier maintenance and consistent branding.
+This document describes the color system for the Aurexia Estate frontend. The design follows an ultra-luxury dark aesthetic inspired by brands like Sotheby's International Realty.
 
-## Core Colors (5 Main Colors)
+## Core Colors
 
-These are the foundation of our visual identity:
+### Primary Palette
 
 ```css
---color-primary-dark: #0A1F44;         /* Тъмносиньо – фон, заглавия */
---color-primary-light: #00B2FF;        /* Синьо-зелено – акценти, бутони */
---color-background: #F5F7FA;           /* Светлосиво – основен фон */
---color-text: #3C3C3C;                 /* Тъмносиво – текст */
---color-white: #FFFFFF;                /* Бяло – карти, секции */
+--color-primary: #0a0a0a;             /* Deep black – main background */
+--color-surface: #1a1a1a;             /* Charcoal – cards, sections */
+--color-dark-surface: #0f0f0f;        /* Near-black – hover backgrounds */
+--color-accent-gold: #c9a84c;         /* Gold – CTAs, accents, borders */
+--color-accent-gold-hover: #b39440;   /* Darker gold – hover states */
 ```
 
-### Platform Card Hover Colors
-
-За картите на платформите се използват различни цветове при hover:
+### Text Colors
 
 ```css
---color-hover-indigo: #4F46E5;         /* Indigo - първа карта */
---color-hover-pink: #EC4899;           /* Pink - втора карта */
---color-hover-cyan: #06B6D4;           /* Cyan - трета карта */
+--color-text-primary: #ffffff;         /* White – main text */
+--color-text-secondary: #a0a0a0;       /* Gray – descriptions, labels */
+--color-text-muted: #707070;           /* Muted – timestamps, meta */
+```
+
+### Border Colors
+
+```css
+--color-border: #2a2a2a;              /* Default borders */
+--color-border-hover: #3a3a3a;        /* Border on hover */
 ```
 
 ### Usage Guidelines
 
 | Color | Purpose | Examples |
 |-------|---------|----------|
-| **primary-dark** (#0A1F44) | Dark backgrounds, main headings, footer | Hero sections, nav backgrounds, footers |
-| **primary-light** (#00B2FF) | Accent color, hover states, CTAs | Buttons, links on hover, highlights |
-| **background** (#F5F7FA) | Page backgrounds, subtle sections | Body background, light sections |
-| **text** (#3C3C3C) | Body text, descriptions | Paragraphs, form labels |
-| **white** (#FFFFFF) | Cards, overlays, light text | Card backgrounds, light sections |
+| **primary** (#0a0a0a) | Main background | Body, hero sections, page backgrounds |
+| **surface** (#1a1a1a) | Elevated surfaces | Cards, sidebar, form backgrounds |
+| **accent-gold** (#c9a84c) | Gold accents | Buttons, links, decorative dots, borders |
+| **accent-gold-hover** (#b39440) | Hover states | Button hover, link hover |
+| **text-primary** (#ffffff) | Main text | Headings, body text on dark backgrounds |
+| **text-secondary** (#a0a0a0) | Secondary text | Descriptions, subtitles, meta info |
+| **border** (#2a2a2a) | Subtle borders | Card borders, section dividers |
 
-## Supporting Colors
+## Typography
 
-### Text Variations
+### Fonts
+
 ```css
---color-text-light: #F3F4F6;          /* Light text on dark backgrounds */
---color-text-secondary: #94A3B8;      /* Secondary/muted text */
---color-text-dark: #1E293B;           /* Extra dark text for emphasis */
+font-heading: 'Cormorant Garamond', serif;   /* Headings – elegant serif */
+font-body: 'Montserrat', sans-serif;          /* Body – clean sans-serif */
 ```
 
-### Background Variations
-```css
---color-background-dark: #0A1F44;     /* Same as primary-dark */
-```
+### Font Usage
 
-### Borders
-```css
---color-border: #E5E7EB;              /* Default border */
---color-border-light: #F3F4F6;        /* Light border */
-```
+| Element | Font | Weight | Size |
+|---------|------|--------|------|
+| H1 (Hero) | Cormorant Garamond | 300-400 | 2.5-3rem |
+| H2 (Section) | Cormorant Garamond | 400 | 2-2.5rem |
+| H3 (Card title) | Cormorant Garamond | 600 | 1.2-1.5rem |
+| Body text | Montserrat | 400 | 0.85-0.95rem |
+| Buttons | Montserrat | 500-600 | 0.75-0.85rem |
+| Labels/Meta | Montserrat | 500 | 0.7-0.8rem |
+| Logo | Cormorant Garamond | 400 | 1.6rem |
 
-### Semantic Colors
-```css
---color-success: #10B981;             /* Success states */
---color-warning: #F59E0B;             /* Warning states */
---color-error: #EF4444;               /* Error states */
---color-info: #3B82F6;                /* Info states */
-```
-
-### Neutrals
-```css
---color-neutral: #F5F7FA;             /* Same as background */
---color-neutral-dark: #64748B;        /* Dark neutral */
-```
-
-## Gradients (4 Main Gradients)
-
-Simplified from 12 to 4 essential gradients:
+### Logo Styling
 
 ```css
---gradient-primary: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
---gradient-button: linear-gradient(135deg, var(--color-primary-light) 0%, #0099DD 100%);
---gradient-card: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
---gradient-overlay: linear-gradient(180deg, rgba(10, 31, 68, 0) 0%, rgba(10, 31, 68, 0.8) 100%);
-```
-
-## Shadows (8 Standard Shadows)
-
-Reduced from 25+ to 8 semantic shadow variations:
-
-```css
---shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
---shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
---shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
---shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
---shadow-card: 0 4px 12px rgba(10, 31, 68, 0.08);
---shadow-button: 0 4px 14px 0 rgba(0, 178, 255, 0.39);
---shadow-hero: 0 25px 50px -12px rgba(10, 31, 68, 0.25);
---shadow-nav: 0 2px 8px rgba(10, 31, 68, 0.06);
-```
-
-## Transitions
-
-```css
---transition: all 0.3s ease;
---transition-fast: all 0.15s ease;
---transition-slow: all 0.5s ease;
-```
-
-## Migration from Old Palette
-
-### Removed Colors
-
-The following old variables have been replaced:
-
-| Old Variable | New Replacement |
-|-------------|-----------------|
-| `--color-primary` | `--color-primary-dark` |
-| `--color-secondary` | `--color-primary-light` |
-| `--color-blue-*` (7 variants) | `--color-primary-dark` or `--color-primary-light` |
-| `--color-purple-*` (4 variants) | `--color-primary-dark` |
-| `--color-pink-*` (3 variants) | `--color-primary-light` |
-| `--color-indigo-*` | `--color-primary-dark` |
-| All gradient variations | 4 main gradients |
-| Complex shadow system | 8 semantic shadows |
-
-### Before & After Comparison
-
-**Before:** 50+ CSS variables including:
-- Multiple blues (#6366F1, #4F46E5, #4338CA, #3730A3, #312E81, #1E1B4B, #1E3A8A)
-- Multiple pinks (#EC4899, #DB2777, #BE185D)
-- Multiple purples and indigos
-- 12 different gradient patterns
-- 25+ shadow variations
-
-**After:** ~25 CSS variables:
-- 5 core colors
-- ~15 supporting semantic colors
-- 4 main gradients
-- 8 shadow variations
-
-## Benefits of Simplification
-
-1. **Easier Maintenance**: Fewer variables to manage and update
-2. **Consistent Branding**: Professional blue theme throughout
-3. **Better Performance**: Fewer CSS custom properties to process
-4. **Clearer Purpose**: Semantic naming makes usage obvious
-5. **Reduced Confusion**: No more choosing between 7 similar blues
-
-## Usage Examples
-
-### Buttons
-```css
-.primary-button {
-  background: var(--gradient-button);
-  color: var(--color-white);
-  box-shadow: var(--shadow-button);
+.logo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 6px;
+  color: #ffffff;
 }
 
-.primary-button:hover {
-  background-color: var(--color-primary-light);
+.logo-accent {
+  color: #c9a84c;  /* Gold dot after "AUREXIA" */
 }
 ```
 
-### Cards
+## Patterns & Effects
+
+### Card Hover Effect
+
 ```css
 .card {
-  background: var(--color-white);
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-card);
+  background: #1a1a1a;
+  border: 1px solid #2a2a2a;
+  transition: all 0.4s ease;
+}
+
+.card:hover {
+  border-color: #c9a84c;
+  transform: translateY(-4px);
 }
 ```
 
-### Headers
+### Gold Button
+
 ```css
-h1 {
-  color: var(--color-primary-dark);
-  font-weight: 700;
+.button-gold {
+  background: #c9a84c;
+  color: #0a0a0a;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.button-gold:hover {
+  background: #b39440;
 }
 ```
 
-### Links
+### Outline Button
+
 ```css
-a {
-  color: var(--color-primary-dark);
+.button-outline {
+  background: transparent;
+  border: 1px solid #c9a84c;
+  color: #c9a84c;
 }
 
-a:hover {
-  color: var(--color-primary-light);
+.button-outline:hover {
+  background: #c9a84c;
+  color: #0a0a0a;
 }
 ```
 
-## File Locations
+### Section Title with Gold Dot
 
-All color variables are defined in:
+```css
+.section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 2px;
+  background: #c9a84c;
+  margin-top: 16px;
+}
 ```
-frontend/src/styles/style.css
+
+## Responsive Breakpoints
+
+```css
+/* Mobile first, then override: */
+@media (min-width: 768px)  { /* Tablet */  }
+@media (min-width: 1024px) { /* Desktop */ }
+@media (min-width: 1200px) { /* Wide */    }
 ```
 
-Lines 131-250+ contain the complete :root block with all color definitions.
-
-## Updated Files
-
-The following files have been updated to use the new simplified color palette:
-
-### Core Styles
-- `frontend/src/styles/style.css` - Main :root variables and common styles
-- `frontend/src/styles/stylish-components.css` - Utility classes
-- `frontend/src/styles/styleFooter.css` - Footer styles
+## Aurexia Component Files
 
 ### Shared Components
-- `frontend/src/app/shared/hero-slider/hero-slider.css`
-- `frontend/src/app/shared/platform-card/platform-card.css`
-- `frontend/src/app/shared/platform-features/platform-features.css`
-- `frontend/src/app/shared/contact-form/contact-form.css`
-- `frontend/src/app/shared/cta/cta.css`
-- `frontend/src/app/shared/testimonials-slider/testimonials-slider.css`
-- `frontend/src/app/shared/case-studies-slider/case-studies-slider.css`
+- `shared/property-card/property-card.css` - Property listing cards
+- `shared/destination-card/destination-card.css` - Destination cards
+- `shared/consultation-form/consultation-form.css` - Inquiry forms
 
-### Layout Components
-- `frontend/src/app/layouts/home-layout/about-us/about-us.css`
-- `frontend/src/app/layouts/home-layout/about-us-image/about-us-image.css`
-- `frontend/src/app/layouts/home-layout/platforms/platforms.css`
-- `frontend/src/app/layouts/home-layout/why-generix/why-generix.css`
-- `frontend/src/app/layouts/footer/footer.css`
+### Pages
+- `pages/home/home.css` - Homepage (hero, featured, destinations)
+- `pages/portfolio/portfolio.css` - Property portfolio
+- `pages/destinations/destinations.css` - Destinations listing
+- `pages/destination-detail/destination-detail.css` - Destination detail
+- `pages/property-detail/property-detail.css` - Property detail
+- `pages/service-model/service-model.css` - Service model page
+- `pages/developer-partnership/developer-partnership.css` - Developer partnership
 
-### TypeScript Files
-- `frontend/src/app/core/models/platform-card.model.ts` - Updated hover colors
-- `frontend/src/app/shared/platform-card/platform-card.ts` - Updated default fallback color
+### Layouts
+- `layouts/header/header.css` - Navigation with text logo
+- `layouts/footer/footer.css` - Footer with column layout
 
 ## Last Updated
 
-January 2025 - Simplified from 50+ to 5 core colors with blue professional theme
+February 2026 - Rewritten for Aurexia Estate dark luxury theme (replaced old Generix blue theme)
