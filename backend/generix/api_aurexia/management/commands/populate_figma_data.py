@@ -102,8 +102,6 @@ class Command(BaseCommand):
             defaults={
                 'title_en': 'Villa Meridian',
                 'title_bg': 'Вила Меридиан',
-                'subtitle_en': 'Marbella, Spain',
-                'subtitle_bg': 'Марбея, Испания',
                 'short_description_en': 'An architectural masterpiece perched above the Mediterranean',
                 'short_description_bg': 'Архитектурен шедьовър на брега на Средиземно море',
                 'description_en': '''An architectural masterpiece perched above the Mediterranean, Villa Meridian represents the pinnacle of coastal luxury. This contemporary residence seamlessly blends indoor and outdoor living with floor-to-ceiling windows capturing panoramic sea views.
@@ -113,38 +111,22 @@ Featuring 6 bedrooms, 7 bathrooms, and over 800 square meters of living space, t
 
 С 6 спални, 7 бани и над 800 квадратни метра жилищна площ, вилата включва инфинити басейн, частна фитнес зала, винарска изба и домашно кино. Имотът се намира в ексклузивен затворен комплекс с 24-часова охрана.''',
                 'price': 12500000,
-                'currency': 'EUR',
+                'price_currency': 'EUR',
                 'property_type': 'villa',
                 'status': 'available',
+                'bedrooms': 6,
+                'bathrooms': 7,
+                'area_sqm': 800,
+                'address': 'Marbella Golden Mile',
+                'city': 'Marbella',
                 'is_featured': True,
                 'is_active': True,
                 'order': 1,
                 'destination': spain[0],
-                'hero_image': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80',
-                'thumbnail_image': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&q=80',
+                'featured_image': 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=80',
             }
         )
-        
-        PropertyFeatureLink.objects.get_or_create(
-            property=villa_meridian[0],
-            feature=bedrooms,
-            defaults={'value': '6'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=villa_meridian[0],
-            feature=bathrooms,
-            defaults={'value': '7'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=villa_meridian[0],
-            feature=area,
-            defaults={'value': '800 m²'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=villa_meridian[0],
-            feature=pool,
-            defaults={'value': 'Yes'}
-        )
+
         
         # Property 2: Skyline Penthouse
         skyline_penthouse = Property.objects.update_or_create(
@@ -152,8 +134,6 @@ Featuring 6 bedrooms, 7 bathrooms, and over 800 square meters of living space, t
             defaults={
                 'title_en': 'Skyline Penthouse',
                 'title_bg': 'Скайлайн Пентхаус',
-                'subtitle_en': 'Downtown Dubai, UAE',
-                'subtitle_bg': 'Дубай Даунтаун, ОАЕ',
                 'short_description_en': 'Ultra-luxury penthouse with Burj Khalifa views',
                 'short_description_bg': 'Ултра-луксозен пентхаус с изглед към Бурдж Халифа',
                 'description_en': '''Experience unparalleled luxury in this spectacular penthouse overlooking the Burj Khalifa and Dubai Fountain. This ultra-modern residence occupies the entire 86th floor of a prestigious tower, offering 360-degree views of Dubai's iconic skyline.
@@ -163,38 +143,22 @@ The 5-bedroom penthouse spans 650 square meters and features a private elevator,
 
 Пентхаусът с 5 спални се простира на 650 квадратни метра и разполага с частен асансьор, интелигентна домашна автоматизация, италиански мрамор навсякъде и тераса от 200 квадратни метра с инфинити басейн. Удобствата на сградата включват консиерж услуга, вале паркинг, спа център и изискани ресторанти.''',
                 'price': 18000000,
-                'currency': 'USD',
+                'price_currency': 'USD',
                 'property_type': 'penthouse',
                 'status': 'available',
+                'bedrooms': 5,
+                'bathrooms': 6,
+                'area_sqm': 650,
+                'address': 'Downtown Dubai',
+                'city': 'Dubai',
                 'is_featured': True,
                 'is_active': True,
                 'order': 2,
                 'destination': dubai[0],
-                'hero_image': 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80',
-                'thumbnail_image': 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&q=80',
+                'featured_image': 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1920&q=80',
             }
         )
-        
-        PropertyFeatureLink.objects.get_or_create(
-            property=skyline_penthouse[0],
-            feature=bedrooms,
-            defaults={'value': '5'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=skyline_penthouse[0],
-            feature=bathrooms,
-            defaults={'value': '6'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=skyline_penthouse[0],
-            feature=area,
-            defaults={'value': '650 m²'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=skyline_penthouse[0],
-            feature=pool,
-            defaults={'value': 'Yes'}
-        )
+
         
         # Property 3: Alpine Refuge
         alpine_refuge = Property.objects.update_or_create(
@@ -202,8 +166,6 @@ The 5-bedroom penthouse spans 650 square meters and features a private elevator,
             defaults={
                 'title_en': 'Alpine Refuge',
                 'title_bg': 'Алпийско Убежище',
-                'subtitle_en': 'Verbier, Switzerland',
-                'subtitle_bg': 'Вербие, Швейцария',
                 'short_description_en': 'Ski-in/ski-out chalet with breathtaking Alpine views',
                 'short_description_bg': 'Шале с директен достъп до ски писти и спиращи дъха алпийски гледки',
                 'description_en': '''Nestled in the Swiss Alps with direct ski-in/ski-out access, this exceptional chalet combines traditional Alpine architecture with contemporary luxury. Floor-to-ceiling windows capture breathtaking mountain panoramas, while the interior showcases the finest materials and craftsmanship.
@@ -213,38 +175,22 @@ The 7-bedroom chalet offers 900 square meters of refined living space, including
 
 Шалето със 7 спални предлага 900 квадратни метра изискан жилищен простор, включващ спа зона с вътрешен басейн, сауна, хамам и стая за масажи. Допълнителните функции включват винарска изба, кино зала и ски стая със затоплено съхранение на обувки. Помещения за персонал и гараж за 4 автомобила допълват този алпийски шедьовър.''',
                 'price': 22000000,
-                'currency': 'CHF',
+                'price_currency': 'CHF',
                 'property_type': 'chalet',
                 'status': 'available',
+                'bedrooms': 7,
+                'bathrooms': 8,
+                'area_sqm': 900,
+                'address': 'Verbier Ski Resort',
+                'city': 'Verbier',
                 'is_featured': True,
                 'is_active': True,
                 'order': 3,
                 'destination': switzerland[0],
-                'hero_image': 'https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=1920&q=80',
-                'thumbnail_image': 'https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=600&q=80',
+                'featured_image': 'https://images.unsplash.com/photo-1602343168117-bb8ffe3e2e9f?w=1920&q=80',
             }
         )
-        
-        PropertyFeatureLink.objects.get_or_create(
-            property=alpine_refuge[0],
-            feature=bedrooms,
-            defaults={'value': '7'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=alpine_refuge[0],
-            feature=bathrooms,
-            defaults={'value': '8'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=alpine_refuge[0],
-            feature=area,
-            defaults={'value': '900 m²'}
-        )
-        PropertyFeatureLink.objects.get_or_create(
-            property=alpine_refuge[0],
-            feature=pool,
-            defaults={'value': 'Indoor'}
-        )
+
         
         self.stdout.write(self.style.SUCCESS('✓ Created 3 featured properties'))
 
