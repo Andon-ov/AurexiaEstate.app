@@ -39,8 +39,8 @@ print('✅ Old data cleared')
 echo "📊 Populating with new URL-based image data..."
 docker exec aurexia-backend python manage.py populate_figma_data
 
-echo "▶️  Starting frontend..."
-docker compose up -d frontend
+echo "▶️  Starting frontend and nginx..."
+docker compose up -d frontend nginx
 
 echo ""
 echo "✅ Deployment complete!"
