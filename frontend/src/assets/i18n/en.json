@@ -1,6 +1,10 @@
 {
   "header": {
     "home": "Home",
+    "portfolio": "Portfolio",
+    "destinations": "Destinations",
+    "serviceModel": "Service Model",
+    "forDevelopers": "For Developers",
     "platforms": "Platforms",
     "selfService": "Self\u00A0service",
     "corBusiness": "Corporate\u00A0business",
@@ -343,8 +347,16 @@
     "description": "We help business grow by bringing together a world-class engineering team, industry expertise and technology excellence."
   },
   "footer": {
+    "tagline": "Luxury Real Estate Investments",
+    "explore": "Explore",
+    "company": "Company",
+    "legal": "Legal",
     "menu": {
       "home": "Home",
+      "portfolio": "Portfolio",
+      "destinations": "Destinations",
+      "serviceModel": "Service Model",
+      "forDevelopers": "For Developers",
       "selfService": "Self Service",
       "corporateBusiness": "Corporate Business",
       "about": "About",
@@ -352,7 +364,7 @@
       "privacy": "Privacy Policy",
       "cookies": "Cookie Policy"
     },
-    "copyright": "© 2025 Generix. All rights reserved."
+    "copyright": "© 2025 Aurexia Estate. All rights reserved."
   },
   "contactSection": {
     "heroTitle": "Contact Us",
@@ -476,6 +488,235 @@
     "externalLinks": {
       "title": "External links and cookies from other sites",
       "text": "The site may contain links to external pages (YouTube, Facebook, LinkedIn, etc.). \\\"Generix Ltd.\\\" has no access to the cookies of these sites."
+    }
+  },
+  "home": {
+    "hero": {
+      "label": "Aurexia Estate",
+      "title": "Where Vision Meets Value",
+      "subtitle": "Strategic luxury real estate investments across Europe's most prestigious destinations.",
+      "cta": "Explore Portfolio"
+    },
+    "consultancy": {
+      "title": "Beyond Traditional Real Estate",
+      "text": "Aurexia Estate is a luxury real estate consultancy that bridges the gap between distinguished developers and discerning investors. We curate exceptional properties in Europe's most sought-after destinations.",
+      "learnMore": "Learn More"
+    },
+    "featuredProperties": {
+      "label": "Curated Selection",
+      "title": "Featured Properties",
+      "viewAll": "View All Properties"
+    },
+    "destinations": {
+      "label": "Prime Locations",
+      "title": "Our Destinations",
+      "viewAll": "Explore All Destinations"
+    },
+    "bridge": {
+      "title": "The Aurexia Bridge",
+      "text": "We connect visionary developers with qualified investors through our proprietary consultancy model — delivering value, trust, and results at every stage.",
+      "cta": "Discover Our Approach"
+    }
+  },
+  "portfolio": {
+    "hero": {
+      "label": "Investment Portfolio",
+      "title": "Exceptional Properties",
+      "subtitle": "A curated collection of luxury real estate opportunities across Europe's most desirable locations."
+    },
+    "cta": {
+      "title": "Looking for Something Specific?",
+      "text": "Our team can help you find the perfect investment opportunity tailored to your requirements.",
+      "button": "Contact Us"
+    }
+  },
+  "destinations": {
+    "hero": {
+      "label": "Prime Locations",
+      "title": "Our Destinations",
+      "subtitle": "Explore the most prestigious real estate markets across Europe."
+    },
+    "exploreProperties": "Explore Properties"
+  },
+  "destinationDetail": {
+    "backToDestinations": "All Destinations",
+    "propertiesInDestination": "Properties in",
+    "notFound": "Destination not found",
+    "backToAll": "Back to Destinations"
+  },
+  "property": {
+    "bedrooms": "Bedrooms",
+    "bathrooms": "Bathrooms",
+    "yearBuilt": "Year Built",
+    "overview": "Overview",
+    "features": "Features & Amenities",
+    "investmentHighlights": "Investment Highlights",
+    "interestedTitle": "Interested in This Property?",
+    "interestedText": "Schedule a private consultation with our team to learn more about this investment opportunity.",
+    "backToPortfolio": "Back to Portfolio",
+    "notFound": "Property not found",
+    "viewDetails": "View Details",
+    "from": "from"
+  },
+  "consultation": {
+    "title": "Schedule a Consultation",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "phone": "Phone Number",
+    "budgetRange": "Budget Range",
+    "preferredContact": "Preferred Contact Method",
+    "message": "Message",
+    "messagePlaceholder": "Tell us about your investment interests...",
+    "submit": "Submit Inquiry",
+    "submitting": "Submitting...",
+    "success": "Thank you! We will contact you shortly.",
+    "error": "Something went wrong. Please try again.",
+    "contactMethods": {
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp"
+    },
+    "budgetRanges": {
+      "range1": "€250,000 – €500,000",
+      "range2": "€500,000 – €1,000,000",
+      "range3": "€1,000,000 – €2,500,000",
+      "range4": "€2,500,000+"
+    }
+  },
+  "serviceModel": {
+    "hero": {
+      "label": "Our Approach",
+      "title": "The Aurexia Bridge",
+      "subtitle": "A proprietary consultancy model connecting visionary developers with qualified investors."
+    },
+    "distinction": {
+      "label": "Our Distinction",
+      "title": "What Sets Us Apart",
+      "intro": "We are not a traditional real estate agency. We are a strategic consultancy that adds value at every stage of the investment journey.",
+      "card1": {
+        "title": "Curated Excellence",
+        "text": "Every property in our portfolio undergoes rigorous due diligence — legal, financial, and architectural — before it earns our recommendation."
+      },
+      "card2": {
+        "title": "Bilingual Expertise",
+        "text": "Our multilingual team ensures seamless communication between international investors and local developers, eliminating barriers."
+      },
+      "card3": {
+        "title": "Investor Protection",
+        "text": "We represent our clients' interests exclusively, providing independent advisory with full transparency on fees and commissions."
+      }
+    },
+    "process": {
+      "label": "Methodology",
+      "title": "How We Work",
+      "step1": {
+        "title": "Initial Consultation",
+        "text": "We begin with a thorough understanding of your investment goals, risk profile, and lifestyle preferences."
+      },
+      "step2": {
+        "title": "Market Analysis",
+        "text": "Our team conducts comprehensive research on target markets, identifying opportunities that align with your criteria."
+      },
+      "step3": {
+        "title": "Property Curation",
+        "text": "We present a shortlist of pre-vetted properties, each accompanied by detailed investment analysis and projections."
+      },
+      "step4": {
+        "title": "Due Diligence",
+        "text": "Complete legal, financial, and technical verification of the selected property, ensuring full compliance and transparency."
+      },
+      "step5": {
+        "title": "Transaction & Beyond",
+        "text": "We manage the entire acquisition process and provide ongoing support for property management and portfolio optimization."
+      }
+    },
+    "fee": {
+      "label": "Transparency",
+      "title": "Professional Fee Model",
+      "intro": "Our compensation is structured to align our interests with yours — ensuring that our success depends on your satisfaction.",
+      "point1": {
+        "title": "Success-Based Commission",
+        "text": "Our primary fee is a success-based commission, payable only upon the completion of a transaction."
+      },
+      "point2": {
+        "title": "No Hidden Costs",
+        "text": "Full transparency on all fees and charges. You will always know exactly what you are paying for."
+      },
+      "point3": {
+        "title": "Developer-Funded Model",
+        "text": "In most cases, our fee is covered by the developer, meaning zero additional cost to the investor."
+      }
+    },
+    "cta": {
+      "title": "Ready to Invest with Confidence?",
+      "text": "Let us guide you through Europe's most compelling real estate opportunities.",
+      "button": "View Portfolio"
+    }
+  },
+  "developerPartnership": {
+    "hero": {
+      "label": "For Developers",
+      "title": "Strategic Partnership",
+      "subtitle": "Accelerate sales and reach qualified international investors through Aurexia's established network."
+    },
+    "why": {
+      "label": "The Advantage",
+      "title": "Why Partner with Aurexia",
+      "intro": "We bring a qualified pipeline of investors directly to your developments, with a focus on premium positioning and accelerated sales.",
+      "item1": {
+        "title": "Qualified Investor Network",
+        "text": "Access our extensive network of pre-qualified high-net-worth investors actively seeking luxury real estate opportunities."
+      },
+      "item2": {
+        "title": "Premium Brand Positioning",
+        "text": "Your developments are presented through our luxury brand platform, reaching clients who value exclusivity and quality."
+      },
+      "item3": {
+        "title": "International Market Reach",
+        "text": "Multilingual marketing and sales support reaching investors across Western and Eastern Europe."
+      },
+      "item4": {
+        "title": "Performance-Based Model",
+        "text": "Our fee structure is aligned with results — you pay for performance, not promises."
+      }
+    },
+    "pricing": {
+      "label": "Partnership Tiers",
+      "title": "Partnership Model",
+      "perMonth": "month",
+      "recommended": "Recommended",
+      "contactUs": "Contact Us",
+      "standard": {
+        "name": "Standard Partnership",
+        "feature1": "Portfolio listing on Aurexia platform",
+        "feature2": "Professional property photography",
+        "feature3": "Bilingual property descriptions",
+        "feature4": "Monthly performance reporting",
+        "feature5": "Dedicated account manager"
+      },
+      "premium": {
+        "name": "Premium Partnership",
+        "feature1": "Everything in Standard",
+        "feature2": "Featured placement across all channels",
+        "feature3": "Custom marketing campaigns",
+        "feature4": "Investor event hosting",
+        "feature5": "Priority access to investor pipeline",
+        "feature6": "Quarterly strategic reviews"
+      }
+    },
+    "criteria": {
+      "label": "Quality Standards",
+      "title": "Selection Criteria",
+      "intro": "We partner exclusively with developers who share our commitment to quality, transparency, and investor satisfaction.",
+      "item1": "Completed or near-completion projects with all permits and licenses",
+      "item2": "Track record of delivering high-quality residential developments",
+      "item3": "Transparent pricing with no hidden fees or surcharges",
+      "item4": "Commitment to after-sales service and property management"
+    },
+    "cta": {
+      "title": "Let's Build Together",
+      "text": "Submit your development for consideration and join Aurexia's curated portfolio of exceptional properties.",
+      "button": "Submit Your Development"
     }
   }
 }

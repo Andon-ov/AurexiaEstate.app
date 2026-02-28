@@ -1,48 +1,3 @@
-// import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { TranslationService } from '../../core/services/translation.service';
-// import { I18nService } from '../../core/services/i18n.service';
-
-// @Component({
-//   selector: 'app-header',
-//   standalone: false,
-//   templateUrl: './header.html',
-//   styleUrl: './header.css',
-// })
-// export class Header implements OnInit {
-//   dropdownOpen = false;
-//   currentLang!: string;
-
-//   constructor(public translation: TranslationService, public i18n: I18nService) {}
-
-//   async ngOnInit() {
-//     this.currentLang = this.i18n.getCurrentLanguage();
-//     await this.translation.loadTranslations();
-//   }
-
-//   toggleDropdown() {
-//     this.dropdownOpen = !this.dropdownOpen;
-//   }
-
-//   changeLanguage(lang: string) {
-//     this.i18n.setLanguage(lang);
-//     this.currentLang = lang;
-//     setTimeout(() => {
-//       this.dropdownOpen = false;
-//     }, 150);
-//     this.translation.loadTranslations();
-//   }
-
-//   @HostListener('document:click', ['$event'])
-//   onDocumentClick(event: MouseEvent) {
-//     const target = event.target as HTMLElement;
-//     const clickedInside = target.closest('.language-switcher');
-//     if (!clickedInside) {
-//       this.dropdownOpen = false;
-//     }
-//   }
-// }
-
 import { Component, OnInit, OnDestroy, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslationService } from '../../core/services/translation.service';
@@ -84,10 +39,8 @@ export class Header implements OnInit, OnDestroy {
     this.currentLang = this.i18n.getCurrentLanguage();
     await this.translation.loadTranslations();
 
-    this.mobileDropdowns = {
-      platforms: false,
-    };
-    
+    this.mobileDropdowns = {};
+
     // Subscribe to auth state
     this.authSubscription = this.authService.currentUser$.subscribe(user => {
       this.currentUser = user;
@@ -146,23 +99,6 @@ export class Header implements OnInit, OnDestroy {
     this.isSticky = window.pageYOffset > 50;
   }
 
-  // @HostListener('document:click', ['$event'])
-  // onDocumentClick(event: Event) {
-  //   const target = event.target as HTMLElement;
-
-  //   // Close desktop language dropdown if clicked outside
-  //   const langSwitcher = document.querySelector('.language-switcher');
-  //   if (langSwitcher && !langSwitcher.contains(target)) {
-  //     this.dropdownOpen = false;
-  //   }
-
-  //   // Close mobile language dropdown if clicked outside
-  //   const mobileLangSwitcher = document.querySelector('.mobile-language');
-  //   if (mobileLangSwitcher && !mobileLangSwitcher.contains(target)) {
-  //     this.mobileLangDropdownOpen = false;
-  //   }
-  // }
-
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
 
@@ -181,9 +117,9 @@ export class Header implements OnInit, OnDestroy {
   }
 
   closeMobileDropdowns() {
-    this.mobileDropdowns = {
-      platforms: false,
-    };
+    Object.keys(this.mobileDropdowns).forEach(key => {
+      this.mobileDropdowns[key] = false;
+    });
     this.mobileLangDropdownOpen = false;
   }
 
@@ -206,15 +142,6 @@ export class Header implements OnInit, OnDestroy {
   toggleDesktopLangDropdown() {
     this.dropdownOpen = !this.dropdownOpen;
   }
-
-  // changeLanguage(lang: string) {
-  //   this.currentLang = lang;
-  //   this.dropdownOpen = false;
-  //   this.mobileLangDropdownOpen = false;
-
-    // Call your translation service method here
-    // this.translation.setLanguage(lang);
-  // }
 
   navigateTo(route: string) {
     this.router.navigate([route]);
