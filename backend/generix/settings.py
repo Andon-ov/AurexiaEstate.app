@@ -358,3 +358,7 @@ CSRF_TRUSTED_ORIGINS = config(
     default='http://localhost:8081,http://127.0.0.1:8081',
     cast=Csv()
 )
+
+# Trust proxy headers (nginx reverse proxy)
+USE_X_FORWARDED_HOST = True
+USE_X_FORWARDED_PORT = True
